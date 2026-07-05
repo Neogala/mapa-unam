@@ -1,0 +1,192 @@
+<!DOCTYPE html><html data-lt-installed="true" lang="es" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#f7bd35",
+                      "primary-fixed": "#d5e3ff",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f0f1f3",
+                      "on-secondary-fixed-variant": "#5c4300",
+                      "primary": "#002752",
+                      "background": "#f8f9fb",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#80aaec",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#e3c290",
+                      "tertiary-fixed": "#ffdead",
+                      "surface-variant": "#e1e2e4",
+                      "inverse-primary": "#a8c8ff",
+                      "outline-variant": "#c3c6d1",
+                      "surface-container-low": "#f3f4f6",
+                      "on-tertiary-container": "#c3a475",
+                      "primary-fixed-dim": "#a8c8ff",
+                      "surface": "#f8f9fb",
+                      "on-tertiary-fixed": "#281900",
+                      "on-error-container": "#93000a",
+                      "secondary": "#7a5900",
+                      "on-tertiary-fixed-variant": "#59431c",
+                      "on-secondary-container": "#6f5100",
+                      "tertiary": "#372402",
+                      "surface-bright": "#f8f9fb",
+                      "surface-container": "#edeef0",
+                      "on-primary-fixed": "#001b3c",
+                      "primary-container": "#003d79",
+                      "surface-container-high": "#e7e8ea",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#134783",
+                      "secondary-fixed": "#ffdea1",
+                      "outline": "#737781",
+                      "on-surface-variant": "#434750",
+                      "surface-tint": "#335f9c",
+                      "surface-dim": "#d9dadc",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2e3132",
+                      "error-container": "#ffdad6",
+                      "on-background": "#191c1e",
+                      "secondary-container": "#fec33b",
+                      "surface-container-highest": "#e1e2e4",
+                      "on-secondary-fixed": "#261900",
+                      "tertiary-container": "#4f3a14"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem",
+                      "2xl": "1.5rem",
+                      "3xl": "2.5rem"
+              },
+              "spacing": {
+                      "margin-desktop": "120px",
+                      "gutter": "48px",
+                      "container-max": "4096px",
+                      "margin-mobile": "32px",
+                      "baseline": "8px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Libre Franklin"],
+                      "headline-sm": ["Libre Franklin"],
+                      "label-md": ["Libre Franklin"],
+                      "body-lg": ["Libre Franklin"],
+                      "headline-lg": ["Libre Franklin"],
+                      "headline-md": ["Libre Franklin"],
+                      "body-md": ["Libre Franklin"],
+                      "headline-lg-mobile": ["Libre Franklin"]
+              },
+              "fontSize": {
+                      "display-lg": ["96px", {"lineHeight": "112px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-sm": ["40px", {"lineHeight": "56px", "fontWeight": "600"}],
+                      "label-md": ["28px", {"lineHeight": "40px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-lg": ["36px", {"lineHeight": "56px", "fontWeight": "400"}],
+                      "headline-lg": ["64px", {"lineHeight": "80px", "fontWeight": "700"}],
+                      "headline-md": ["48px", {"lineHeight": "64px", "fontWeight": "600"}],
+                      "body-md": ["32px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["56px", {"lineHeight": "72px", "fontWeight": "700"}]
+              }
+      },
+          },
+        }
+    }catch(_e){}</script>
+    <style>
+        /* Forzar iconos tipo pin a versión rellena */
+        .icon-filled, .map-pin .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 700;
+            -webkit-font-variation-settings: 'FILL' 1, 'wght' 700;
+        }
+        .map-pin .icon-filled { display: inline-block; line-height: 1; }
+
+        /* Video de fondo a pantalla completa (efecto "cover") */
+        .video-hero { position: relative; overflow: hidden; background: #000; }
+        .video-hero__frame-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .video-hero__frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 177.78vh;
+            height: 56.25vw;
+            min-height: 100%;
+            min-width: 100%;
+            transform: translate(-50%, -50%);
+            border: 0;
+        }
+
+        /* Header y footer que se ocultan tras inactividad del mouse */
+        #site-header, #site-footer {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body.ui-hidden #site-header {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+        body.ui-hidden #site-footer {
+            opacity: 0;
+            transform: translateY(100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md flex flex-col h-screen overflow-hidden">
+
+<!-- TopNavBar -->
+<header id="site-header" class="fixed top-0 left-0 bg-primary/80 dark:bg-primary-container/80 text-on-primary dark:text-on-primary-container border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop z-50 py-[28px]">
+    <!-- Brand -->
+    <div class="flex items-center gap-8">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 159px; width: 159px;">
+        <div class="flex flex-col">
+            <h1 class="font-display-lg text-[82px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+            <span class="font-label-md text-[37px] text-on-primary/80">Mapa interactivo</span>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content Area: Video de bienvenida -->
+<main class="video-hero flex-grow w-full">
+    <div class="video-hero__frame-wrap">
+        <iframe class="video-hero__frame"
+            src="https://www.youtube.com/embed/8VGgHcOO8TM?autoplay=1&mute=1&loop=1&playlist=8VGgHcOO8TM&start=124&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&playsinline=1"
+            title="Video de bienvenida UNAM"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Capa degradada para oscurecer el video -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/80 pointer-events-none"></div>
+
+    <!-- Logo y botón sobre el video, ubicados a 3/4 de la altura de la pantalla -->
+    <div class="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-12">
+        <img src="Logo-home.svg" alt="UNAM Mapa interactivo" class="w-[43vw] h-auto drop-shadow-lg relative left-[600px]">
+        <a href="code.html" class="px-24 py-8 rounded-full font-label-md text-[40px] uppercase tracking-widest bg-transparent border-4 border-white text-white font-bold shadow-[0_16px_48px_rgba(0,0,0,0.4)] hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-200">
+            Entrar
+        </a>
+    </div>
+</main>
+
+<footer id="site-footer" class="fixed bottom-0 left-0 w-full bg-primary-container/80 border-t border-outline-variant py-8 px-margin-desktop flex justify-between items-center z-50">
+    <p class="text-on-primary font-label-md text-[24px]">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary font-label-md text-[24px] hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary font-label-md text-[24px] hover:underline">Créditos</a>
+    </div>
+</footer>
+
+<script>
+    // Oculta el header y el footer tras 2s de inactividad del mouse; reaparecen al moverlo.
+    let uiHideTimeout;
+    function showUI() {
+        document.body.classList.remove('ui-hidden');
+        clearTimeout(uiHideTimeout);
+        uiHideTimeout = setTimeout(() => document.body.classList.add('ui-hidden'), 2000);
+    }
+    document.addEventListener('mousemove', showUI);
+    showUI();
+</script>
+
+</body></html>

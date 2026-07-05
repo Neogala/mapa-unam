@@ -1,0 +1,469 @@
+<!DOCTYPE html><html data-lt-installed="true" lang="es" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#f7bd35",
+                      "primary-fixed": "#d5e3ff",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f0f1f3",
+                      "on-secondary-fixed-variant": "#5c4300",
+                      "primary": "#002752",
+                      "background": "#f8f9fb",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#80aaec",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#e3c290",
+                      "tertiary-fixed": "#ffdead",
+                      "surface-variant": "#e1e2e4",
+                      "inverse-primary": "#a8c8ff",
+                      "outline-variant": "#c3c6d1",
+                      "surface-container-low": "#f3f4f6",
+                      "on-tertiary-container": "#c3a475",
+                      "primary-fixed-dim": "#a8c8ff",
+                      "surface": "#f8f9fb",
+                      "on-tertiary-fixed": "#281900",
+                      "on-error-container": "#93000a",
+                      "secondary": "#7a5900",
+                      "on-tertiary-fixed-variant": "#59431c",
+                      "on-secondary-container": "#6f5100",
+                      "tertiary": "#372402",
+                      "surface-bright": "#f8f9fb",
+                      "surface-container": "#edeef0",
+                      "on-primary-fixed": "#001b3c",
+                      "primary-container": "#003d79",
+                      "surface-container-high": "#e7e8ea",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#134783",
+                      "secondary-fixed": "#ffdea1",
+                      "outline": "#737781",
+                      "on-surface-variant": "#434750",
+                      "surface-tint": "#335f9c",
+                      "surface-dim": "#d9dadc",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2e3132",
+                      "error-container": "#ffdad6",
+                      "on-background": "#191c1e",
+                      "secondary-container": "#fec33b",
+                      "surface-container-highest": "#e1e2e4",
+                      "on-secondary-fixed": "#261900",
+                      "tertiary-container": "#4f3a14"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem",
+                      "2xl": "1.5rem",
+                      "3xl": "2.5rem"
+              },
+              "spacing": {
+                      "margin-desktop": "120px",
+                      "gutter": "48px",
+                      "container-max": "4096px",
+                      "margin-mobile": "32px",
+                      "baseline": "8px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Libre Franklin"],
+                      "headline-sm": ["Libre Franklin"],
+                      "label-md": ["Libre Franklin"],
+                      "body-lg": ["Libre Franklin"],
+                      "headline-lg": ["Libre Franklin"],
+                      "headline-md": ["Libre Franklin"],
+                      "body-md": ["Libre Franklin"],
+                      "headline-lg-mobile": ["Libre Franklin"]
+              },
+              "fontSize": {
+                      "display-lg": ["96px", {"lineHeight": "112px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-sm": ["40px", {"lineHeight": "56px", "fontWeight": "600"}],
+                      "label-md": ["28px", {"lineHeight": "40px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-lg": ["36px", {"lineHeight": "56px", "fontWeight": "400"}],
+                      "headline-lg": ["64px", {"lineHeight": "80px", "fontWeight": "700"}],
+                      "headline-md": ["48px", {"lineHeight": "64px", "fontWeight": "600"}],
+                      "body-md": ["32px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["56px", {"lineHeight": "72px", "fontWeight": "700"}]
+              }
+      },
+          },
+        }
+    }catch(_e){}</script></head><body class="bg-background text-on-background font-body-md flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop z-50 shrink-0 py-8">
+<!-- Brand -->
+<div class="flex items-center gap-10">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+                        </script>
+                        <style>
+                            /* Forzar iconos tipo pin a versión rellena */
+                            .icon-filled, .map-pin .material-symbols-outlined {
+                                font-variation-settings: 'FILL' 1, 'wght' 700;
+                                -webkit-font-variation-settings: 'FILL' 1, 'wght' 700;
+                            }
+                            /* Mejora de tamaño y alineación para pins */
+                            .map-pin .icon-filled { display: inline-block; line-height: 1; }
+                        </style>
+                </head><body class="bg-background text-on-background font-body-md flex flex-col">
+        <h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+        <span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+    </div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-24">
+    <a class="flex items-center gap-4 text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-2 scale-100 active:scale-95 duration-200" href="#">
+        <span class="material-symbols-outlined text-[56px]">map</span>
+        <span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-4 rounded-2xl scale-100 active:scale-95 duration-200" href="#">
+        <span class="material-symbols-outlined text-[56px]">bar_chart</span>
+        <span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+    </a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-8">
+    <div class="relative hidden lg:block w-[1035px]">
+        <span class="material-symbols-outlined absolute left-8 top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+        <input id="search-input" oninput="handleSearchInput(this.value)" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-6 pl-24 pr-12 focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+    </div>
+</div>
+</header>
+
+<!-- Main Content Area -->
+<main class="flex-grow w-full px-margin-desktop py-12 flex flex-col gap-12 overflow-hidden pb-24">
+<!-- Top Section: Map & Details Panel -->
+<div class="flex flex-row gap-12 flex-grow min-h-0">
+<!-- Map Container (Canvas) -->
+<div class="flex-grow relative bg-surface-container-low rounded-[3rem] border border-outline-variant overflow-hidden flex flex-col shadow-lg">
+    <!-- Google Maps Embed -->
+    <div class="absolute inset-0 w-full h-full">
+        <iframe id="unam-map-iframe"
+            class="w-full h-full border-0"
+            src="https://www.google.com/maps?q=19.3216475,-99.1851584&z=16&output=embed"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <script>
+        const mapViews = {
+            cu: { q: '19.3216475,-99.1851584', z: 16 },
+            cdmx: { q: '19.4326077,-99.1332080', z: 11 },
+            mexico: { q: '23.6345005,-102.5527878', z: 5 },
+            mundo: { q: '20,0', z: 2 }
+        };
+
+        function switchMapView(view, btn) {
+            const config = mapViews[view];
+            if (!config) return;
+            const iframe = document.getElementById('unam-map-iframe');
+            iframe.src = `https://www.google.com/maps?q=${config.q}&z=${config.z}&output=embed`;
+
+            document.querySelectorAll('.map-view-btn').forEach((b) => {
+                b.classList.remove('bg-surface-variant', 'text-on-surface-variant', 'font-medium');
+                b.classList.add('text-on-surface');
+            });
+            btn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'font-medium');
+            btn.classList.remove('text-on-surface');
+        }
+    </script>
+
+    <div class="absolute bottom-12 left-12 flex gap-4 z-10 bg-surface-container-lowest p-4 rounded-full border-2 border-outline-variant shadow-xl">
+        <button class="map-view-btn px-12 py-5 rounded-full text-[28px] font-label-md bg-surface-variant text-on-surface-variant font-medium" onclick="switchMapView('cu', this)">C.U.</button>
+        <button class="map-view-btn px-12 py-5 rounded-full text-[28px] font-label-md text-on-surface hover:bg-surface-variant transition-colors" onclick="switchMapView('cdmx', this)">CDMX</button>
+        <button class="map-view-btn px-12 py-5 rounded-full text-[28px] font-label-md text-on-surface hover:bg-surface-variant transition-colors" onclick="switchMapView('mexico', this)">México</button>
+        <button class="map-view-btn px-12 py-5 rounded-full text-[28px] font-label-md text-on-surface hover:bg-surface-variant transition-colors" onclick="switchMapView('mundo', this)">Mundo</button>
+    </div>
+
+    <!-- Map Pins (Simulated) -->
+    <div class="absolute top-1/3 left-1/4 map-pin cursor-pointer text-secondary">
+        <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
+    </div>
+    <div class="absolute top-1/2 left-1/2 map-pin cursor-pointer" style="color: #6a1b9a;">
+        <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
+    </div>
+    <div class="absolute top-2/3 left-1/3 map-pin cursor-pointer" style="color: #2e7d32;">
+        <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
+    </div>
+    <div class="absolute bottom-1/4 right-1/4 map-pin cursor-pointer text-error">
+        <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
+    </div>
+
+    <!-- Active Info Popup Card (Center-ish Map) -->
+    <div class="absolute top-[15%] left-[10%] z-20 bg-surface-container-lowest rounded-[3rem] border-4 border-primary/10 shadow-[0_64px_128px_rgba(0,39,82,0.3)] flex flex-col transition-all p-16 gap-10 origin-center scale-[0.9185] w-[1724px]" style="transform: scale(0.9185); transform-origin: center center;">
+<button class="absolute right-10 w-20 h-20 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant transition-colors focus:outline-none top-4">
+<span class="material-symbols-outlined text-[68px]">close</span>
+</button>
+<div class="flex flex-row items-center justify-between gap-16">
+<div class="flex flex-col gap-4 flex-1">
+<h2 id="popup-title" class="font-headline-md text-primary tracking-tight leading-tight text-[74px]">Facultad de Psicología&nbsp;</h2>
+<div class="h-3 w-96 bg-secondary-fixed-dim rounded-full"></div>
+<p id="popup-desc" class="font-body-md text-body-lg text-on-surface leading-relaxed mt-6 text-[43px]">
+                    Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.
+                </p>
+</div>
+<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md translate-y-[15%] mt-12 w-[532px] h-[371px]">
+<img id="popup-image" alt="Vista exterior de la Facultad de Psicología de la UNAM" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao">
+</div>
+</div>
+<div class="flex items-center justify-between pt-8 border-t-2 border-outline-variant">
+<div class="flex items-center gap-4 flex-nowrap"><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="code.html">Descripción</a><a class="px-12 py-4 rounded-xl font-label-md bg-primary text-on-primary shadow-md whitespace-nowrap text-[41px]" href="oferta.html">Oferta académica</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="comunidad.html">Comunidad</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="hitos.html">Hitos</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="noticias.html">Noticias</a></div>
+</div>
+<div class="absolute -bottom-8 left-1/4 w-20 h-20 bg-surface-container-lowest border-b-4 border-r-4 border-primary/10 transform rotate-45"></div>
+</div>
+</div>
+
+<!-- Right Panel: Contextual Details (Oferta Académica) -->
+<aside class="w-[1035px] flex-shrink-0 bg-surface-container-lowest rounded-[3rem] border border-outline-variant shadow-lg flex flex-col min-h-0 overflow-hidden">
+  <div id="panel-body" class="flex flex-col min-h-0 flex-1">
+    <!-- Panel Header -->
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
+        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-[64px]">school</span>
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Oferta Académica</h2>
+    </div>
+    <!-- Panel Content -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Licenciatura Section -->
+        <div class="flex flex-col gap-10">
+            <h3 class="font-headline-sm text-[48px] text-primary border-b-2 border-outline-variant pb-6">Licenciatura en Psicología</h3>
+            <p class="font-body-md text-[40px] text-on-surface leading-relaxed">Sistema Escolarizado (presencial) y Sistema Universidad Abierta (SUA), ambas de 8 semestres.</p>
+            <ul class="flex flex-col gap-10">
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">badge</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Título:</span> Licenciado/a en Psicología</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">analytics</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Créditos:</span> 310 totales (177 obligatorios + 133 optativos)</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">workspace_premium</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">6 Campos de Conocimiento:</span> Ciencias Cognitivas y del Comportamiento, Procesos Psicosociales y Culturales, Psicología Clínica y de la Salud, Psicología de la Educación, Psicología Organizacional, Psicobiología y Neurociencias</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">location_on</span>
+                    <p class="font-body-md text-[32px] text-on-surface">Sede adicional en FES Iztacala y FES Zaragoza</p>
+                </li>
+            </ul>
+        </div>
+        <!-- Posgrado Section -->
+        <div class="flex flex-col gap-10">
+            <h3 class="font-headline-sm text-[48px] text-primary border-b-2 border-outline-variant pb-6">Posgrado (DEPI)</h3>
+            <ul class="flex flex-col gap-10">
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">history_edu</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Maestría en Psicología Profesional:</span> Diversas orientaciones con reconocimiento de calidad CONAHCYT</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">school</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Doctorado en Psicología:</span> Nivel de competencia internacional. Participan los Institutos de Neurobiología, Investigaciones Sociales y Psiquiatría</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">military_tech</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">PUEP:</span> Programa Único de Especializaciones en Psicología</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">auto_stories</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Educación Continua (DEC):</span> Actualización profesional y diplomados especializados</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</aside>
+</div>
+
+<!-- Legend Bar -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] border border-outline-variant shadow-lg px-16 py-10 flex flex-row justify-between items-center shrink-0">
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-secondary text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Escuelas y Facs.</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95" style="color: rgb(46, 125, 50);">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Inst. y Centros</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95" style="color: rgb(106, 27, 154);">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Bibliotecas</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-secondary-container text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Museos</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-primary-fixed-dim text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Espacios Culturales</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-error text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Deporte</span>
+    </div>
+    <div class="flex items-center gap-8">
+        <span class="material-symbols-outlined icon-filled text-[48px] cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95" style="color: rgb(0, 131, 143);">location_on</span>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold cursor-pointer transition-all duration-300 hover:scale-125 hover:drop-shadow-xl active:scale-95">Servicios</span>
+    </div>
+    <div class="h-16 w-1 bg-outline-variant"></div>
+    <div class="flex items-center gap-8">
+        <div class="w-20 h-12 border-4 border-dashed border-outline rounded-md"></div>
+        <span class="font-label-md text-[32px] text-on-surface font-semibold">Límite C.U.</span>
+    </div>
+</div>
+
+<div class="flex justify-between items-center text-[24px] text-on-surface-variant px-12 shrink-0">
+    </div></main><footer class="fixed bottom-0 left-0 w-full bg-primary-container border-t border-outline-variant py-8 px-margin-desktop flex justify-between items-center z-50">
+    <p class="text-on-primary font-label-md text-[24px]">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary font-label-md text-[24px] hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary font-label-md text-[24px] hover:underline">Créditos</a>
+        
+        
+    </div>
+</footer>
+
+<script>
+    // Datos de ejemplo de sitios buscables en el mapa de la UNAM.
+    const places = {
+        psicologia: {
+            name: 'Facultad de Psicología',
+            category: 'Escuelas y Facs.',
+            icon: 'psychology',
+            colorClass: 'text-secondary',
+            popupDescription: 'Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+        },
+        medicina: {
+            name: 'Facultad de Medicina',
+            category: 'Escuelas y Facs.',
+            icon: 'medical_services',
+            colorClass: 'text-secondary',
+            popupDescription: 'Formadora de médicos generales y especialistas desde 1833, referente en investigación biomédica y salud pública en México.',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+        },
+        biblioteca: {
+            name: 'Biblioteca Central',
+            category: 'Bibliotecas',
+            icon: 'local_library',
+            colorClass: '',
+            colorStyle: 'color: rgb(106, 27, 154);',
+            popupDescription: 'Icónico edificio decorado con el mural de Juan O\'Gorman, alberga uno de los acervos bibliográficos más importantes de la UNAM.',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+        },
+        ingenieria: {
+            name: 'Facultad de Ingeniería',
+            category: 'Escuelas y Facs.',
+            icon: 'engineering',
+            colorClass: 'text-secondary',
+            popupDescription: 'Forma ingenieras e ingenieros en múltiples especialidades, con una fuerte tradición en investigación aplicada y desarrollo tecnológico.',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+        },
+        estadio: {
+            name: 'Estadio Olímpico Universitario',
+            category: 'Deporte',
+            icon: 'stadium',
+            colorClass: 'text-error',
+            popupDescription: 'Sede de los Juegos Olímpicos de 1968 y de los Pumas de la UNAM, con capacidad para más de 52,000 espectadores.',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+        }
+    };
+
+    const panelBody = document.getElementById('panel-body');
+    const searchInput = document.getElementById('search-input');
+    const defaultPanelHTML = panelBody.innerHTML;
+    let currentPlaceId = 'psicologia';
+
+    function pinStyleFor(place) {
+        const cls = place.colorClass || '';
+        const style = place.colorStyle || '';
+        return `class="material-symbols-outlined icon-filled text-[48px] ${cls}" style="${style}"`;
+    }
+
+    function updatePopup(place) {
+        const title = document.getElementById('popup-title');
+        const desc = document.getElementById('popup-desc');
+        const image = document.getElementById('popup-image');
+        if (title) title.textContent = place.name;
+        if (desc) desc.textContent = place.popupDescription;
+        if (image) { image.src = place.image; image.alt = `Vista exterior de ${place.name}`; }
+    }
+
+    function renderOtherPlacePanel(place) {
+        panelBody.innerHTML = `
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
+        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-[64px]">${place.icon}</span>
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">${place.name}</h2>
+    </div>
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <p class="font-body-md text-[40px] text-on-surface leading-relaxed">${place.popupDescription}</p>
+        <a href="buscador.html" class="self-start px-12 py-5 rounded-xl font-label-md bg-primary text-on-primary shadow-md text-[32px]">Ver detalle completo en el mapa</a>
+    </div>`;
+    }
+
+    function renderResultsPanel(query, matches) {
+        const itemsHTML = matches.map(place => `
+                <button onclick="selectPlace('${place.id}')" class="flex items-center gap-10 p-10 rounded-2xl border-2 border-outline-variant hover:bg-surface-container hover:border-primary transition-colors text-left w-full">
+                    <span ${pinStyleFor(place)}>location_on</span>
+                    <span class="flex flex-col gap-1">
+                        <span class="font-label-md text-[32px] text-on-surface font-semibold">${place.name}</span>
+                        <span class="font-body-md text-[24px] text-on-surface-variant">${place.category}</span>
+                    </span>
+                </button>`).join('');
+
+        const emptyHTML = `<p class="font-body-md text-[32px] text-on-surface-variant p-4">No se encontraron resultados para "${query}".</p>`;
+
+        panelBody.innerHTML = `
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
+        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-[64px]">search</span>
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Resultados para "${query}"</h2>
+    </div>
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
+        ${matches.length ? itemsHTML : emptyHTML}
+    </div>`;
+    }
+
+    function selectPlace(id) {
+        const place = places[id];
+        if (!place) return;
+        currentPlaceId = id;
+        updatePopup(place);
+        if (id === 'psicologia') {
+            panelBody.innerHTML = defaultPanelHTML;
+        } else {
+            renderOtherPlacePanel(place);
+        }
+        if (searchInput) searchInput.value = '';
+    }
+
+    function handleSearchInput(value) {
+        const query = value.trim();
+        if (!query) {
+            if (currentPlaceId === 'psicologia') {
+                panelBody.innerHTML = defaultPanelHTML;
+            } else {
+                renderOtherPlacePanel(places[currentPlaceId]);
+            }
+            return;
+        }
+        const normalized = query.toLowerCase();
+        const matches = Object.keys(places)
+            .map(id => ({ id, ...places[id] }))
+            .filter(place => place.name.toLowerCase().includes(normalized) || place.category.toLowerCase().includes(normalized));
+        renderResultsPanel(query, matches);
+    }
+</script>
+
+
+
+
+
+
+</body></html>
