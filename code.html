@@ -105,6 +105,21 @@
                             }
                             /* Mejora de tamaño y alineación para pins */
                             .map-pin .icon-filled { display: inline-block; line-height: 1; }
+                            /* Barra de scroll visible para el carrusel de la galería */
+                            .gallery-scroll {
+                                scrollbar-width: thin;
+                                scrollbar-color: #c3c6d1 transparent;
+                            }
+                            .gallery-scroll::-webkit-scrollbar {
+                                height: 6px;
+                            }
+                            .gallery-scroll::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+                            .gallery-scroll::-webkit-scrollbar-thumb {
+                                background: #c3c6d1;
+                                border-radius: 999px;
+                            }
                         </style>
                 </head><body class="bg-background text-on-background font-body-md flex flex-col">
         <h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
@@ -205,12 +220,12 @@
                     Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.
                 </p>
 </div>
-<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md translate-y-[15%] mt-12 w-[532px] h-[371px]">
-<img id="popup-image" alt="Vista exterior de la Facultad de Psicología de la UNAM" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao">
+<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[420px] h-[420px] bg-white flex items-center justify-center p-8 mt-16 mr-16">
+<img id="popup-image" alt="Código QR de la Facultad de Psicología de la UNAM" class="w-full h-full object-contain" src="imag/qr.png">
 </div>
 </div>
 <div class="flex items-center justify-between pt-8 border-t-2 border-outline-variant">
-<div class="flex items-center gap-4 flex-nowrap"><a class="px-12 py-4 rounded-xl font-label-md bg-primary text-on-primary shadow-md whitespace-nowrap text-[41px]" href="code.html">Descripción</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="oferta.html">Oferta académica</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="comunidad.html">Comunidad</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="hitos.html">Hitos</a><a class="px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]" href="noticias.html">Noticias</a></div>
+<div class="flex items-center gap-4 flex-nowrap"><button data-tab="descripcion" onclick="showSection('descripcion')" class="tab-btn px-12 py-4 rounded-xl font-label-md bg-primary text-on-primary shadow-md whitespace-nowrap text-[41px]">Descripción</button><button data-tab="oferta" onclick="showSection('oferta')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Oferta académica</button><button data-tab="comunidad" onclick="showSection('comunidad')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Comunidad</button><button data-tab="hitos" onclick="showSection('hitos')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Hitos</button><button data-tab="noticias" onclick="showSection('noticias')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Noticias</button></div>
 </div>
 <div class="absolute -bottom-8 left-1/4 w-20 h-20 bg-surface-container-lowest border-b-4 border-r-4 border-primary/10 transform rotate-45"></div>
 </div>
@@ -219,15 +234,31 @@
 <!-- Right Panel: Contextual Details (Hitos) -->
 <aside class="w-[1035px] flex-shrink-0 bg-surface-container-lowest rounded-[3rem] border border-outline-variant shadow-lg flex flex-col min-h-0 overflow-hidden">
   <div id="panel-body" class="flex flex-col min-h-0 flex-1">
+   <div id="section-descripcion" class="panel-section flex flex-col min-h-0 flex-1">
     <!-- Panel Header -->
-    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
-        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
-            <span class="material-symbols-outlined text-primary text-[64px]">psychology</span>
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
         </div>
-        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Descripción de la Facultad de Psicología</h2>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Descripción de la Facultad de Psicología</h2>
     </div>
     <!-- Panel Content -->
     <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Gallery -->
+        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
+                <img src="imag/images-1.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
+                <img src="imag/8007758ad1b16afc0f958c7f76a6caea.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
+                <img src="imag/images.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
+                <img src="imag/PORTADA-2.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+        </div>
         <!-- Introduction-->
         <div class="flex flex-col gap-8">
             <p class="font-body-md text-[40px] text-on-surface leading-relaxed">
@@ -265,6 +296,251 @@
             </ul>
         </div>
     </div>
+   </div>
+   <!-- Hitos Section -->
+   <div id="section-hitos" class="panel-section hidden flex-col min-h-0 flex-1">
+    <!-- Panel Header -->
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Hitos de la Facultad<br>de Psicología</h2>
+    </div>
+    <!-- Panel Content (Scrollable List) -->
+    <div id="hitos-list-view" class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Item 1 -->
+        <div class="flex flex-col">
+            <div onclick="showHitoDetail(0)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
+                <p class="flex-grow font-body-md text-[40px] text-on-surface pr-4">Primeros antecedentes universitarios de la enseñanza de la Psicología en México</p>
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward</span>
+            </div>
+            <div class="border-b-2 border-outline-variant"></div>
+        </div>
+        <!-- Item 2 -->
+        <div class="flex flex-col">
+            <div onclick="showHitoDetail(1)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
+                <p class="flex-grow font-body-md text-[40px] text-on-surface pr-4">Entrada de la Psicología a la Universidad Nacional de México: ENAE y cátedra inaugural de Psicosociología</p>
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward</span>
+            </div>
+            <div class="border-b-2 border-outline-variant"></div>
+        </div>
+        <!-- Item 3 -->
+        <div class="flex flex-col">
+            <div onclick="showHitoDetail(2)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
+                <p class="flex-grow font-body-md text-[40px] text-on-surface pr-4">Primer Gabinete de Psicología Experimental en México</p>
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward</span>
+            </div>
+            <div class="border-b-2 border-outline-variant"></div>
+        </div>
+        <!-- Item 4 -->
+        <div class="flex flex-col">
+            <div onclick="showHitoDetail(3)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
+                <p class="flex-grow font-body-md text-[40px] text-on-surface pr-4">Guadalupe Zúñiga Lira, primera persona titulada universitariamente para enseñar Psicología en México</p>
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward</span>
+            </div>
+            <div class="border-b-2 border-outline-variant"></div>
+        </div>
+        <!-- Item 5 -->
+        <div class="flex flex-col">
+            <div onclick="showHitoDetail(4)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
+                <p class="flex-grow font-body-md text-[40px] text-on-surface pr-4">Continuidad de la Psicología tras la reorganización de la Escuela Nacional de Altos Estudios</p>
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">arrow_forward</span>
+            </div>
+        </div>
+    </div>
+    <!-- Panel Content (Detail View) -->
+    <div id="hitos-detail-view" class="hidden flex-col gap-8 flex-1 overflow-y-auto custom-scrollbar p-16">
+        <button onclick="showHitosList()" class="flex items-center gap-6 self-start text-primary font-label-md text-[44px] hover:underline cursor-pointer">
+            <span class="material-symbols-outlined text-[44px]">arrow_back</span>
+            Regresar
+        </button>
+        <!-- Gallery -->
+        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
+                <img src="imag/images-1.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
+                <img src="imag/8007758ad1b16afc0f958c7f76a6caea.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
+                <img src="imag/images.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
+                <img src="imag/PORTADA-2.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+        </div>
+        <h3 id="hito-detail-title" class="font-headline-sm text-[44px] text-primary leading-tight mt-8"></h3>
+        <p id="hito-detail-text" class="font-body-md text-[36px] text-on-surface leading-relaxed mt-4"></p>
+    </div>
+   </div>
+   <!-- Oferta Académica Section -->
+   <div id="section-oferta" class="panel-section hidden flex-col min-h-0 flex-1">
+    <!-- Panel Header -->
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Oferta Académica</h2>
+    </div>
+    <!-- Panel Content -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Licenciatura Section -->
+        <div class="flex flex-col gap-10">
+            <h3 class="font-headline-sm text-[48px] text-primary border-b-2 border-outline-variant pb-6">Licenciatura en Psicología</h3>
+            <p class="font-body-md text-[40px] text-on-surface leading-relaxed">Sistema Escolarizado (presencial) y Sistema Universidad Abierta (SUA), ambas de 8 semestres.</p>
+            <ul class="flex flex-col gap-10">
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">badge</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Título:</span> Licenciado/a en Psicología</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">analytics</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Créditos:</span> 310 totales (177 obligatorios + 133 optativos)</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">workspace_premium</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">6 Campos de Conocimiento:</span> Ciencias Cognitivas y del Comportamiento, Procesos Psicosociales y Culturales, Psicología Clínica y de la Salud, Psicología de la Educación, Psicología Organizacional, Psicobiología y Neurociencias</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">location_on</span>
+                    <p class="font-body-md text-[32px] text-on-surface">Sede adicional en FES Iztacala y FES Zaragoza</p>
+                </li>
+            </ul>
+        </div>
+        <!-- Posgrado Section -->
+        <div class="flex flex-col gap-10">
+            <h3 class="font-headline-sm text-[48px] text-primary border-b-2 border-outline-variant pb-6">Posgrado (DEPI)</h3>
+            <ul class="flex flex-col gap-10">
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">history_edu</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Maestría en Psicología Profesional:</span> Diversas orientaciones con reconocimiento de calidad CONAHCYT</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">school</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Doctorado en Psicología:</span> Nivel de competencia internacional. Participan los Institutos de Neurobiología, Investigaciones Sociales y Psiquiatría</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">military_tech</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">PUEP:</span> Programa Único de Especializaciones en Psicología</p>
+                </li>
+                <li class="flex gap-8 items-start">
+                    <span class="material-symbols-outlined text-secondary text-[48px] mt-2">auto_stories</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Educación Continua (DEC):</span> Actualización profesional y diplomados especializados</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+   </div>
+   <!-- Comunidad Section -->
+   <div id="section-comunidad" class="panel-section hidden flex-col min-h-0 flex-1">
+    <!-- Panel Header -->
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Comunidad</h2>
+    </div>
+    <!-- Panel Content -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Alumnado Section -->
+        <section class="flex flex-col gap-10">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+                <span class="material-symbols-outlined text-[40px]">person</span>
+                <span>Alumnado</span>
+            </div>
+            <div class="bg-surface-container-low rounded-2xl p-10 border-2 border-outline-variant">
+                <h3 class="font-headline-sm text-[40px] text-primary mb-4">Ingreso y Composición</h3>
+                <div class="flex flex-col gap-6">
+                    <div class="flex gap-6 items-start">
+                        <span class="material-symbols-outlined text-primary text-[40px]">trending_up</span>
+                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Demanda:</span> 23,267 aspirantes (Ciclo 23-24)</p>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <span class="material-symbols-outlined text-primary text-[40px]">check_circle</span>
+                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Lugares:</span> 3,643 (1 de cada 6 ingresa)</p>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <span class="material-symbols-outlined text-primary text-[40px]">wc</span>
+                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Género:</span> 66% mujeres / 34% hombres</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="font-bold text-[32px] text-on-surface mb-4">Puntaje de corte (Pase Reglamentado):</p>
+                <ul class="grid grid-cols-1 gap-4">
+                    <li class="flex items-center gap-4 text-[28px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>8.72 Sistema Escolarizado</li>
+                    <li class="flex items-center gap-4 text-[28px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>7.76 Sistema SUA</li>
+                </ul>
+            </div>
+        </section>
+        <div class="h-2 bg-outline-variant"></div>
+        <!-- Personal Académico Section -->
+        <section class="flex flex-col gap-10">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+                <span class="material-symbols-outlined text-[40px]">school</span>
+                <span>Personal académico</span>
+            </div>
+            <div class="flex flex-col gap-10">
+                <div>
+                    <h4 class="font-bold text-[36px] text-on-surface">479 académicos</h4>
+                    <p class="text-[32px] text-on-surface-variant mt-2">60% mujeres, 40% hombres. 76 miembros del SNI.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[36px] text-on-surface">Formación y Ratio</h4>
+                    <p class="text-[32px] text-on-surface-variant mt-2">~75% cuenta con posgrado. 7.6 profesores de carrera por cada 100 alumnos (Promedio UNAM: 3.1).</p>
+                </div>
+            </div>
+            <div class="bg-primary/5 rounded-2xl p-8 border-2 border-primary/10">
+                <p class="text-[32px] text-primary font-bold">Personal total: ~830 personas</p>
+                <p class="text-[28px] text-on-surface-variant">479 académicos + 352 administrativos</p>
+            </div>
+        </section>
+        <div class="h-2 bg-outline-variant"></div>
+        <!-- Egresados Section -->
+        <section class="flex flex-col gap-10">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+                <span class="material-symbols-outlined text-[40px]">work</span>
+                <span>Egresados</span>
+            </div>
+            <div class="grid grid-cols-1 gap-8">
+                <div class="flex items-center gap-6">
+                    <span class="material-symbols-outlined text-primary text-[48px]">verified</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">74.68%</span> trabaja a los 3-4 años de egreso</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <span class="material-symbols-outlined text-primary text-[48px]">psychology</span>
+                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">76.27%</span> en trabajo relacionado con su profesión</p>
+                </div>
+            </div>
+        </section>
+    </div>
+   </div>
+   <!-- Noticias Section -->
+   <div id="section-noticias" class="panel-section hidden flex-col min-h-0 flex-1">
+    <!-- Panel Header -->
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Noticias: Facultad de Psicología</h2>
+    </div>
+    <!-- Panel Content: Noticias (Gaceta UNAM embebida) -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
+        <p id="noticias-fallback" class="font-body-md text-[28px] text-on-surface-variant leading-relaxed hidden">
+            Si el contenido no se muestra, Gaceta UNAM bloquea la visualización embebida.
+            <a class="text-primary underline" href="https://www.gaceta.unam.mx/tag/facultad-de-psicologia/" target="_blank" rel="noopener noreferrer">Ver la página en una pestaña nueva</a>.
+        </p>
+        <iframe
+            src="https://www.gaceta.unam.mx/tag/facultad-de-psicologia/"
+            title="Noticias de la Facultad de Psicología - Gaceta UNAM"
+            class="w-full flex-1 rounded-2xl border-2 border-outline-variant"
+            style="min-height: 100%;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            onerror="document.getElementById('noticias-fallback').classList.remove('hidden')">
+        </iframe>
+    </div>
+   </div>
   </div>
 </aside>
 </div>
@@ -326,7 +602,7 @@
             icon: 'psychology',
             colorClass: 'text-secondary',
             popupDescription: 'Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.',
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao'
+            image: 'imag/qr.png'
         },
         medicina: {
             name: 'Facultad de Medicina',
@@ -450,8 +726,106 @@
             .filter(place => place.name.toLowerCase().includes(normalized) || place.category.toLowerCase().includes(normalized));
         renderResultsPanel(query, matches);
     }
+
+    // --- Cambio de secciones dentro del panel (sin navegar a otra página) ---
+    function showSection(name) {
+        document.querySelectorAll('.panel-section').forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('flex');
+        });
+        const target = document.getElementById('section-' + name);
+        if (target) {
+            target.classList.remove('hidden');
+            target.classList.add('flex');
+        }
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            const active = btn.dataset.tab === name;
+            btn.classList.toggle('bg-primary', active);
+            btn.classList.toggle('text-on-primary', active);
+            btn.classList.toggle('shadow-md', active);
+            btn.classList.toggle('text-primary', !active);
+            btn.classList.toggle('hover:bg-primary/5', !active);
+            btn.classList.toggle('transition-colors', !active);
+        });
+        if (name === 'hitos') showHitosList();
+    }
+
+    // --- Hitos: lista y detalle ---
+    const hitosData = [
+        {
+            title: 'Primeros antecedentes universitarios de la enseñanza de la Psicología en México',
+            text: 'Desde finales del siglo XIX, distintas cátedras y programas de estudio incorporaron contenidos de Psicología dentro de escuelas preparatorias y facultades afines, sentando las bases teóricas que más adelante darían origen a su enseñanza formal dentro de la Universidad Nacional.'
+        },
+        {
+            title: 'Entrada de la Psicología a la Universidad Nacional de México: ENAE y cátedra inaugural de Psicosociología',
+            text: 'Con la creación de la Escuela Nacional de Altos Estudios (ENAE), la Psicología se incorporó formalmente a la vida universitaria mediante la cátedra inaugural de Psicosociología, marcando el inicio de su desarrollo como disciplina académica dentro de la Universidad Nacional.'
+        },
+        {
+            title: 'Primer Gabinete de Psicología Experimental en México',
+            text: 'Se estableció el primer Gabinete de Psicología Experimental del país, un espacio dedicado a la investigación y a la enseñanza práctica de la disciplina, que impulsó el estudio riguroso del comportamiento humano desde una perspectiva científica.'
+        },
+        {
+            title: 'Guadalupe Zúñiga Lira, primera persona titulada universitariamente para enseñar Psicología en México',
+            text: 'Guadalupe Zúñiga Lira se convirtió en la primera persona en obtener un título universitario que la habilitaba para la enseñanza de la Psicología en México, un hito fundamental para la profesionalización y consolidación de la disciplina.'
+        },
+        {
+            title: 'Continuidad de la Psicología tras la reorganización de la Escuela Nacional de Altos Estudios',
+            text: 'Tras la reorganización de la Escuela Nacional de Altos Estudios, los estudios de Psicología continuaron desarrollándose dentro de la estructura universitaria, preservando el trabajo académico acumulado y preparando el terreno para la creación de la futura Facultad de Psicología.'
+        }
+    ];
+
+    function showHitoDetail(index) {
+        const hito = hitosData[index];
+        if (!hito) return;
+        document.getElementById('hito-detail-title').textContent = hito.title;
+        document.getElementById('hito-detail-text').textContent = hito.text;
+        document.getElementById('hitos-list-view').classList.remove('flex');
+        document.getElementById('hitos-list-view').classList.add('hidden');
+        document.getElementById('hitos-detail-view').classList.remove('hidden');
+        document.getElementById('hitos-detail-view').classList.add('flex');
+    }
+
+    function showHitosList() {
+        document.getElementById('hitos-detail-view').classList.remove('flex');
+        document.getElementById('hitos-detail-view').classList.add('hidden');
+        document.getElementById('hitos-list-view').classList.remove('hidden');
+        document.getElementById('hitos-list-view').classList.add('flex');
+    }
 </script>
 
+<!-- Gallery Modal -->
+<div id="gallery-modal" class="hidden fixed inset-0 z-[100] bg-black/80 items-center justify-center" onclick="closeGalleryModal(event)">
+    <div class="relative inline-block" onclick="event.stopPropagation()">
+        <img id="gallery-modal-img" src="" alt="Facultad de Psicología UNAM" class="rounded-2xl block">
+        <button class="absolute top-4 right-4 w-20 h-20 flex items-center justify-center rounded-full bg-white hover:bg-gray-200 text-gray-800 shadow-md transition-colors focus:outline-none" onclick="closeGalleryModal(event)">
+            <span class="material-symbols-outlined text-[48px]">close</span>
+        </button>
+    </div>
+</div>
+<script>
+    function openGalleryModal(src) {
+        const imgEl = document.getElementById('gallery-modal-img');
+        const modal = document.getElementById('gallery-modal');
+        const temp = new Image();
+        temp.onload = function() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const scale = Math.min((vw * 0.9) / temp.naturalWidth, (vh * 0.9) / temp.naturalHeight);
+            imgEl.style.width = Math.round(temp.naturalWidth * scale) + 'px';
+            imgEl.style.height = Math.round(temp.naturalHeight * scale) + 'px';
+        };
+        temp.src = src;
+        imgEl.src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeGalleryModal(event) {
+        event.stopPropagation();
+        const modal = document.getElementById('gallery-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
 
 
 

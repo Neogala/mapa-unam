@@ -105,6 +105,21 @@
                             }
                             /* Mejora de tamaño y alineación para pins */
                             .map-pin .icon-filled { display: inline-block; line-height: 1; }
+                            /* Barra de scroll visible para el carrusel de la galería */
+                            .gallery-scroll {
+                                scrollbar-width: thin;
+                                scrollbar-color: #c3c6d1 transparent;
+                            }
+                            .gallery-scroll::-webkit-scrollbar {
+                                height: 6px;
+                            }
+                            .gallery-scroll::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+                            .gallery-scroll::-webkit-scrollbar-thumb {
+                                background: #c3c6d1;
+                                border-radius: 999px;
+                            }
                         </style>
                 </head><body class="bg-background text-on-background font-body-md flex flex-col">
         <h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
@@ -205,8 +220,8 @@
                     Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.
                 </p>
 </div>
-<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md translate-y-[15%] mt-12 w-[532px] h-[371px]">
-<img alt="Vista exterior de la Facultad de Psicología de la UNAM" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk5dljDzzc1eWGc6gjTHtsA9Im66-btwAnj82F1FSgE-nLvPG1QDvjeP1gc_t-ldvmOxSaOTyimbMJXjY9-rn-kFw2CjViIU-K7zbZ-xUVxhAE-VGfPrahy3dwg5xFYjVIxJmjXGiO3KKSsGy1eFxg4qvV_giz8VYCIJJeQuxUJS101kZ1eh4eOtaAW0EFg2aBPUOH7MYBG9EZTuDOoV5ApfG1VtoqlyBzg-_PO8W3pljBRHZgXNicaAopycON5k5IKzkUG1riVQao">
+<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[420px] h-[420px] bg-white flex items-center justify-center p-8 mt-16 mr-16">
+<img alt="Código QR de la Facultad de Psicología de la UNAM" class="w-full h-full object-contain" src="imag/qr.png">
 </div>
 </div>
 <div class="flex items-center justify-between pt-8 border-t-2 border-outline-variant">
@@ -219,14 +234,29 @@
 <!-- Right Panel: Contextual Details (Hitos) -->
 <aside class="w-[1035px] flex-shrink-0 bg-surface-container-lowest rounded-[3rem] border border-outline-variant shadow-lg flex flex-col min-h-0 overflow-hidden">
     <!-- Panel Header -->
-    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
-        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
-            <span class="material-symbols-outlined text-primary text-[64px]">psychology</span>
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0">
+            <img src="facultad-de-psicologia-seeklogo.png" alt="Logo Facultad de Psicología" class="w-[125px] h-[125px] object-contain">
         </div>
-        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Descripción de la Facultad de Psicología</h2>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight">Descripción de la Facultad de Psicología</h2>
     </div>
     <!-- Panel Content -->
     <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <!-- Gallery -->
+        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
+                <img src="imag/images-1.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
+                <img src="imag/8007758ad1b16afc0f958c7f76a6caea.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
+                <img src="imag/images.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
+                <img src="imag/PORTADA-2.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
+            </div>
+        </div>
         <!-- Introduction-->
         <div class="flex flex-col gap-8">
             <p class="font-body-md text-[40px] text-on-surface leading-relaxed">
@@ -315,6 +345,39 @@
     </div>
 </footer>
 
+<!-- Gallery Modal -->
+<div id="gallery-modal" class="hidden fixed inset-0 z-[100] bg-black/80 items-center justify-center" onclick="closeGalleryModal(event)">
+    <div class="relative inline-block" onclick="event.stopPropagation()">
+        <img id="gallery-modal-img" src="" alt="Facultad de Psicología UNAM" class="rounded-2xl block">
+        <button class="absolute top-4 right-4 w-20 h-20 flex items-center justify-center rounded-full bg-white hover:bg-gray-200 text-gray-800 shadow-md transition-colors focus:outline-none" onclick="closeGalleryModal(event)">
+            <span class="material-symbols-outlined text-[48px]">close</span>
+        </button>
+    </div>
+</div>
+<script>
+    function openGalleryModal(src) {
+        const imgEl = document.getElementById('gallery-modal-img');
+        const modal = document.getElementById('gallery-modal');
+        const temp = new Image();
+        temp.onload = function() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const scale = Math.min((vw * 0.9) / temp.naturalWidth, (vh * 0.9) / temp.naturalHeight);
+            imgEl.style.width = Math.round(temp.naturalWidth * scale) + 'px';
+            imgEl.style.height = Math.round(temp.naturalHeight * scale) + 'px';
+        };
+        temp.src = src;
+        imgEl.src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeGalleryModal(event) {
+        event.stopPropagation();
+        const modal = document.getElementById('gallery-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
 
 
 
