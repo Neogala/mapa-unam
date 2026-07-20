@@ -194,25 +194,25 @@
     </div>
 
     <!-- Map Pins (Simulated) -->
-    <div class="absolute top-1/3 left-1/4 map-pin cursor-pointer text-secondary">
+    <div onclick="selectPlace('psicologia')" class="absolute top-1/3 left-1/4 map-pin cursor-pointer text-secondary">
         <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
     </div>
-    <div class="absolute top-1/2 left-1/2 map-pin cursor-pointer" style="color: #6a1b9a;">
+    <div onclick="selectPlace('biblioteca')" class="absolute top-1/2 left-1/2 map-pin cursor-pointer" style="color: #6a1b9a;">
         <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
     </div>
-    <div class="absolute top-2/3 left-1/3 map-pin cursor-pointer" style="color: #2e7d32;">
+    <div onclick="selectPlace('ingenieria')" class="absolute top-2/3 left-1/3 map-pin cursor-pointer" style="color: #2e7d32;">
         <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
     </div>
-    <div class="absolute bottom-1/4 right-1/4 map-pin cursor-pointer text-error">
+    <div onclick="selectPlace('estadio')" class="absolute bottom-1/4 right-1/4 map-pin cursor-pointer text-error">
         <span class="material-symbols-outlined icon-filled" style="font-size: 80px;">location_on</span>
     </div>
 
     <!-- Active Info Popup Card (Center-ish Map) -->
-    <div class="absolute top-[15%] left-[10%] z-20 bg-surface-container-lowest rounded-[3rem] border-4 border-primary/10 shadow-[0_64px_128px_rgba(0,39,82,0.3)] flex flex-col transition-all p-16 gap-10 origin-center scale-[0.9185] w-[1724px]" style="transform: scale(0.9185); transform-origin: center center;">
-<button class="absolute right-10 w-20 h-20 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant transition-colors focus:outline-none top-4">
+    <div id="info-popup-card" class="absolute top-[15%] left-[10%] z-20 bg-surface-container-lowest rounded-[3rem] border-4 border-primary/10 shadow-[0_64px_128px_rgba(0,39,82,0.3)] flex flex-col transition-all p-16 gap-10 origin-center scale-[0.9185] w-[1724px]" style="transform: scale(0.9185); transform-origin: center center;">
+<button onclick="closeInfoModal()" class="absolute right-10 w-20 h-20 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant transition-colors focus:outline-none top-4">
 <span class="material-symbols-outlined text-[68px]">close</span>
 </button>
-<div class="flex flex-row items-center justify-between gap-16">
+<div class="flex flex-row items-end justify-between gap-16">
 <div class="flex flex-col gap-4 flex-1">
 <h2 id="popup-title" class="font-headline-md text-primary tracking-tight leading-tight text-[74px]">Facultad de Psicología&nbsp;</h2>
 <div class="h-3 w-96 bg-secondary-fixed-dim rounded-full"></div>
@@ -220,9 +220,7 @@
                     Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.
                 </p>
 </div>
-<div class="flex-shrink-0 rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[420px] h-[420px] bg-white flex items-center justify-center p-8 mt-16 mr-16">
-<img id="popup-image" alt="Código QR de la Facultad de Psicología de la UNAM" class="w-full h-full object-contain" src="imag/qr.png">
-</div>
+<img id="popup-image" alt="Código QR de la Facultad de Psicología de la UNAM" class="flex-shrink-0 rounded-2xl object-cover w-[370px] h-[264px]" src="imag/images-1.jpg">
 </div>
 <div class="flex items-center justify-between pt-8 border-t-2 border-outline-variant">
 <div class="flex items-center gap-4 flex-nowrap"><button data-tab="descripcion" onclick="showSection('descripcion')" class="tab-btn px-12 py-4 rounded-xl font-label-md bg-primary text-on-primary shadow-md whitespace-nowrap text-[41px]">Descripción</button><button data-tab="oferta" onclick="showSection('oferta')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Oferta académica</button><button data-tab="comunidad" onclick="showSection('comunidad')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Comunidad</button><button data-tab="hitos" onclick="showSection('hitos')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Hitos</button><button data-tab="noticias" onclick="showSection('noticias')" class="tab-btn px-12 py-4 rounded-xl font-label-md text-primary hover:bg-primary/5 transition-colors whitespace-nowrap text-[41px]">Noticias</button></div>
@@ -232,7 +230,7 @@
 </div>
 
 <!-- Right Panel: Contextual Details (Hitos) -->
-<aside class="w-[1035px] flex-shrink-0 bg-surface-container-lowest rounded-[3rem] border border-outline-variant shadow-lg flex flex-col min-h-0 overflow-hidden">
+<aside id="right-panel" class="w-[1035px] flex-shrink-0 bg-surface-container-lowest rounded-[3rem] border border-outline-variant shadow-lg flex flex-col min-h-0 overflow-hidden">
   <div id="panel-body" class="flex flex-col min-h-0 flex-1">
    <div id="section-descripcion" class="panel-section flex flex-col min-h-0 flex-1">
     <!-- Panel Header -->
@@ -243,19 +241,19 @@
         <h2 class="font-headline-md text-[56px] text-primary leading-tight">Descripción de la Facultad de Psicología</h2>
     </div>
     <!-- Panel Content -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
         <!-- Gallery -->
-        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10">
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
+        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10 flex-shrink-0">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
                 <img src="imag/images-1.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
                 <img src="imag/8007758ad1b16afc0f958c7f76a6caea.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
                 <img src="imag/images.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
                 <img src="imag/PORTADA-2.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
         </div>
@@ -264,6 +262,10 @@
             <p class="font-body-md text-[40px] text-on-surface leading-relaxed">
                 La Facultad de Psicología forma de manera integral y responsable a los profesionales de la Psicología, realiza investigación de vanguardia y difunde a la sociedad sus resultados con el más alto nivel de rigor científico y ético.
             </p>
+            <div class="flex items-center gap-8">
+                <img src="imag/qr.png" alt="Código QR de la Facultad de Psicología de la UNAM" class="w-[192px] h-[192px] object-contain flex-shrink-0">
+                <span class="font-body-md text-[40px] text-on-surface">Visita el sitio</span>
+            </div>
         </div>
         <!-- Key Data Section -->
         <div class="flex flex-col gap-10">
@@ -271,27 +273,27 @@
             <ul class="flex flex-col gap-10">
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">calendar_today</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Fundada el 27 de febrero de 1973, al separarse de la Facultad de Filosofía y Letras</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Fundada el 27 de febrero de 1973, al separarse de la Facultad de Filosofía y Letras</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">history_edu</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Primera clase de Psicología en México: 1896 (Ezequiel A. Chávez, Escuela Nacional Preparatoria)</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Primera clase de Psicología en México: 1896 (Ezequiel A. Chávez, Escuela Nacional Preparatoria)</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">verified</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Primer plan de estudios de Licenciatura aprobado: 1960</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Primer plan de estudios de Licenciatura aprobado: 1960</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">menu_book</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Plan de estudios vigente: Plan 2008, con 8 semestres</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Plan de estudios vigente: Plan 2008, con 8 semestres</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">location_on</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Ubicación: Av. Universidad 3004, Copilco Coyoacán, CP 04510</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Ubicación: Av. Universidad 3004, Copilco Coyoacán, CP 04510</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">workspace_premium</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Es la facultad que forma el mayor número de licenciados, maestros y doctores en Psicología en México</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Es la facultad que forma el mayor número de licenciados, maestros y doctores en Psicología en México</p>
                 </li>
             </ul>
         </div>
@@ -307,7 +309,7 @@
         <h2 class="font-headline-md text-[56px] text-primary leading-tight">Hitos de la Facultad<br>de Psicología</h2>
     </div>
     <!-- Panel Content (Scrollable List) -->
-    <div id="hitos-list-view" class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+    <div id="hitos-list-view" class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
         <!-- Item 1 -->
         <div class="flex flex-col">
             <div onclick="showHitoDetail(0)" class="flex gap-8 items-center group cursor-pointer rounded-2xl px-6 -mx-6 py-6 transition-colors hover:bg-surface-container">
@@ -349,23 +351,23 @@
         </div>
     </div>
     <!-- Panel Content (Detail View) -->
-    <div id="hitos-detail-view" class="hidden flex-col gap-8 flex-1 overflow-y-auto custom-scrollbar p-16">
+    <div id="hitos-detail-view" class="hidden flex-col gap-8 flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16">
         <button onclick="showHitosList()" class="flex items-center gap-6 self-start text-primary font-label-md text-[44px] hover:underline cursor-pointer">
             <span class="material-symbols-outlined text-[44px]">arrow_back</span>
             Regresar
         </button>
         <!-- Gallery -->
-        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10">
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
+        <div class="flex gap-8 overflow-x-auto gallery-scroll pb-10 flex-shrink-0">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images-1.jpg')">
                 <img src="imag/images-1.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/8007758ad1b16afc0f958c7f76a6caea.jpg')">
                 <img src="imag/8007758ad1b16afc0f958c7f76a6caea.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/images.jpg')">
                 <img src="imag/images.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md aspect-square w-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
+            <div class="rounded-2xl overflow-hidden border-2 border-outline-variant shadow-md w-[280px] h-[280px] flex-shrink-0 cursor-pointer" onclick="openGalleryModal('imag/PORTADA-2.jpg')">
                 <img src="imag/PORTADA-2.jpg" alt="Facultad de Psicología UNAM" class="w-full h-full object-cover">
             </div>
         </div>
@@ -383,7 +385,7 @@
         <h2 class="font-headline-md text-[56px] text-primary leading-tight">Oferta Académica</h2>
     </div>
     <!-- Panel Content -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
         <!-- Licenciatura Section -->
         <div class="flex flex-col gap-10">
             <h3 class="font-headline-sm text-[48px] text-primary border-b-2 border-outline-variant pb-6">Licenciatura en Psicología</h3>
@@ -391,19 +393,19 @@
             <ul class="flex flex-col gap-10">
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">badge</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Título:</span> Licenciado/a en Psicología</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Título:</span> Licenciado/a en Psicología</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">analytics</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Créditos:</span> 310 totales (177 obligatorios + 133 optativos)</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Créditos:</span> 310 totales (177 obligatorios + 133 optativos)</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">workspace_premium</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">6 Campos de Conocimiento:</span> Ciencias Cognitivas y del Comportamiento, Procesos Psicosociales y Culturales, Psicología Clínica y de la Salud, Psicología de la Educación, Psicología Organizacional, Psicobiología y Neurociencias</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">6 Campos de Conocimiento:</span> Ciencias Cognitivas y del Comportamiento, Procesos Psicosociales y Culturales, Psicología Clínica y de la Salud, Psicología de la Educación, Psicología Organizacional, Psicobiología y Neurociencias</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">location_on</span>
-                    <p class="font-body-md text-[32px] text-on-surface">Sede adicional en FES Iztacala y FES Zaragoza</p>
+                    <p class="font-body-md text-[38px] text-on-surface">Sede adicional en FES Iztacala y FES Zaragoza</p>
                 </li>
             </ul>
         </div>
@@ -413,19 +415,19 @@
             <ul class="flex flex-col gap-10">
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">history_edu</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Maestría en Psicología Profesional:</span> Diversas orientaciones con reconocimiento de calidad CONAHCYT</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Maestría en Psicología Profesional:</span> Diversas orientaciones con reconocimiento de calidad CONAHCYT</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">school</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Doctorado en Psicología:</span> Nivel de competencia internacional. Participan los Institutos de Neurobiología, Investigaciones Sociales y Psiquiatría</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Doctorado en Psicología:</span> Nivel de competencia internacional. Participan los Institutos de Neurobiología, Investigaciones Sociales y Psiquiatría</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">military_tech</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">PUEP:</span> Programa Único de Especializaciones en Psicología</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">PUEP:</span> Programa Único de Especializaciones en Psicología</p>
                 </li>
                 <li class="flex gap-8 items-start">
                     <span class="material-symbols-outlined text-secondary text-[48px] mt-2">auto_stories</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Educación Continua (DEC):</span> Actualización profesional y diplomados especializados</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Educación Continua (DEC):</span> Actualización profesional y diplomados especializados</p>
                 </li>
             </ul>
         </div>
@@ -441,75 +443,75 @@
         <h2 class="font-headline-md text-[56px] text-primary leading-tight">Comunidad</h2>
     </div>
     <!-- Panel Content -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
         <!-- Alumnado Section -->
         <section class="flex flex-col gap-10">
-            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[38px]">
                 <span class="material-symbols-outlined text-[40px]">person</span>
                 <span>Alumnado</span>
             </div>
             <div class="bg-surface-container-low rounded-2xl p-10 border-2 border-outline-variant">
-                <h3 class="font-headline-sm text-[40px] text-primary mb-4">Ingreso y Composición</h3>
+                <h3 class="font-headline-sm text-[38px] text-primary mb-4">Ingreso y Composición</h3>
                 <div class="flex flex-col gap-6">
                     <div class="flex gap-6 items-start">
                         <span class="material-symbols-outlined text-primary text-[40px]">trending_up</span>
-                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Demanda:</span> 23,267 aspirantes (Ciclo 23-24)</p>
+                        <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Demanda:</span> 23,267 aspirantes (Ciclo 23-24)</p>
                     </div>
                     <div class="flex gap-6 items-start">
                         <span class="material-symbols-outlined text-primary text-[40px]">check_circle</span>
-                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Lugares:</span> 3,643 (1 de cada 6 ingresa)</p>
+                        <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Lugares:</span> 3,643 (1 de cada 6 ingresa)</p>
                     </div>
                     <div class="flex gap-6 items-start">
                         <span class="material-symbols-outlined text-primary text-[40px]">wc</span>
-                        <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">Género:</span> 66% mujeres / 34% hombres</p>
+                        <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">Género:</span> 66% mujeres / 34% hombres</p>
                     </div>
                 </div>
             </div>
             <div>
-                <p class="font-bold text-[32px] text-on-surface mb-4">Puntaje de corte (Pase Reglamentado):</p>
+                <p class="font-bold text-[38px] text-on-surface mb-4">Puntaje de corte (Pase Reglamentado):</p>
                 <ul class="grid grid-cols-1 gap-4">
-                    <li class="flex items-center gap-4 text-[28px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>8.72 Sistema Escolarizado</li>
-                    <li class="flex items-center gap-4 text-[28px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>7.76 Sistema SUA</li>
+                    <li class="flex items-center gap-4 text-[38px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>8.72 Sistema Escolarizado</li>
+                    <li class="flex items-center gap-4 text-[38px] text-on-surface-variant"><span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>7.76 Sistema SUA</li>
                 </ul>
             </div>
         </section>
         <div class="h-2 bg-outline-variant"></div>
         <!-- Personal Académico Section -->
         <section class="flex flex-col gap-10">
-            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[38px]">
                 <span class="material-symbols-outlined text-[40px]">school</span>
                 <span>Personal académico</span>
             </div>
             <div class="flex flex-col gap-10">
                 <div>
-                    <h4 class="font-bold text-[36px] text-on-surface">479 académicos</h4>
-                    <p class="text-[32px] text-on-surface-variant mt-2">60% mujeres, 40% hombres. 76 miembros del SNI.</p>
+                    <h4 class="font-bold text-[38px] text-on-surface">479 académicos</h4>
+                    <p class="text-[38px] text-on-surface-variant mt-2">60% mujeres, 40% hombres. 76 miembros del SNI.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-[36px] text-on-surface">Formación y Ratio</h4>
-                    <p class="text-[32px] text-on-surface-variant mt-2">~75% cuenta con posgrado. 7.6 profesores de carrera por cada 100 alumnos (Promedio UNAM: 3.1).</p>
+                    <h4 class="font-bold text-[38px] text-on-surface">Formación y Ratio</h4>
+                    <p class="text-[38px] text-on-surface-variant mt-2">~75% cuenta con posgrado. 7.6 profesores de carrera por cada 100 alumnos (Promedio UNAM: 3.1).</p>
                 </div>
             </div>
             <div class="bg-primary/5 rounded-2xl p-8 border-2 border-primary/10">
-                <p class="text-[32px] text-primary font-bold">Personal total: ~830 personas</p>
-                <p class="text-[28px] text-on-surface-variant">479 académicos + 352 administrativos</p>
+                <p class="text-[38px] text-primary font-bold">Personal total: ~830 personas</p>
+                <p class="text-[38px] text-on-surface-variant">479 académicos + 352 administrativos</p>
             </div>
         </section>
         <div class="h-2 bg-outline-variant"></div>
         <!-- Egresados Section -->
         <section class="flex flex-col gap-10">
-            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[32px]">
+            <div class="flex items-center gap-4 text-secondary font-bold uppercase tracking-widest text-[38px]">
                 <span class="material-symbols-outlined text-[40px]">work</span>
                 <span>Egresados</span>
             </div>
             <div class="grid grid-cols-1 gap-8">
                 <div class="flex items-center gap-6">
                     <span class="material-symbols-outlined text-primary text-[48px]">verified</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">74.68%</span> trabaja a los 3-4 años de egreso</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">74.68%</span> trabaja a los 3-4 años de egreso</p>
                 </div>
                 <div class="flex items-center gap-6">
                     <span class="material-symbols-outlined text-primary text-[48px]">psychology</span>
-                    <p class="font-body-md text-[32px] text-on-surface"><span class="font-bold">76.27%</span> en trabajo relacionado con su profesión</p>
+                    <p class="font-body-md text-[38px] text-on-surface"><span class="font-bold">76.27%</span> en trabajo relacionado con su profesión</p>
                 </div>
             </div>
         </section>
@@ -525,7 +527,7 @@
         <h2 class="font-headline-md text-[56px] text-primary leading-tight">Noticias: Facultad de Psicología</h2>
     </div>
     <!-- Panel Content: Noticias (Gaceta UNAM embebida) -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
         <p id="noticias-fallback" class="font-body-md text-[28px] text-on-surface-variant leading-relaxed hidden">
             Si el contenido no se muestra, Gaceta UNAM bloquea la visualización embebida.
             <a class="text-primary underline" href="https://www.gaceta.unam.mx/tag/facultad-de-psicologia/" target="_blank" rel="noopener noreferrer">Ver la página en una pestaña nueva</a>.
@@ -602,7 +604,7 @@
             icon: 'psychology',
             colorClass: 'text-secondary',
             popupDescription: 'Ofrece la Licenciatura en Psicología, destacando por su alta calidad académica, sus programas de posgrado y su contribución fundamental a la investigación en salud mental y comportamiento.',
-            image: 'imag/qr.png'
+            image: 'imag/images-1.jpg'
         },
         medicina: {
             name: 'Facultad de Medicina',
@@ -667,9 +669,8 @@
         </div>
         <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">${place.name}</h2>
     </div>
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
         <p class="font-body-md text-[40px] text-on-surface leading-relaxed">${place.popupDescription}</p>
-        <a href="buscador.html" class="self-start px-12 py-5 rounded-xl font-label-md bg-primary text-on-primary shadow-md text-[32px]">Ver detalle completo en el mapa</a>
     </div>`;
     }
 
@@ -692,7 +693,7 @@
         </div>
         <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Resultados para "${query}"</h2>
     </div>
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-8">
         ${matches.length ? itemsHTML : emptyHTML}
     </div>`;
     }
@@ -708,6 +709,22 @@
             renderOtherPlacePanel(place);
         }
         if (searchInput) searchInput.value = '';
+        openInfoModal();
+    }
+
+    // --- Cierre del modal: oculta la tarjeta de información y el panel lateral, el mapa se expande ---
+    function closeInfoModal() {
+        document.getElementById('info-popup-card').classList.add('hidden');
+        document.getElementById('info-popup-card').classList.remove('flex');
+        document.getElementById('right-panel').classList.add('hidden');
+        document.getElementById('right-panel').classList.remove('flex');
+    }
+
+    function openInfoModal() {
+        document.getElementById('info-popup-card').classList.remove('hidden');
+        document.getElementById('info-popup-card').classList.add('flex');
+        document.getElementById('right-panel').classList.remove('hidden');
+        document.getElementById('right-panel').classList.add('flex');
     }
 
     function handleSearchInput(value) {
