@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Numeralia UNAM - Personal Académico 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    /* Base canvas tuned for a 3840x2160 (4K) display, matching the other pages in this project */
+    html {
+        font-size: 41.6px;
+    }
+    body {
+        margin: 0;
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+
+    #sidebar {
+        width: 664px;
+        transition: width 0.2s ease;
+        overflow-x: hidden;
+    }
+    #sidebar.collapsed {
+        width: 210px;
+    }
+    #sidebar.collapsed #sidebar-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    #sidebar.collapsed .sidebar-label {
+        display: none;
+    }
+    #sidebar.collapsed #sidebar-indicators a {
+        justify-content: center;
+    }
+    #sidebar.collapsed #sidebar-toggle {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213, 159, 15, 0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .level-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .filter-chip { transition: all 0.15s ease, opacity 0.15s ease; cursor: pointer; }
+    /* Fills the remaining height of a flex-column card so canvases/3D scenes
+       resize to whatever space is left after the heading, instead of a
+       hardcoded pixel height that can overflow a fixed-height viewport. */
+    .chart-fill {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+    .chart-fill canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: #191c1e;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 700;
+        padding: 8px 18px;
+        border-radius: 10px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, -110%);
+        transition: opacity 0.12s ease;
+        z-index: 50;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+    @keyframes pulse-flash {
+        0% { background-color: rgba(213, 159, 15, 0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+
+    /* Section 5: scroll-reveal for escolaridad cards */
+    .reveal-card {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal-card.revealed { opacity: 1; transform: translateY(0); }
+
+    /* Section 7: gender grid of 100 person icons, staggered fill-in.
+       Sized in vh (not px) so the 10x10 grid always fits the height the
+       flex layout hands it, instead of forcing a fixed footprint. */
+    #gender-grid {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: clamp(1px, 0.4vh, 9px);
+        align-content: center;
+    }
+    .gender-icon {
+        font-size: clamp(11px, 2.4vh, 30px);
+        line-height: 1;
+        font-variation-settings: 'FILL' 1, 'wght' 500;
+        opacity: 0;
+        transform: scale(0.5);
+        animation: genderPop 0.4s ease forwards;
+    }
+    @keyframes genderPop {
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Interacción 1: filtro por figura académica (dropdown, estilo consistente con poblacion-escolar.html) */
+    #figura-filter {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 32px;
+        transition: opacity 350ms ease-out;
+    }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    .kpi-clickable:active { border-color: #D59F0F; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #D59F0F;
+        color: #ffffff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 12px 26px;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213, 159, 15, 0.45);
+        border: 2px solid #ffffff;
+        opacity: 1;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        pointer-events: none;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-clickable:hover .kpi-click-hint {
+        transform: scale(1.1);
+        box-shadow: 0 8px 24px rgba(213, 159, 15, 0.6);
+    }
+    @keyframes kpiFlashBorder {
+        0% { box-shadow: 0 0 0 2px #D59F0F; }
+        100% { box-shadow: 0 0 0 2px rgba(213,159,15,0); }
+    }
+    .kpi-flash { animation: kpiFlashBorder 600ms ease-out; }
+    #kpi-paridad-bar-h, #kpi-paridad-bar-m {
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Interacción 2: toggle personas / nombramientos */
+    .toggle-pill-group { display: inline-flex; border-radius: 9999px; overflow: hidden; border: 2px solid #003D79; }
+    .toggle-pill {
+        background: #fff;
+        color: #003D79;
+        font-weight: 700;
+        font-size: 24px;
+        padding: 8px 26px;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .toggle-pill.active-toggle { background: #003D79; color: #fff; }
+
+    /* Interacción 4: modal */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: #fff;
+        border-radius: 32px;
+        max-width: 2600px;
+        width: 92%;
+        max-height: 88vh;
+        overflow-y: auto;
+        padding: 90px;
+        transform: scale(0.96);
+        opacity: 0;
+        transition: transform 200ms ease, opacity 200ms ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); opacity: 1; }
+    .modal-table { width: 100%; border-collapse: collapse; }
+    .modal-table th, .modal-table td { padding: 22px 26px; text-align: right; font-size: 34px; }
+    .modal-table th:first-child, .modal-table td:first-child { text-align: left; }
+    .modal-table thead th { background: #003D79; color: #fff; font-weight: 700; }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr.row-total { background: #003D79; color: #fff; font-weight: 700; }
+    .mini-bar-track { display: inline-block; width: 130px; height: 10px; border-radius: 5px; overflow: hidden; background: #edeef0; vertical-align: middle; margin-right: 14px; }
+    .mini-bar-fill { display: block; height: 100%; }
+    .majority-badge {
+        display: inline-block;
+        font-size: 22px;
+        font-weight: 700;
+        background: #F0FFF4;
+        color: #16A34A;
+        border-radius: 9999px;
+        padding: 2px 12px;
+        margin-left: 8px;
+        white-space: nowrap;
+    }
+    .majority-cell { background: #F0FFF4; }
+</style>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<!-- Brand -->
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="personal-academico.html">
+<span class="material-symbols-outlined text-[50px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<!-- ================= SECTION 1 — HEADER + FILTERS ================= -->
+<header class="mb-2 shrink-0 flex flex-wrap items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Personal Académico</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl mb-1">Concentrado estadístico del personal académico universitario por figura, subsistema y escolaridad.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label for="figura-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Figura Académica</label>
+<select id="figura-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<option value="todas">Todas</option>
+<option value="investigador">Investigador</option>
+<option value="profCarrera">Prof. de Carrera</option>
+<option value="tecAcademico">Téc. Académico</option>
+<option value="profAsignatura">Prof. de Asignatura</option>
+<option value="ayudantes">Ayudantes</option>
+<option value="otros">Otros</option>
+</select>
+</div>
+</header>
+<p id="figura-badge" class="mb-5 shrink-0 text-[24px] text-outline font-medium"></p>
+
+<!-- ================= SECTION 2 — KPI CARDS ================= -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
+<div id="kpi-total-card" class="kpi-card kpi-clickable card-institutional p-[44px] border-t-4 border-t-primary flex flex-col justify-start gap-4" title="Ver desglose por subsistema">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[46px]">groups</span>
+<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Total Académicos</span>
+</div>
+<span id="kpi-total-number" class="text-[58px] font-bold text-primary leading-none">43,032</span>
+<div class="flex flex-nowrap gap-2">
+<span id="kpi-total-h-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[26px] font-bold text-white whitespace-nowrap" style="background:#D59F0F">Hombres 23,004 (53.5%)</span>
+<span id="kpi-total-m-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[26px] font-bold text-white bg-primary whitespace-nowrap">Mujeres 20,028 (46.5%)</span>
+</div>
+</div>
+<div id="kpi-nombramientos-card" class="kpi-card card-institutional p-[44px] border-t-4 border-t-tertiary flex flex-col justify-start gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[46px]">badge</span>
+<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Nombramientos Totales</span>
+</div>
+<span class="text-[58px] font-bold text-primary leading-none">52,533</span><span class="inline-flex w-fit items-center rounded-full px-3 py-1 text-[26px] font-bold bg-tertiary/10 text-tertiary" style="margin-top:-2px">+1.22 nombramientos por persona</span>
+</div>
+<div class="kpi-card card-institutional p-[44px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[46px]">star</span>
+<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Figura Principal</span>
+</div>
+<span id="kpi-figura-label" class="text-[30px] font-bold text-secondary">Profesor de Asignatura</span>
+<span><span id="kpi-figura-number" class="text-[58px] font-bold text-primary leading-none">27,956</span> <span class="text-[24px] font-normal text-outline">personas</span></span></div>
+<div class="kpi-card card-institutional p-[44px] border-t-4 border-t-primary flex flex-col justify-start gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[46px]">balance</span>
+<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Paridad de Género</span>
+</div>
+<span class="text-[30px] font-bold text-on-surface-variant">Brecha de género</span>
+<div class="h-3 rounded-full overflow-hidden flex">
+<div id="kpi-paridad-bar-h" style="width:53.5%;background:#D59F0F" class="h-full"></div>
+<div id="kpi-paridad-bar-m" style="width:46.5%;background:#003D79" class="h-full"></div>
+</div>
+<span id="kpi-paridad-text" class="text-[27px] font-bold">H 23,004 · M 20,028</span></div>
+</div>
+
+<!-- ================= SECTIONS 3+4 — fill all remaining vertical space so every card fits on a single 2160px-tall screen ================= -->
+<div class="flex-1 min-h-0 flex flex-col gap-6">
+
+<!-- SECTION 3 — FIGURA ACADÉMICA, ESCOLARIDAD Y NOMBRAMIENTOS -->
+<div class="grid grid-cols-1 lg:grid-cols-4 items-stretch gap-6 flex-1 min-h-0">
+<div class="card-institutional p-6 lg:col-span-2 min-w-0 flex flex-col min-h-0">
+<div class="flex items-center justify-between gap-4 mb-4 shrink-0">
+<h3 id="fig-bar-title" class="font-headline-sm text-headline-sm text-primary">Personas por figura académica 2026</h3>
+<div class="toggle-pill-group shrink-0">
+<button type="button" id="toggle-personas" class="toggle-pill active-toggle">PERSONAS</button>
+<button type="button" id="toggle-nombramientos" class="toggle-pill">NOMBRAMIENTOS</button>
+</div>
+</div>
+<div class="chart-fill"><canvas id="fig-bar-canvas"></canvas></div>
+<p id="fig-bar-note" class="text-[22px] text-on-surface-variant mt-3 shrink-0">Se refiere al número de académicos sin duplicidad. Una persona con dos plazas cuenta una sola vez.</p>
+</div>
+
+<div class="reveal-card card-institutional p-6 flex flex-col min-w-0 min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Escolaridad del personal</h3>
+<div class="flex flex-wrap items-stretch gap-6 flex-1 min-h-0">
+<div class="relative flex-1 min-w-0" id="escolaridad-3d-container">
+<div id="escolaridad-3d-tooltip" class="chart-tooltip"></div>
+</div>
+<div id="escolaridad-3d-legend" class="space-y-2 flex-1 min-w-0 self-center"></div>
+</div>
+</div>
+
+<div class="card-institutional p-6 flex flex-col min-w-0 min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Nombramientos por figura</h3>
+<div class="flex items-stretch justify-center gap-6 flex-1 min-h-0">
+<div class="relative shrink-0 aspect-square max-w-full">
+<canvas id="appt-donut-canvas"></canvas>
+<div id="appt-donut-tooltip" class="chart-tooltip"></div>
+</div>
+<div class="text-center self-center">
+<span class="block text-[52px] font-bold text-primary leading-none">52,533</span>
+<span class="text-[26px] text-on-surface-variant">nombramientos</span>
+</div>
+</div>
+<div id="appt-legend" class="flex flex-wrap justify-center gap-3 mt-4 shrink-0"></div>
+</div>
+</div>
+
+<!-- SECTION 4 — SUBSISTEMAS -->
+<div class="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-6 flex-1 min-h-0">
+<div class="card-institutional p-6 min-w-0 flex flex-col min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Personal académico por subsistema</h3>
+<div class="chart-fill"><canvas id="subsistema-bar-canvas"></canvas></div>
+</div>
+<div class="card-institutional p-8 flex flex-col min-w-0 min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6 shrink-0">Distribución de género</h3>
+<div class="flex flex-wrap items-center justify-center gap-6 flex-1 min-h-0 overflow-hidden">
+<div id="gender-grid" class="w-full max-w-[470px] shrink"></div>
+<div class="flex flex-col gap-5 shrink-0">
+<div class="text-center">
+<span id="gender-h-number" class="block text-[56px] font-bold leading-none" style="color:#D59F0F">23,004</span>
+<span id="gender-h-label" class="text-[27px] text-on-surface-variant">Hombres (53.5%)</span>
+</div>
+<div class="text-center">
+<span id="gender-m-number" class="block text-[56px] font-bold leading-none" style="color:#003D79">20,028</span>
+<span id="gender-m-label" class="text-[27px] text-on-surface-variant">Mujeres (46.5%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</main>
+<footer class="border-t border-outline-variant bg-surface-container-lowest py-3 px-4 md:px-8 shrink-0">
+  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-outline text-label-md font-body-lg">
+      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+    </div>
+    <div class="flex flex-wrap gap-8">
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Créditos</a>
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+
+<!-- ================= INTERACCIÓN 4 — MODAL TOTAL ACADÉMICOS ================= -->
+<div id="total-modal-overlay" class="modal-overlay">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h2 class="text-[52px] font-bold text-primary leading-tight">Personal Académico por subsistema · 2026</h2>
+<button type="button" id="total-modal-close" class="text-outline text-[62px] leading-none shrink-0 ml-6" aria-label="Cerrar">&times;</button>
+</div>
+
+<!-- SECCIÓN 1: TABLA POR SUBSISTEMA -->
+<h3 class="text-[44px] font-bold text-primary mb-1">Distribución por subsistema · Personas 2026</h3>
+<p class="text-[28px] text-outline mb-6">Nómina quincena 03/2026 · Dirección General de Personal, UNAM</p>
+<div class="overflow-x-auto mb-10">
+<table class="modal-table">
+<thead>
+<tr><th>Subsistema</th><th>Hombres</th><th>% H</th><th>Mujeres</th><th>% M</th><th>Total</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Facultades</td><td>11,984</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:55.3%;background:#D59F0F"></span></span>55.3%</td>
+<td>9,701</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:44.7%;background:#003D79"></span></span>44.7%</td>
+<td>21,685</td>
+</tr>
+<tr>
+<td>Unidades multidisciplinarias</td><td>5,305</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:51.8%;background:#D59F0F"></span></span>51.8%</td>
+<td>4,943</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:48.2%;background:#003D79"></span></span>48.2%</td>
+<td>10,248</td>
+</tr>
+<tr>
+<td>CCH</td><td>1,621</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:51.5%;background:#D59F0F"></span></span>51.5%</td>
+<td>1,525</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:48.5%;background:#003D79"></span></span>48.5%</td>
+<td>3,146</td>
+</tr>
+<tr>
+<td>Inst. investigación científica</td><td>2,005</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:63.9%;background:#D59F0F"></span></span>63.9%</td>
+<td>1,131</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:36.1%;background:#003D79"></span></span>36.1%</td>
+<td>3,136</td>
+</tr>
+<tr>
+<td>ENP</td><td>1,105</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:45.9%;background:#D59F0F"></span></span>45.9%</td>
+<td>1,304</td>
+<td class="majority-cell"><span class="mini-bar-track"><span class="mini-bar-fill" style="width:54.1%;background:#003D79"></span></span>54.1%<span class="majority-badge">♀ mayoría</span></td>
+<td>2,409</td>
+</tr>
+<tr>
+<td>Inst. investigación humanística</td><td>742</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:46.6%;background:#D59F0F"></span></span>46.6%</td>
+<td>850</td>
+<td class="majority-cell"><span class="mini-bar-track"><span class="mini-bar-fill" style="width:53.4%;background:#003D79"></span></span>53.4%<span class="majority-badge">♀ mayoría</span></td>
+<td>1,592</td>
+</tr>
+<tr>
+<td>Otras dependencias</td><td>554</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:51.7%;background:#D59F0F"></span></span>51.7%</td>
+<td>517</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:48.3%;background:#003D79"></span></span>48.3%</td>
+<td>1,071</td>
+</tr>
+<tr>
+<td>Escuelas nacionales</td><td>344</td>
+<td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:39.7%;background:#D59F0F"></span></span>39.7%</td>
+<td>523</td>
+<td class="majority-cell"><span class="mini-bar-track"><span class="mini-bar-fill" style="width:60.3%;background:#003D79"></span></span>60.3%<span class="majority-badge">♀ mayoría</span></td>
+<td>867</td>
+</tr>
+<tr class="row-total">
+<td>TOTAL</td><td>23,004</td><td>53.5%</td><td>20,028</td><td>46.5%</td><td>43,032</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="text-[24px] text-outline">Fuente: Coordinación de Planeación, Evaluación y Simplificación de la Gestión Institucional, UNAM · Cifras obtenidas de nóminas proporcionadas por la DGP</p>
+</div>
+</div>
+<script>
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+    function fmt(n) { return n.toLocaleString('es-MX'); }
+
+    // ---------- Number counter animation ----------
+    function animateNumber(el, to, duration) {
+        if (!el) return;
+        duration = duration || 500;
+        var from = parseFloat((el.textContent || '0').replace(/[^0-9.\-]/g, '')) || 0;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(Math.round(from + (to - from) * eased));
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = fmt(to);
+        }
+        requestAnimationFrame(step);
+    }
+
+    function extractNums(text) {
+        var m = (text || '').match(/[\d,]+\.?\d*/g) || [];
+        return m.map(function (s) { return parseFloat(s.replace(/,/g, '')); });
+    }
+
+    function animateCompound(el, toVals, renderFn, duration) {
+        if (!el) return;
+        duration = duration || 500;
+        var fromVals = extractNums(el.textContent);
+        if (fromVals.length !== toVals.length) fromVals = toVals.slice();
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var vals = toVals.map(function (t, i) { return fromVals[i] + (t - fromVals[i]) * eased; });
+            el.textContent = renderFn(vals);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = renderFn(toVals);
+        }
+        requestAnimationFrame(step);
+    }
+
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    function hexToRgba(hex, alpha) {
+        var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+    // ---------- Dataset global: figuras académicas ----------
+    var FIGURAS = {
+        todas: {
+            label: 'Todas las figuras',
+            total: 43032,
+            hombres: 23004, pctH: 53.5,
+            mujeres: 20028, pctM: 46.5,
+            nombramientos: 52533,
+            barChart: [
+                { fig: 'Investigador', pH: 1683, pM: 1030, total: 2713, nH: 1683, nM: 1030, nTotal: 2713 },
+                { fig: 'Prof. de Carrera', pH: 2965, pM: 2649, total: 5614, nH: 2965, nM: 2649, nTotal: 5614 },
+                { fig: 'Téc. Académico', pH: 2240, pM: 2362, total: 4602, nH: 2249, nM: 2366, nTotal: 4615 },
+                { fig: 'Prof. de Asignatura', pH: 14903, pM: 13053, total: 27956, nH: 18354, nM: 16260, nTotal: 34614 },
+                { fig: 'Ayudantes', pH: 2538, pM: 2214, total: 4752, nH: 2568, nM: 2264, nTotal: 4832 },
+                { fig: 'Otros', pH: 102, pM: 42, total: 144, nH: 103, nM: 42, nTotal: 145 }
+            ]
+        },
+        investigador: { label: 'Investigador', total: 2713, hombres: 1683, pctH: 62.0, mujeres: 1030, pctM: 38.0, nombramientos: 2713 },
+        profCarrera: { label: 'Profesor de Carrera', total: 5614, hombres: 2965, pctH: 52.8, mujeres: 2649, pctM: 47.2, nombramientos: 5614 },
+        tecAcademico: { label: 'Técnico Académico', total: 4602, hombres: 2240, pctH: 48.7, mujeres: 2362, pctM: 51.3, nombramientos: 4615 },
+        profAsignatura: { label: 'Profesor de Asignatura', total: 27956, hombres: 14903, pctH: 53.3, mujeres: 13053, pctM: 46.7, nombramientos: 34614 },
+        ayudantes: { label: 'Ayudantes', total: 4752, hombres: 2538, pctH: 53.4, mujeres: 2214, pctM: 46.6, nombramientos: 4832 },
+        otros: { label: 'Otros (visitantes/eméritos)', total: 144, hombres: 102, pctH: 70.8, mujeres: 42, pctM: 29.2, nombramientos: 145 }
+    };
+    var figuraKeys = ['investigador', 'profCarrera', 'tecAcademico', 'profAsignatura', 'ayudantes', 'otros'];
+    var figuraLabels = ['Investigador', 'Prof. de Carrera', 'Téc. Académico', 'Prof. de Asignatura', 'Ayudantes', 'Otros'];
+    var currentFigura = 'todas';
+    var currentMode = 'personas';
+
+    // ---------- Section 3 left: grouped bar chart (personas/nombramientos + dimming) ----------
+    var figChart = new Chart(document.getElementById('fig-bar-canvas'), {
+        type: 'bar',
+        data: {
+            labels: figuraLabels,
+            datasets: [
+                { label: 'Hombres', data: [], backgroundColor: [], barPercentage: 0.9, categoryPercentage: 0.85 },
+                { label: 'Mujeres', data: [], backgroundColor: [], barPercentage: 0.9, categoryPercentage: 0.85 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 24, right: 24 } },
+            animation: { duration: 0 },
+            scales: {
+                x: { grid: { display: false }, ticks: { font: { size: 28 } } },
+                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 22 } } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 28 },
+                    bodyFont: { size: 26 },
+                    padding: 16,
+                    callbacks: {
+                        title: function (items) { return figuraLabels[items[0].dataIndex]; },
+                        label: function () { return ''; },
+                        afterBody: function (items) {
+                            var i = items[0].dataIndex;
+                            var row = FIGURAS.todas.barChart[i];
+                            var h = currentMode === 'personas' ? row.pH : row.nH;
+                            var m = currentMode === 'personas' ? row.pM : row.nM;
+                            var t = currentMode === 'personas' ? row.total : row.nTotal;
+                            return ['Hombres: ' + fmt(h), 'Mujeres: ' + fmt(m), 'Total: ' + fmt(t)];
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    function renderFigChart(duration) {
+        var hKey = currentMode === 'personas' ? 'pH' : 'nH';
+        var mKey = currentMode === 'personas' ? 'pM' : 'nM';
+        var dataH = FIGURAS.todas.barChart.map(function (r) { return r[hKey]; });
+        var dataM = FIGURAS.todas.barChart.map(function (r) { return r[mKey]; });
+        var bgH = figuraKeys.map(function (k) { return (currentFigura === 'todas' || k === currentFigura) ? '#D59F0F' : hexToRgba('#D59F0F', 0.25); });
+        var bgM = figuraKeys.map(function (k) { return (currentFigura === 'todas' || k === currentFigura) ? '#003D79' : hexToRgba('#003D79', 0.25); });
+        figChart.data.datasets[0].data = dataH;
+        figChart.data.datasets[0].backgroundColor = bgH;
+        figChart.data.datasets[1].data = dataM;
+        figChart.data.datasets[1].backgroundColor = bgM;
+        figChart.options.animation.duration = duration || 0;
+        figChart.update();
+    }
+
+    // ---------- Section 3 right: nombramientos por figura donut ----------
+    var apptLabels = ['Profesor de Asignatura', 'Prof. de Carrera', 'Ayudantes', 'Téc. Académico', 'Investigador', 'Otros'];
+    var apptKeys = ['profAsignatura', 'profCarrera', 'ayudantes', 'tecAcademico', 'investigador', 'otros'];
+    var apptData = [34614, 5614, 4832, 4615, 2713, 145];
+    var apptColors = ['#003D79', '#D59F0F', '#8C7146', '#4A7CB5', '#6BA3D6', '#C8C8C8'];
+    var apptPct = [65.9, 10.7, 9.2, 8.8, 5.1, 0.3];
+
+    var apptChart = new Chart(document.getElementById('appt-donut-canvas'), {
+        type: 'doughnut',
+        data: { labels: apptLabels, datasets: [{ data: apptData, backgroundColor: apptColors.slice(), offset: [0, 0, 0, 0, 0, 0], borderWidth: 2, borderColor: '#fff', cutout: '60%', hoverOffset: 16 }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 350 },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 27 },
+                    bodyFont: { size: 25 },
+                    padding: 14,
+                    callbacks: { label: function (ctx) { return ctx.label + ': ' + fmt(ctx.parsed) + ' (' + apptPct[ctx.dataIndex] + '%)'; } }
+                }
+            }
+        }
+    });
+
+    function renderApptChart() {
+        var bg = apptColors.map(function (c, i) { return (currentFigura === 'todas' || apptKeys[i] === currentFigura) ? c : hexToRgba(c, 0.3); });
+        var offsets = apptKeys.map(function (k) { return (currentFigura !== 'todas' && k === currentFigura) ? 12 : 0; });
+        apptChart.data.datasets[0].backgroundColor = bg;
+        apptChart.data.datasets[0].offset = offsets;
+        apptChart.update();
+    }
+
+    var apptLegend = $('#appt-legend');
+    apptLabels.forEach(function (label, i) {
+        var chip = document.createElement('span');
+        chip.className = 'inline-flex items-center gap-2 text-[23px] font-bold text-on-surface-variant';
+        chip.innerHTML = '<span class="w-3 h-3 rounded-full inline-block" style="background:' + apptColors[i] + '"></span>' + label + ' · ' + apptPct[i] + '%';
+        apptLegend.appendChild(chip);
+    });
+
+    // ---------- Section 4 left: horizontal stacked bar (subsistemas, personas) ----------
+    var subLabels = ['Facultades', 'Unidades multidisciplinarias', 'CCH', 'Inst. investigación científica', 'ENP', 'Inst. investigación humanística', 'Otras dependencias', 'Escuelas nacionales'];
+    var subH = [11984, 5305, 1621, 2005, 1105, 742, 554, 344];
+    var subM = [9701, 4943, 1525, 1131, 1304, 850, 517, 523];
+    var subTotal = subH.map(function (v, i) { return v + subM[i]; });
+
+    var rowBgPlugin = {
+        id: 'rowBg',
+        beforeDatasetsDraw: function (chart) {
+            var ctx = chart.ctx, area = chart.chartArea, yScale = chart.scales.y;
+            var rowH = yScale.height / subLabels.length;
+            subLabels.forEach(function (_, i) {
+                if (i % 2 === 1) {
+                    var centerY = yScale.getPixelForValue(i);
+                    ctx.save();
+                    ctx.fillStyle = '#F4F5F7';
+                    ctx.fillRect(area.left, centerY - rowH / 2, area.right - area.left, rowH);
+                    ctx.restore();
+                }
+            });
+        }
+    };
+
+    var totalLabelPlugin = {
+        id: 'totalLabel',
+        afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(1);
+            meta.data.forEach(function (bar, i) {
+                var props = bar.getProps(['x', 'y'], true);
+                ctx.save();
+                ctx.font = "bold 29px 'Libre Franklin'";
+                ctx.fillStyle = '#191c1e';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(fmt(subTotal[i]), props.x + 10, props.y);
+                ctx.restore();
+            });
+        }
+    };
+
+    new Chart(document.getElementById('subsistema-bar-canvas'), {
+        type: 'bar',
+        data: {
+            labels: subLabels,
+            datasets: [
+                { label: 'Hombres', data: subH, backgroundColor: '#D59F0F' },
+                { label: 'Mujeres', data: subM, backgroundColor: '#003D79' }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { right: 80 } },
+            scales: {
+                x: { stacked: true, grid: { color: '#edeef0' }, ticks: { font: { size: 27 } } },
+                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 28 } } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 27 },
+                    bodyFont: { size: 25 },
+                    padding: 16,
+                    callbacks: {
+                        afterBody: function (items) {
+                            var i = items[0].dataIndex;
+                            return ['Hombres: ' + fmt(subH[i]), 'Mujeres: ' + fmt(subM[i]), 'Total: ' + fmt(subTotal[i])];
+                        }
+                    }
+                }
+            }
+        },
+        plugins: [rowBgPlugin, totalLabelPlugin]
+    });
+
+    // ---------- Section 5: escolaridad · 3D pie (total, sin desglose) ----------
+    var escLabels = ['Doctorado', 'Maestría', 'Licenciatura', 'Especialización'];
+    var escData = [71.3, 18.7, 9.5, 0.5];
+    var escColorsHex = ['#003D79', '#D59F0F', '#8C7146', '#C8C8C8'];
+    var escColors = [0x003D79, 0xD59F0F, 0x8C7146, 0xC8C8C8];
+    var escTotal = escData.reduce(function (a, b) { return a + b; }, 0);
+
+    (function () {
+        var container = document.getElementById('escolaridad-3d-container');
+        var tooltip = document.getElementById('escolaridad-3d-tooltip');
+        if (!container || !window.THREE) return;
+        var w = container.clientWidth, h = container.clientHeight;
+        if (!w || !h) return;
+        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(window.devicePixelRatio || 1);
+        container.appendChild(renderer.domElement);
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+        camera.position.set(0, 3.3, 5.1);
+        camera.lookAt(0, 0, 0);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+        var dir = new THREE.DirectionalLight(0xffffff, 0.55);
+        dir.position.set(3, 5, 4);
+        scene.add(dir);
+
+        var group = new THREE.Group();
+        scene.add(group);
+        var startAngle = 0;
+        var meshes = [];
+        var height = 0.7;
+        escData.forEach(function (val, i) {
+            var frac = val / escTotal;
+            var angle = frac * Math.PI * 2 * 0.985;
+            var geo = new THREE.CylinderGeometry(1.35, 1.35, height, 32, 1, false, startAngle, angle);
+            var mat = new THREE.MeshStandardMaterial({ color: escColors[i] });
+            var mesh = new THREE.Mesh(geo, mat);
+            mesh.position.y = height / 2;
+            mesh.userData = { index: i, baseColor: escColors[i] };
+            group.add(mesh);
+            meshes.push(mesh);
+            startAngle += angle + 0.015;
+        });
+
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+        var hovered = null;
+
+        renderer.domElement.addEventListener('mousemove', function (e) {
+            var rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            var hits = raycaster.intersectObjects(meshes);
+            if (hovered) { hovered.material.color.setHex(hovered.userData.baseColor); hovered.material.emissive.setHex(0x000000); hovered = null; }
+            if (hits.length) {
+                hovered = hits[0].object;
+                hovered.material.emissive.setHex(0x333333);
+                if (tooltip) {
+                    tooltip.style.left = (e.clientX - rect.left) + 'px';
+                    tooltip.style.top = (e.clientY - rect.top) + 'px';
+                    tooltip.textContent = escLabels[hovered.userData.index] + ': ' + escData[hovered.userData.index] + '%';
+                    tooltip.classList.add('visible');
+                }
+            } else if (tooltip) {
+                tooltip.classList.remove('visible');
+            }
+            renderer.render(scene, camera);
+        });
+        renderer.domElement.addEventListener('mouseleave', function () {
+            if (hovered) { hovered.material.color.setHex(hovered.userData.baseColor); hovered.material.emissive.setHex(0x000000); hovered = null; }
+            if (tooltip) tooltip.classList.remove('visible');
+            renderer.render(scene, camera);
+        });
+
+        renderer.render(scene, camera);
+
+        window.addEventListener('resize', function () {
+            var w2 = container.clientWidth, h2 = container.clientHeight;
+            if (!w2 || !h2) return;
+            renderer.setSize(w2, h2);
+            camera.aspect = w2 / h2;
+            camera.updateProjectionMatrix();
+            renderer.render(scene, camera);
+        });
+    })();
+
+    var escLegend = document.getElementById('escolaridad-3d-legend');
+    if (escLegend) {
+        escLabels.forEach(function (label, i) {
+            var row = document.createElement('div');
+            row.className = 'flex items-center gap-4 text-[27px]';
+            row.innerHTML = '<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:' + escColorsHex[i] + '"></span>' + label + '</span>' +
+                '<span class="font-bold">' + escData[i] + '%</span>';
+            escLegend.appendChild(row);
+        });
+    }
+
+    // ---------- Section 5: scroll-reveal ----------
+    var revealEls = $$('.reveal-card');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+        revealEls.forEach(function (el) { el.classList.add('revealed'); });
+    }
+
+    // ---------- Section 7: gender grid (100 person icons, staggered fill-in) ----------
+    var genderGrid = $('#gender-grid');
+    function rebuildGenderGrid(pctH) {
+        if (!genderGrid) return;
+        genderGrid.innerHTML = '';
+        var totalIcons = 100, filled = Math.round(pctH);
+        for (var i = 0; i < totalIcons; i++) {
+            var icon = document.createElement('span');
+            icon.className = 'material-symbols-outlined gender-icon';
+            icon.textContent = 'person';
+            icon.style.color = i < filled ? '#D59F0F' : '#003D79';
+            icon.style.animationDelay = (i * 6) + 'ms';
+            genderGrid.appendChild(icon);
+        }
+    }
+
+    // ---------- Interacción 1: chips filtro por figura académica ----------
+    function updateKPIs(key) {
+        var f = FIGURAS[key];
+        animateNumber($('#kpi-total-number'), f.total);
+        animateCompound($('#kpi-total-h-pill'), [f.hombres, f.pctH], function (v) {
+            return 'Hombres ' + fmt(Math.round(v[0])) + ' (' + v[1].toFixed(1) + '%)';
+        });
+        animateCompound($('#kpi-total-m-pill'), [f.mujeres, f.pctM], function (v) {
+            return 'Mujeres ' + fmt(Math.round(v[0])) + ' (' + v[1].toFixed(1) + '%)';
+        });
+
+        $('#kpi-figura-label').textContent = f.label;
+        animateNumber($('#kpi-figura-number'), f.total);
+
+        $('#kpi-paridad-bar-h').style.width = f.pctH + '%';
+        $('#kpi-paridad-bar-m').style.width = f.pctM + '%';
+        animateCompound($('#kpi-paridad-text'), [f.hombres, f.mujeres], function (v) {
+            return 'H ' + fmt(Math.round(v[0])) + ' · M ' + fmt(Math.round(v[1]));
+        });
+
+        animateNumber($('#gender-h-number'), f.hombres);
+        animateCompound($('#gender-h-label'), [f.pctH], function (v) {
+            return 'Hombres (' + v[0].toFixed(1) + '%)';
+        });
+        animateNumber($('#gender-m-number'), f.mujeres);
+        animateCompound($('#gender-m-label'), [f.pctM], function (v) {
+            return 'Mujeres (' + v[0].toFixed(1) + '%)';
+        });
+        rebuildGenderGrid(f.pctH);
+
+        var badge = $('#figura-badge');
+        if (key === 'todas') {
+            badge.textContent = '';
+        } else {
+            var pct = f.total / FIGURAS.todas.total * 100;
+            animateCompound(badge, [pct], function (v) {
+                return 'Representa el ' + v[0].toFixed(1) + '% del total de académicos';
+            });
+        }
+    }
+
+    function selectFigura(key) {
+        currentFigura = key;
+        figuraFilter.value = key;
+        updateKPIs(key);
+        renderFigChart(350);
+        renderApptChart();
+    }
+
+    var figuraFilter = $('#figura-filter');
+    figuraFilter.addEventListener('change', function () { selectFigura(figuraFilter.value); });
+
+    // ---------- Interacción 2: toggle personas / nombramientos ----------
+    var figBarTitle = $('#fig-bar-title');
+    var figBarNote = $('#fig-bar-note');
+    var toggleBtnPersonas = $('#toggle-personas');
+    var toggleBtnNombramientos = $('#toggle-nombramientos');
+    var nombramientosCard = $('#kpi-nombramientos-card');
+    var NOTE_PERSONAS = 'Se refiere al número de académicos sin duplicidad. Una persona con dos plazas cuenta una sola vez.';
+    var NOTE_NOMBRAMIENTOS = 'Incluye todos los nombramientos activos. Una persona puede tener más de un nombramiento (1.22 promedio).';
+
+    function setMode(mode) {
+        currentMode = mode;
+        toggleBtnPersonas.classList.toggle('active-toggle', mode === 'personas');
+        toggleBtnNombramientos.classList.toggle('active-toggle', mode === 'nombramientos');
+        figBarTitle.textContent = mode === 'personas' ? 'Personas por figura académica 2026' : 'Nombramientos por figura académica 2026';
+        figBarNote.textContent = mode === 'personas' ? NOTE_PERSONAS : NOTE_NOMBRAMIENTOS;
+        renderFigChart(400);
+        if (mode === 'nombramientos') {
+            nombramientosCard.classList.remove('kpi-flash');
+            void nombramientosCard.offsetWidth;
+            nombramientosCard.classList.add('kpi-flash');
+        }
+    }
+    toggleBtnPersonas.addEventListener('click', function () { setMode('personas'); });
+    toggleBtnNombramientos.addEventListener('click', function () { setMode('nombramientos'); });
+
+    // ---------- Interacción 4: modal "Total Académicos" ----------
+    var totalModalOverlay = $('#total-modal-overlay');
+    function openTotalModal() { totalModalOverlay.classList.add('open'); }
+    function closeTotalModal() { totalModalOverlay.classList.remove('open'); }
+    $('#kpi-total-card').addEventListener('click', openTotalModal);
+    $('#total-modal-close').addEventListener('click', closeTotalModal);
+    totalModalOverlay.addEventListener('click', function (e) {
+        if (e.target === totalModalOverlay) closeTotalModal();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeTotalModal();
+    });
+
+    // ---------- Estado inicial ----------
+    selectFigura('todas');
+    setMode('personas');
+
+
+    // ---------- Sidebar indicator selection ----------
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto') return;
+            e.preventDefault();
+            alert('El indicador "' + name + '" estará disponible próximamente.');
+        });
+    });
+
+    // ---------- Sidebar collapse toggle (button lives inside the sidebar itself) ----------
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+})();
+</script>
+</body>
+</html>

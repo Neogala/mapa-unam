@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Numeralia UNAM - Investigación 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    /* Base canvas tuned for a 3840x2160 (4K) display, matching the other pages in this project */
+    html {
+        font-size: 41.6px;
+    }
+    body {
+        margin: 0;
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+
+    #sidebar {
+        width: 664px;
+        transition: width 0.2s ease;
+        overflow-x: hidden;
+    }
+    #sidebar.collapsed {
+        width: 210px;
+    }
+    #sidebar.collapsed #sidebar-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    #sidebar.collapsed .sidebar-label {
+        display: none;
+    }
+    #sidebar.collapsed #sidebar-indicators a {
+        justify-content: center;
+    }
+    #sidebar.collapsed #sidebar-toggle {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213, 159, 15, 0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .bar-fill { transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+    .chart-canvas {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+    .chart-canvas canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: #191c1e;
+        color: #fff;
+        font-size: 32px;
+        font-weight: 700;
+        padding: 10px 22px;
+        border-radius: 10px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, -110%);
+        transition: opacity 0.12s ease;
+        z-index: 50;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+
+    /* Section 8 accent panel */
+    .accent-panel {
+        background: #003D79;
+    }
+    .counter-ring-wrap {
+        position: relative;
+        width: 148px;
+        height: 148px;
+    }
+    .counter-ring-wrap svg { transform: rotate(-90deg); }
+    .counter-ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 8; }
+    .counter-ring-fg {
+        fill: none;
+        stroke: #D59F0F;
+        stroke-width: 8;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .counter-number {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #ffffff;
+    }
+    .comparison-bar-track {
+        height: 0.7rem;
+        border-radius: 9999px;
+        overflow: hidden;
+        display: flex;
+        background: rgba(255,255,255,0.12);
+    }
+    .comparison-seg { height: 100%; transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    @keyframes pulse-flash {
+        0% { background-color: rgba(213, 159, 15, 0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+
+    /* ===== Filtro general (Subsistema) — mismo estilo que #figura-filter en personal-academico.html ===== */
+    #gf-subsistema {
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: #003D79 !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 32px;
+        border-color: #003D79 !important;
+        transition: opacity 350ms ease-out;
+    }
+
+    /* ===== KPI cards clickable (open detail modal) ===== */
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute;
+        bottom: 18px;
+        right: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #D59F0F;
+        color: #ffffff;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 8px 20px;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213, 159, 15, 0.45);
+        border: 2px solid #ffffff;
+        pointer-events: none;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 30px; }
+    @keyframes kpiFlashBorder {
+        0% { box-shadow: 0 0 0 2px #D59F0F; }
+        100% { box-shadow: 0 0 0 2px rgba(213,159,15,0); }
+    }
+    .kpi-flash { animation: kpiFlashBorder 600ms ease-out; }
+
+    /* ===== Locked (no subsistema breakdown) indicator ===== */
+    .lock-badge {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        background: #F4F5F7;
+        color: #737781;
+        cursor: pointer;
+        z-index: 5;
+    }
+    .lock-badge .material-symbols-outlined { font-size: 26px; }
+    .lock-tooltip {
+        position: absolute;
+        top: 66px;
+        right: 0;
+        background: #191c1e;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+        z-index: 6;
+    }
+    .lock-tooltip.visible { opacity: 1; }
+
+    /* ===== Modales de detalle ===== */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: #fff;
+        border-radius: 32px;
+        max-width: 2450px;
+        width: 92%;
+        max-height: 88vh;
+        overflow-y: auto;
+        padding: 90px;
+        transform: scale(0.96);
+        opacity: 0;
+        transition: transform 200ms ease, opacity 200ms ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); opacity: 1; }
+    .modal-table { width: 100%; border-collapse: collapse; }
+    .modal-table th, .modal-table td { padding: 22px 26px; text-align: right; font-size: 30px; }
+    .modal-table th:first-child, .modal-table td:first-child { text-align: left; }
+    .modal-table thead th { background: #003D79; color: #fff; font-weight: 700; }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr.row-total { background: #003D79; color: #fff; font-weight: 700; }
+    .mini-bar-track { display: inline-block; width: 130px; height: 10px; border-radius: 5px; overflow: hidden; background: #edeef0; vertical-align: middle; margin-right: 14px; }
+    .mini-bar-fill { display: block; height: 100%; }
+    .mini-bar-split-track { display: flex; width: 220px; height: 14px; border-radius: 7px; overflow: hidden; background: #edeef0; vertical-align: middle; margin-right: 14px; }
+    .chip-badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 10px 26px;
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+    }
+    .nd-text { color: #9CA3AF; font-style: italic; }
+    details.papiit-detail > summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: #003D79;
+        font-size: 28px;
+        padding: 12px 0;
+        list-style: none;
+    }
+    details.papiit-detail > summary::-webkit-details-marker { display: none; }
+    details.papiit-detail > summary::before {
+        content: '▸ ';
+        color: #D59F0F;
+    }
+    details.papiit-detail[open] > summary::before {
+        content: '▾ ';
+    }
+</style>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<!-- Brand -->
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="investigacion.html">
+<span class="material-symbols-outlined text-[50px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<!-- ================= SECTION 1 — HEADER + FILTRO ================= -->
+<header class="mb-2 shrink-0 flex flex-wrap items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Investigación</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl mb-1 whitespace-nowrap">Concentrado estadístico de investigadores SNII, proyectos, producción académica y tesis dirigidas · 2025-2026.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label for="gf-subsistema" class="text-[30px] font-bold text-outline uppercase tracking-wider">Subsistema</label>
+<select id="gf-subsistema" class="text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<option value="todos">Todos los subsistemas</option>
+<option value="cientifica">Inst. investigación científica</option>
+<option value="humanistica">Inst. investigación humanística</option>
+<option value="facultades">Facultades</option>
+<option value="unidades">Unidades multidisciplinarias</option>
+<option value="escuelas">Escuelas nacionales</option>
+<option value="enp">ENP</option>
+<option value="cch">CCH</option>
+<option value="otras">Otras dependencias</option>
+</select>
+</div>
+</header>
+<p id="gf-badge" class="mb-5 shrink-0 text-[24px] text-outline font-medium"></p>
+
+<!-- ================= SECTION 2 — KPI CARDS ================= -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 items-stretch gap-6 mb-5 shrink-0">
+<!-- Card 1: Investigadores SNII -->
+<div id="kpi-snii-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-l-4 border-l-tertiary flex flex-col justify-start gap-3" title="Ver detalle de investigadores SNII">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[54px]">military_tech</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Inv. con SNII</span>
+</div>
+<span id="kpi-snii-number" class="text-[62px] font-bold text-primary leading-none">6,953</span>
+<div class="flex flex-wrap items-center gap-2">
+<span id="kpi-snii-carrera" class="inline-flex items-center rounded-full px-3 py-1 text-[31px] font-bold text-on-surface-variant bg-surface-container whitespace-nowrap">4,989 de carrera</span>
+</div>
+</div>
+<!-- Card 2: Proyectos de investigación -->
+<div id="kpi-proyectos-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-t-4 border-t-primary flex flex-col justify-start gap-3" title="Ver detalle de proyectos de investigación">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[54px]">science</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Proy. de investigación</span>
+</div>
+<span id="kpi-proyectos-number" class="text-[62px] font-bold text-primary leading-none">6,464</span>
+<span id="kpi-proyectos-note" class="text-[27px] text-on-surface-variant font-bold -mt-1">Activos en 2025</span>
+</div>
+<!-- Card 3: Productos publicados -->
+<div id="kpi-productos-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3" title="Ver detalle de productos publicados">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[54px]">auto_stories</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Product. publicados</span>
+</div>
+<span id="kpi-productos-number" class="text-[62px] font-bold text-primary leading-none">9,785</span>
+</div>
+<!-- Card 4: Artículos indizados -->
+<div class="card-institutional p-[40px] border-t-4 border-t-tertiary flex flex-col justify-start gap-3" style="position:relative">
+<span class="lock-badge" id="lock-articulos" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[54px]">verified</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Art. indizados</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<span class="block text-[30px] text-outline uppercase font-bold">ISI WoS</span>
+<span class="block text-[52px] font-bold" style="color:#003D79">5,211</span>
+</div>
+<div>
+<span class="block text-[30px] text-outline uppercase font-bold">SCOPUS</span>
+<span class="block text-[52px] font-bold" style="color:#D59F0F">5,515</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Tesis dirigidas -->
+<div id="kpi-tesis-card" class="card-institutional p-[40px] border-t-4 border-t-primary flex flex-col justify-start gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[54px]">history_edu</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Tesis dirigidas</span>
+</div>
+<span id="kpi-tesis-number" class="text-[62px] font-bold text-primary leading-none">2,497</span>
+</div>
+</div>
+
+<!-- ================= ROW A — SNII nivel · Proyectos por área · Tesis dirigidas ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-3 items-stretch gap-6 mb-5 min-h-0" style="flex:5.6925 1 0%">
+<!-- SNII por nivel (doughnut) -->
+<div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0" style="position:relative">
+<span class="lock-badge" id="lock-snii-nivel" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-2 shrink-0 text-center">Investigadores SNII por nivel</h3>
+<div class="flex-1 min-h-0 flex items-center justify-center gap-6">
+<div class="relative shrink-0" style="aspect-ratio:1/1;height:80%">
+<div class="chart-canvas h-full">
+<canvas id="snii-nivel-donut-canvas"></canvas>
+</div>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="text-headline-md font-bold text-primary leading-none">6,953</span>
+<span class="text-[30px] text-outline font-bold">TOTAL</span>
+</div>
+</div>
+<div id="snii-nivel-legend" class="flex-none min-w-0 space-y-3 flex flex-col justify-center items-center"></div>
+</div>
+</div>
+<!-- Proyectos por área de conocimiento (polar area) -->
+<div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0 overflow-hidden" style="position:relative">
+<span class="lock-badge" id="lock-proyectos-area" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Distribución por área de conocimiento</h3>
+<div class="flex-1 min-h-0 flex items-center gap-4">
+<div class="relative shrink-0" style="aspect-ratio:1/1;height:77%">
+<div class="chart-canvas h-full"><canvas id="proyectos-polar-canvas"></canvas></div>
+</div>
+<div id="proyectos-polar-legend" class="flex-1 min-w-0 space-y-1 flex flex-col justify-center"></div>
+</div>
+</div>
+<!-- Tesis dirigidas (grouped bars) -->
+<div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Tesis dirigidas por investigadores</h3><div class="chart-canvas"><canvas id="tesis-grouped-canvas"></canvas></div>
+<p id="tesis-nd-note" class="text-[20px] nd-text text-center mt-1 shrink-0" style="display:none">N/D — el PDF no reporta tesis dirigidas para este subsistema</p>
+<div id="tesis-legend" class="flex justify-center gap-6 mt-2 shrink-0">
+<span class="inline-flex items-center gap-2 text-[26px] font-bold text-on-surface-variant"><span class="w-3 h-3 rounded-full inline-block" style="background:#D59F0F"></span>Humanística</span>
+<span class="inline-flex items-center gap-2 text-[26px] font-bold text-on-surface-variant"><span class="w-3 h-3 rounded-full inline-block" style="background:#003D79"></span>Científica</span>
+</div>
+</div>
+</div>
+
+<!-- ================= ROW B — Productos publicados · Panel de cierre ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-6 min-h-0" style="flex:4.3075 1 0%">
+<!-- Productos publicados (stacked bar) -->
+<div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Productos publicados por subsistema y tipo</h3><div class="chart-canvas"><canvas id="productos-stacked-canvas"></canvas></div>
+</div>
+<!-- Accent panel: cierre -->
+<div class="accent-panel rounded p-6 flex flex-col justify-center min-w-0 h-full min-h-0">
+<h3 class="font-headline-sm text-headline-sm text-white mb-4 leading-snug">La UNAM genera más del 30% de la investigación de México</h3>
+<div class="flex flex-col sm:flex-row items-center gap-8">
+<!-- Left: counter -->
+<div class="flex flex-col items-center gap-2 shrink-0">
+<div class="counter-ring-wrap" style="width:240px;height:240px">
+<svg width="240" height="240" viewBox="0 0 148 148">
+<circle class="counter-ring-bg" cx="74" cy="74" r="62"></circle>
+<circle class="counter-ring-fg" data-pct="0.93" cx="74" cy="74" r="62"></circle>
+</svg>
+<div class="counter-number" data-counter="6464" style="font-size:48px">0</div>
+</div>
+<span class="text-[32px] font-bold text-center" style="color:#D59F0F">Proyectos activos</span>
+</div>
+<!-- Right: comparison bars -->
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-5">
+<div>
+<span class="text-white font-bold text-[31px] block mb-1">Financiamiento propio vs externo</span>
+<div class="comparison-bar-track">
+<div class="comparison-seg" style="width:52.7%;background:#D59F0F"></div>
+<div class="comparison-seg" style="width:37.7%;background:rgba(255,255,255,0.55)"></div>
+<div class="comparison-seg" style="width:6.2%;background:#c3a475"></div>
+<div class="comparison-seg" style="width:3.4%;background:rgba(255,255,255,0.25)"></div>
+</div>
+<div class="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[27px] font-bold text-white/85">
+<span>UNAM propio 52.7%</span>
+<span>SECIHTI 37.7%</span>
+<span>Institucional 6.2%</span>
+<span>Externo 3.4%</span>
+</div>
+</div>
+<div>
+<span class="text-white font-bold text-[31px] block mb-1">Tesis científica vs humanística</span>
+<div class="comparison-bar-track">
+<div class="comparison-seg" style="width:72.2%;background:#D59F0F"></div>
+<div class="comparison-seg" style="width:27.8%;background:rgba(255,255,255,0.55)"></div>
+</div>
+<div class="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-[27px] font-bold text-white/85">
+<span>Científica 1,803 (72.2%)</span>
+<span>Humanística 694 (27.8%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</main>
+<footer class="border-t border-outline-variant bg-surface-container-lowest py-3 px-4 md:px-8 shrink-0">
+  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-outline text-label-md font-body-lg">
+      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+    </div>
+    <div class="flex flex-wrap gap-8">
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Créditos</a>
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+
+<!-- ================= MODAL A — INV. CON SNII ================= -->
+<div id="snii-modal-overlay" class="modal-overlay">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h2 class="text-[48px] font-bold text-primary leading-tight">Investigadores e investigadoras UNAM en el SNII · 2026</h2>
+<button type="button" id="snii-modal-close" class="text-outline text-[58px] leading-none shrink-0 ml-6" aria-label="Cerrar">&times;</button>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-4">Distribución por subsistema</h3>
+<div class="overflow-x-auto mb-6">
+<table class="modal-table">
+<thead><tr><th>Subsistema</th><th>Investigadores SNII</th><th>% del total</th></tr></thead>
+<tbody>
+<tr><td>Facultades</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:100%;background:#D59F0F"></span></span>2,958</td><td>42.5%</td></tr>
+<tr><td>Inst. investigación científica</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:64.3%;background:#D59F0F"></span></span>1,902</td><td>27.4%</td></tr>
+<tr><td>Unidades multidisciplinarias</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:35.5%;background:#D59F0F"></span></span>1,051</td><td>15.1%</td></tr>
+<tr><td>Inst. investigación humanística</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:27.7%;background:#D59F0F"></span></span>820</td><td>11.8%</td></tr>
+<tr><td>Otras dependencias</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:3.6%;background:#D59F0F"></span></span>106</td><td>1.5%</td></tr>
+<tr><td>Escuelas nacionales</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:2.7%;background:#D59F0F"></span></span>79</td><td>1.1%</td></tr>
+<tr><td>CCH</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:0.8%;background:#D59F0F"></span></span>24</td><td>0.3%</td></tr>
+<tr><td>ENP</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:0.4%;background:#D59F0F"></span></span>13</td><td>0.2%</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>6,953</td><td>100%</td></tr>
+</tbody>
+</table>
+</div>
+<span class="chip-badge mb-8" style="background:#8C7146">4,989 son investigadores de carrera (71.7%)</span>
+
+<h3 class="text-[40px] font-bold text-primary mt-10 mb-1">Crecimiento de investigadores SNII · por subsistema</h3>
+<p class="text-[24px] text-outline mb-4">Serie histórica 2022-2026</p>
+<div class="mb-6" style="height:420px;"><canvas id="modalA-line-canvas"></canvas></div>
+<div class="overflow-x-auto mb-8">
+<table class="modal-table">
+<thead><tr><th>Subsistema</th><th>2022</th><th>2026</th><th>Cambio</th><th>% cambio</th></tr></thead>
+<tbody>
+<tr><td>Facultades</td><td>1,685</td><td>2,958</td><td style="color:#16A34A">+1,273</td><td style="color:#16A34A">+75.5% ▲</td></tr>
+<tr><td>Unidades multidisc.</td><td>618</td><td>1,051</td><td style="color:#16A34A">+433</td><td style="color:#16A34A">+70.1% ▲</td></tr>
+<tr><td>CCH</td><td>10</td><td>24</td><td style="color:#16A34A">+14</td><td style="color:#16A34A">+140% ▲</td></tr>
+<tr><td>Inst. humanística</td><td>817</td><td>820</td><td style="color:#16A34A">+3</td><td style="color:#16A34A">+0.4% ▲</td></tr>
+<tr><td>Inst. científica</td><td>2,190</td><td>1,902</td><td style="color:#DC2626">-288</td><td style="color:#DC2626">-13.2% ▼</td></tr>
+<tr class="row-total"><td>TOTAL UNAM</td><td>5,430</td><td>6,953</td><td style="color:#fff">+1,523</td><td style="color:#fff">+28.0% ▲</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-1">Distribución por área · SNII UNAM 2026</h3>
+<div class="mb-6" style="height:460px;"><canvas id="modalA-area-canvas"></canvas></div>
+
+<p class="text-[24px] text-outline">Fuente: DGAPA · SNII · SECIHTI · Consulta marzo 2026</p>
+</div>
+</div>
+
+<!-- ================= MODAL B — PROY. DE INVESTIGACIÓN ================= -->
+<div id="proyectos-modal-overlay" class="modal-overlay">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h2 class="text-[48px] font-bold text-primary leading-tight">Proyectos de investigación activos · 2025</h2>
+<button type="button" id="proyectos-modal-close" class="text-outline text-[58px] leading-none shrink-0 ml-6" aria-label="Cerrar">&times;</button>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-4">Distribución por subsistema</h3>
+<div class="overflow-x-auto mb-8">
+<table class="modal-table">
+<thead><tr><th>Subsistema</th><th>Proyectos</th><th>% del total</th></tr></thead>
+<tbody>
+<tr><td>Inst. investigación científica</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:100%;background:#003D79"></span></span>2,460</td><td>38.1%</td></tr>
+<tr><td>Inst. investigación humanística</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:85.4%;background:#003D79"></span></span>2,100</td><td>32.5%</td></tr>
+<tr><td>Facultades, escuelas y unidades</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:77.1%;background:#003D79"></span></span>1,897</td><td>29.4%</td></tr>
+<tr><td>Otras dependencias</td><td><span class="mini-bar-track"><span class="mini-bar-fill" style="width:0.3%;background:#003D79"></span></span>7</td><td>0.1%</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>6,464</td><td>100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-1">Proyectos por fuente de financiamiento</h3>
+<div class="mb-4" style="height:440px;"><canvas id="modalB-financiamiento-canvas"></canvas></div>
+<span class="chip-badge mb-8" style="background:#D59F0F">El 52.7% se financia con recursos propios de la UNAM</span>
+
+<details class="papiit-detail mb-8">
+<summary>Ver detalle PAPIIT / PAPIME / INFOCAB</summary>
+<div class="overflow-x-auto mt-3">
+<table class="modal-table">
+<thead><tr><th>Programa</th><th>Proyectos</th><th>Académicos</th><th>Estudiantes</th></tr></thead>
+<tbody>
+<tr><td>PAPIIT</td><td>1,968</td><td>8,732</td><td>4,286</td></tr>
+<tr><td>PAPIME</td><td>386</td><td>2,487</td><td>1,936</td></tr>
+<tr><td>INFOCAB</td><td>71</td><td>368</td><td>—</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>2,425</td><td>11,587</td><td>6,222</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<h3 class="text-[40px] font-bold text-primary mb-1">Proyectos por área de conocimiento</h3>
+<div class="flex items-center gap-6 mb-6">
+<div class="relative shrink-0" style="width:420px;height:420px;"><canvas id="modalB-area-canvas"></canvas></div>
+<div id="modalB-area-legend" class="flex-1 min-w-0 space-y-2 text-[24px] font-bold text-on-surface-variant"></div>
+</div>
+
+<p class="text-[24px] text-outline">Fuente: SISEPRO · Dirección General de Presupuesto, UNAM</p>
+</div>
+</div>
+
+<!-- ================= MODAL C — PRODUCT. PUBLICADOS ================= -->
+<div id="productos-modal-overlay" class="modal-overlay">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h2 class="text-[48px] font-bold text-primary leading-tight">Productos de investigación publicados · 2025</h2>
+<button type="button" id="productos-modal-close" class="text-outline text-[58px] leading-none shrink-0 ml-6" aria-label="Cerrar">&times;</button>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-4">Por tipo y subsistema</h3>
+<div class="overflow-x-auto mb-4">
+<table class="modal-table">
+<thead><tr><th>Tipo de producto</th><th>Científica</th><th>Humanística</th><th>TOTAL</th></tr></thead>
+<tbody>
+<tr><td>Artículos en revistas</td><td>5,102</td><td>813</td><td><span class="mini-bar-split-track"><span style="width:86.3%;background:#003D79"></span><span style="width:13.7%;background:#D59F0F"></span></span>5,915</td></tr>
+<tr><td>Artículos en memorias</td><td>493</td><td>21</td><td><span class="mini-bar-split-track"><span style="width:95.9%;background:#003D79"></span><span style="width:4.1%;background:#D59F0F"></span></span>514</td></tr>
+<tr><td>Capítulos en libros</td><td>434</td><td>1,134</td><td><span class="mini-bar-split-track"><span style="width:27.7%;background:#003D79"></span><span style="width:72.3%;background:#D59F0F"></span></span>1,568</td></tr>
+<tr><td>Libros</td><td>156</td><td>205</td><td><span class="mini-bar-split-track"><span style="width:43.2%;background:#003D79"></span><span style="width:56.8%;background:#D59F0F"></span></span>361</td></tr>
+<tr><td>Otros (reportes/reseñas)</td><td>546</td><td>881</td><td><span class="mini-bar-split-track"><span style="width:38.3%;background:#003D79"></span><span style="width:61.7%;background:#D59F0F"></span></span>1,427</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>6,731</td><td>3,054</td><td>9,785</td></tr>
+</tbody>
+</table>
+</div>
+<div class="flex flex-wrap gap-4 mb-8">
+<span class="chip-badge" style="background:#003D79">Inst. científica genera el 68.8% de los productos</span>
+<span class="chip-badge" style="background:#D59F0F">Humanística lidera en libros: 56.8% (205 de 361)</span>
+</div>
+
+<h3 class="text-[40px] font-bold text-primary mb-4">Artículos de revistas · distribución</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="card-institutional p-6 border-t-4 border-t-primary">
+<span class="block text-[24px] font-bold text-outline uppercase tracking-wider mb-1">Revistas internacionales</span>
+<span class="block text-[44px] font-bold text-primary leading-none mb-2">4,751</span>
+<div class="mini-bar-split-track" style="width:100%"><span style="width:91.8%;background:#003D79"></span><span style="width:8.2%;background:#D59F0F"></span></div>
+<span class="block text-[22px] text-outline mt-2">Científica 4,359 (91.8%) · Humanística 392 (8.2%)</span>
+</div>
+<div class="card-institutional p-6 border-t-4" style="border-top-color:#D59F0F">
+<span class="block text-[24px] font-bold text-outline uppercase tracking-wider mb-1">Revistas nacionales</span>
+<span class="block text-[44px] font-bold text-primary leading-none mb-2">772</span>
+<div class="mini-bar-split-track" style="width:100%"><span style="width:54.5%;background:#D59F0F"></span><span style="width:45.5%;background:#003D79"></span></div>
+<span class="block text-[22px] text-outline mt-2">Humanística 421 (54.5%) · Científica 351 (45.5%)</span>
+<span class="chip-badge mt-2" style="background:#16A34A;font-size:20px">Único tipo donde humanística supera a científica</span>
+</div>
+<div class="card-institutional p-6 border-t-4 border-t-primary">
+<span class="block text-[24px] font-bold text-outline uppercase tracking-wider mb-2">ISI Web of Science: 5,211</span>
+<table class="modal-table" style="font-size:24px">
+<tbody>
+<tr><td>Coord. Inv. Científica</td><td>3,537</td></tr>
+<tr><td>Facultades y Escuelas</td><td>3,059</td></tr>
+<tr><td>Coord. Humanidades</td><td>260</td></tr>
+<tr><td>Bachillerato</td><td>30</td></tr>
+<tr><td>Otros</td><td>195</td></tr>
+</tbody>
+</table>
+<p class="text-[20px] nd-text mt-2">Existe duplicidad entre subsistemas por coautoría compartida</p>
+</div>
+<div class="card-institutional p-6 border-t-4" style="border-top-color:#D59F0F">
+<span class="block text-[24px] font-bold text-outline uppercase tracking-wider mb-2">SCOPUS: 5,515</span>
+<table class="modal-table" style="font-size:24px">
+<tbody>
+<tr><td>Coord. Inv. Científica</td><td>3,429</td></tr>
+<tr><td>Facultades y Escuelas</td><td>2,858</td></tr>
+<tr><td>Coord. Humanidades</td><td>234</td></tr>
+<tr><td>Bachillerato</td><td>23</td></tr>
+<tr><td>Otros</td><td>92</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<p class="text-[24px] text-outline">Fuente: Coordinación Inv. Científica · Coord. Humanidades · UNAM</p>
+</div>
+</div>
+
+<script>
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+    function fmt(n) { return Math.round(n).toLocaleString('es-MX'); }
+
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    var SNII_TOTAL = 6953;
+
+    // ============================================================
+    // SECTION 3 LEFT — SNII por nivel (doughnut)
+    // ============================================================
+    var nivelData = [
+        { label: 'Candidatos', pct: 17.0, hex: '#6BA3D6' },
+        { label: 'Nivel 1', pct: 44.5, hex: '#4A7CB5' },
+        { label: 'Nivel 2', pct: 22.2, hex: '#003D79' },
+        { label: 'Nivel 3', pct: 11.4, hex: '#D59F0F' },
+        { label: 'Emérito', pct: 4.9, hex: '#8C7146' }
+    ];
+
+    new Chart($('#snii-nivel-donut-canvas'), {
+        type: 'doughnut',
+        data: {
+            labels: nivelData.map(function (d) { return d.label; }),
+            datasets: [{
+                data: nivelData.map(function (d) { return d.pct; }),
+                backgroundColor: nivelData.map(function (d) { return d.hex; }),
+                borderWidth: 2,
+                borderColor: '#fff',
+                cutout: '62%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 32 }, bodyFont: { size: 29 }, padding: 16,
+                    callbacks: {
+                        label: function (ctx) {
+                            var d = nivelData[ctx.dataIndex];
+                            return d.label + ': ' + d.pct.toFixed(1) + '% (' + fmt(SNII_TOTAL * d.pct / 100) + ')';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    var nivelLegend = $('#snii-nivel-legend');
+    if (nivelLegend) {
+        nivelData.forEach(function (d) {
+            var row = document.createElement('div');
+            row.className = 'flex items-center gap-3 text-[30px] font-bold text-on-surface-variant';
+            row.innerHTML = '<span class="w-4 h-4 rounded-full inline-block shrink-0" style="background:' + d.hex + '"></span>' + d.label + ' · ' + d.pct.toFixed(1) + '%';
+            nivelLegend.appendChild(row);
+        });
+    }
+
+    // ============================================================
+    // SECTION 5 — polar area: proyectos por área de conocimiento
+    // ============================================================
+    var polarLabels = ['Humanidades, artes y cs. conducta', 'Biología y química', 'Sociales', 'Físico-matemáticas y cs. tierra', 'Medicina y ciencias de la salud', 'Investigación multidisciplinaria', 'Ingeniería', 'Biotecnología y cs. agropecuarias'];
+    var polarData = [22.7, 22.6, 18.2, 17.7, 8.8, 4.2, 3.6, 2.2];
+    var polarColors = ['#D59F0F', '#003D79', '#8C7146', '#4A7CB5', '#6BA3D6', '#A0C4E8', '#C8D8E8', '#D4C5A9'];
+
+    new Chart($('#proyectos-polar-canvas'), {
+        type: 'polarArea',
+        data: { labels: polarLabels, datasets: [{ data: polarData, backgroundColor: polarColors, borderColor: '#fff', borderWidth: 2 }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 1200, easing: 'easeOutCubic' },
+            scales: { r: { ticks: { display: false }, grid: { color: '#e1e2e4' } } },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 32 }, bodyFont: { size: 29 }, padding: 16,
+                    callbacks: { label: function (ctx) { return ctx.label + ': ' + ctx.parsed.r + '%'; } }
+                }
+            }
+        }
+    });
+
+    var polarLegend = $('#proyectos-polar-legend');
+    if (polarLegend) {
+        polarLabels.forEach(function (label, i) {
+            var row = document.createElement('div');
+            row.className = 'flex items-start gap-2 text-[28px] leading-tight font-bold text-on-surface-variant';
+            row.innerHTML = '<span class="w-3 h-3 rounded-full inline-block shrink-0 mt-1" style="background:' + polarColors[i] + '"></span><span class="break-words">' + label + ' · ' + polarData[i].toFixed(1) + '%</span>';
+            polarLegend.appendChild(row);
+        });
+    }
+
+    // ============================================================
+    // SECTION 6 ROW A — productos por tipo y subsistema (stacked bar)
+    // ============================================================
+    function hexToRgba(hex, alpha) {
+        var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+    var prodBarLabels = ['Inst. investigación científica', 'Inst. investigación humanística'];
+    var prodBaseColors = ['#003D79', '#D59F0F', '#8C7146', '#4A7CB5', '#A0C4E8'];
+    var prodDatasets = [
+        { label: 'Artículos revistas', data: [5102, 813], backgroundColor: [prodBaseColors[0], prodBaseColors[0]] },
+        { label: 'Artículos memorias', data: [493, 21], backgroundColor: [prodBaseColors[1], prodBaseColors[1]] },
+        { label: 'Capítulos en libros', data: [434, 1134], backgroundColor: [prodBaseColors[2], prodBaseColors[2]] },
+        { label: 'Libros', data: [156, 205], backgroundColor: [prodBaseColors[3], prodBaseColors[3]] },
+        { label: 'Otros (reportes)', data: [546, 881], backgroundColor: [prodBaseColors[4], prodBaseColors[4]] }
+    ];
+
+    var stackLabelPlugin = {
+        id: 'stackLabel',
+        afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            chart.data.datasets.forEach(function (ds, dsIndex) {
+                var meta = chart.getDatasetMeta(dsIndex);
+                meta.data.forEach(function (bar, i) {
+                    var val = ds.data[i];
+                    if (!val) return;
+                    var props = bar.getProps(['x', 'y', 'width'], true);
+                    if (props.width < 34) return;
+                    ctx.save();
+                    ctx.font = "bold 26px 'Libre Franklin'";
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    var text = fmt(val);
+                    var textWidth = ctx.measureText(text).width;
+                    var padX = 8, padY = 5;
+                    var boxW = Math.min(textWidth + padX * 2, props.width - 4);
+                    var boxH = 26 + padY * 2;
+                    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+                    ctx.beginPath();
+                    ctx.roundRect(props.x - boxW / 2, props.y - boxH / 2, boxW, boxH, 6);
+                    ctx.fill();
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText(text, props.x, props.y);
+                    ctx.restore();
+                });
+            });
+        }
+    };
+
+    var productosChart = new Chart($('#productos-stacked-canvas'), {
+        type: 'bar',
+        data: { labels: prodBarLabels, datasets: prodDatasets },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: '#edeef0' }, ticks: { font: { size: 28 } } },
+                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 32 } } }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 26 }, boxWidth: 14, padding: 10 } },
+                tooltip: { titleFont: { size: 32 }, bodyFont: { size: 29 }, padding: 16 }
+            }
+        },
+        plugins: [stackLabelPlugin]
+    });
+
+    // ============================================================
+    // SECTION 7 LEFT — grouped bars: tesis por nivel y subsistema
+    // ============================================================
+    var TESIS_HUM = [235, 231, 228];
+    var TESIS_CIENT = [799, 572, 432];
+    var tesisChart = new Chart($('#tesis-grouped-canvas'), {
+        type: 'bar',
+        data: {
+            labels: ['Lic. y Esp.', 'Maestría', 'Doctorado'],
+            datasets: [
+                { label: 'Humanística', data: TESIS_HUM.slice(), backgroundColor: '#D59F0F', borderRadius: 4, maxBarThickness: 72 },
+                { label: 'Científica', data: TESIS_CIENT.slice(), backgroundColor: '#003D79', borderRadius: 4, maxBarThickness: 72 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            categoryPercentage: 0.9,
+            barPercentage: 1,
+            scales: {
+                x: { grid: { display: false }, ticks: { font: { size: 25 } } },
+                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 20 } } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { titleFont: { size: 32 }, bodyFont: { size: 29 }, padding: 16 }
+            }
+        }
+    });
+
+    // ============================================================
+    // SECTION 8 — animated counters + ring, scroll-triggered
+    // ============================================================
+    $$('.counter-ring-fg').forEach(function (ring) {
+        var circumference = ring.getTotalLength();
+        ring.style.strokeDasharray = String(circumference);
+        ring.style.strokeDashoffset = String(circumference);
+    });
+
+    var countersAnimated = false;
+    function animateCounters() {
+        if (countersAnimated) return;
+        countersAnimated = true;
+        $$('[data-counter]').forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-counter'), 10);
+            var start = 0, duration = 1200, startTime = null;
+            function step(ts) {
+                if (!startTime) startTime = ts;
+                var progress = Math.min((ts - startTime) / duration, 1);
+                el.textContent = fmt(start + (target - start) * progress);
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        });
+        $$('.counter-ring-fg').forEach(function (ring) {
+            var pct = parseFloat(ring.getAttribute('data-pct'));
+            var circumference = ring.getTotalLength();
+            requestAnimationFrame(function () {
+                ring.style.strokeDashoffset = String(circumference * (1 - pct));
+            });
+        });
+    }
+    var accentPanels = $$('.accent-panel');
+    var counterPanel = accentPanels[accentPanels.length - 1];
+    if (counterPanel && 'IntersectionObserver' in window) {
+        var counterObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) { animateCounters(); counterObserver.disconnect(); }
+            });
+        }, { threshold: 0.3 });
+        counterObserver.observe(counterPanel);
+    } else {
+        animateCounters();
+    }
+
+    // ============================================================
+    // FILTRO GENERAL — Subsistema
+    // ============================================================
+    function animateNumber(el, to, duration) {
+        if (!el) return;
+        duration = duration || 400;
+        var from = parseFloat((el.textContent || '0').replace(/[^0-9.\-]/g, '')) || 0;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(from + (to - from) * eased);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = fmt(to);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var FILTRO_DATA = {
+        snii: {
+            todos: 6953, cientifica: 1902, humanistica: 820, facultades: 2958,
+            unidades: 1051, escuelas: 79, enp: 13, cch: 24, otras: 106
+        },
+        proyectos: { todos: 6464, cientifica: 2460, humanistica: 2100, otras: 7 },
+        productos: { todos: 9785, cientifica: 6731, humanistica: 3054 },
+        tesis: { todos: 2497, cientifica: 1803, humanistica: 694 }
+    };
+    var PROYECTOS_COMBINADO = 1897;
+
+    var subsistemaLabels = {
+        todos: 'Todos los subsistemas', cientifica: 'Inst. investigación científica', humanistica: 'Inst. investigación humanística',
+        facultades: 'Facultades', unidades: 'Unidades multidisciplinarias', escuelas: 'Escuelas nacionales',
+        enp: 'ENP', cch: 'CCH', otras: 'Otras dependencias'
+    };
+
+    var gfSubsistema = 'todos';
+    var gfSubsistemaSelect = $('#gf-subsistema');
+    var gfBadge = $('#gf-badge');
+
+    function renderKPISNII() {
+        animateNumber($('#kpi-snii-number'), FILTRO_DATA.snii[gfSubsistema], 400);
+        var carreraEl = $('#kpi-snii-carrera');
+        if (gfSubsistema === 'todos') {
+            carreraEl.textContent = '4,989 de carrera';
+            carreraEl.classList.remove('nd-text');
+        } else {
+            carreraEl.textContent = 'N/D';
+            carreraEl.classList.add('nd-text');
+        }
+    }
+
+    function renderKPIProyectos() {
+        var numEl = $('#kpi-proyectos-number');
+        var noteEl = $('#kpi-proyectos-note');
+        noteEl.classList.remove('nd-text');
+        if (gfSubsistema === 'todos' || gfSubsistema === 'cientifica' || gfSubsistema === 'humanistica' || gfSubsistema === 'otras') {
+            animateNumber(numEl, FILTRO_DATA.proyectos[gfSubsistema], 400);
+            noteEl.textContent = 'Activos en 2025';
+        } else {
+            animateNumber(numEl, PROYECTOS_COMBINADO, 400);
+            noteEl.textContent = 'incluido en Facultades y unidades: ' + fmt(PROYECTOS_COMBINADO);
+            noteEl.classList.add('nd-text');
+        }
+    }
+
+    function renderKPIProductos() {
+        var numEl = $('#kpi-productos-number');
+        if (gfSubsistema === 'todos' || gfSubsistema === 'cientifica' || gfSubsistema === 'humanistica') {
+            numEl.classList.remove('nd-text');
+            animateNumber(numEl, FILTRO_DATA.productos[gfSubsistema], 400);
+        } else {
+            numEl.classList.add('nd-text');
+            numEl.textContent = 'N/D';
+        }
+    }
+
+    function renderKPITesis() {
+        var numEl = $('#kpi-tesis-number');
+        if (gfSubsistema === 'todos' || gfSubsistema === 'cientifica' || gfSubsistema === 'humanistica') {
+            numEl.classList.remove('nd-text');
+            animateNumber(numEl, FILTRO_DATA.tesis[gfSubsistema], 400);
+        } else {
+            numEl.classList.add('nd-text');
+            numEl.textContent = 'N/D';
+        }
+    }
+
+    function renderTesisChart() {
+        var ndNote = $('#tesis-nd-note');
+        var legend = $('#tesis-legend');
+        if (gfSubsistema === 'todos') {
+            tesisChart.data.datasets[0].data = TESIS_HUM.slice();
+            tesisChart.data.datasets[0].hidden = false;
+            tesisChart.data.datasets[1].data = TESIS_CIENT.slice();
+            tesisChart.data.datasets[1].hidden = false;
+            ndNote.style.display = 'none';
+            legend.style.display = 'flex';
+        } else if (gfSubsistema === 'cientifica') {
+            tesisChart.data.datasets[0].hidden = true;
+            tesisChart.data.datasets[1].data = TESIS_CIENT.slice();
+            tesisChart.data.datasets[1].hidden = false;
+            ndNote.style.display = 'none';
+            legend.style.display = 'flex';
+        } else if (gfSubsistema === 'humanistica') {
+            tesisChart.data.datasets[0].data = TESIS_HUM.slice();
+            tesisChart.data.datasets[0].hidden = false;
+            tesisChart.data.datasets[1].hidden = true;
+            ndNote.style.display = 'none';
+            legend.style.display = 'flex';
+        } else {
+            tesisChart.data.datasets[0].hidden = true;
+            tesisChart.data.datasets[1].hidden = true;
+            ndNote.style.display = 'block';
+            legend.style.display = 'none';
+        }
+        tesisChart.update();
+    }
+
+    function renderProductosChart() {
+        var highlightIndex = gfSubsistema === 'cientifica' ? 0 : (gfSubsistema === 'humanistica' ? 1 : -1);
+        productosChart.data.datasets.forEach(function (ds, i) {
+            var base = prodBaseColors[i];
+            if (highlightIndex === -1) {
+                ds.backgroundColor = [base, base];
+            } else {
+                ds.backgroundColor = [
+                    highlightIndex === 0 ? base : hexToRgba(base, 0.25),
+                    highlightIndex === 1 ? base : hexToRgba(base, 0.25)
+                ];
+            }
+        });
+        productosChart.update();
+    }
+
+    function renderGeneralFilter() {
+        renderKPISNII();
+        renderKPIProyectos();
+        renderKPIProductos();
+        renderKPITesis();
+        renderTesisChart();
+        renderProductosChart();
+        if (gfSubsistema === 'todos') {
+            gfBadge.textContent = '';
+        } else {
+            gfBadge.textContent = 'Mostrando: ' + subsistemaLabels[gfSubsistema];
+        }
+    }
+
+    gfSubsistemaSelect.addEventListener('change', function () {
+        gfSubsistema = gfSubsistemaSelect.value;
+        renderGeneralFilter();
+    });
+
+    // ---------- Candados: datos sin desglose por subsistema ----------
+    $$('.lock-badge').forEach(function (badge) {
+        var tooltip = badge.querySelector('.lock-tooltip');
+        badge.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isVisible = tooltip.classList.contains('visible');
+            $$('.lock-tooltip').forEach(function (t) { t.classList.remove('visible'); });
+            if (!isVisible) {
+                tooltip.classList.add('visible');
+                setTimeout(function () { tooltip.classList.remove('visible'); }, 2500);
+            }
+        });
+    });
+
+    // ============================================================
+    // MODALES DE DETALLE
+    // ============================================================
+    function flashCard(el) {
+        if (!el) return;
+        el.classList.remove('kpi-flash');
+        void el.offsetWidth;
+        el.classList.add('kpi-flash');
+    }
+
+    var modalConfigs = [
+        { overlay: 'snii-modal-overlay', close: 'snii-modal-close', card: 'kpi-snii-card', onOpen: function () { initModalACharts(); } },
+        { overlay: 'proyectos-modal-overlay', close: 'proyectos-modal-close', card: 'kpi-proyectos-card', onOpen: function () { initModalBCharts(); } },
+        { overlay: 'productos-modal-overlay', close: 'productos-modal-close', card: 'kpi-productos-card' }
+    ];
+    var openOverlays = [];
+    modalConfigs.forEach(function (cfg) {
+        var overlay = $('#' + cfg.overlay);
+        var card = $('#' + cfg.card);
+        function open() {
+            overlay.classList.add('open');
+            if (openOverlays.indexOf(overlay) === -1) openOverlays.push(overlay);
+            if (cfg.onOpen) cfg.onOpen();
+            flashCard(card);
+        }
+        function close() {
+            overlay.classList.remove('open');
+            var idx = openOverlays.indexOf(overlay);
+            if (idx !== -1) openOverlays.splice(idx, 1);
+        }
+        card.addEventListener('click', open);
+        $('#' + cfg.close).addEventListener('click', close);
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && openOverlays.length) {
+            var last = openOverlays[openOverlays.length - 1];
+            last.classList.remove('open');
+            openOverlays.pop();
+        }
+    });
+
+    // ---------- Modal A: Investigadores SNII ----------
+    var modalAInitialized = false;
+    function initModalACharts() {
+        if (modalAInitialized) return;
+        modalAInitialized = true;
+        var years = ['2022', '2023', '2024', '2025', '2026'];
+        var series = [
+            { label: 'Facultades', data: [1685, 2442, 2707, 2784, 2958], color: '#003D79' },
+            { label: 'Inst. científica', data: [2190, 1832, 1826, 1802, 1902], color: '#D59F0F' },
+            { label: 'Unidades multidisc.', data: [618, 801, 863, 954, 1051], color: '#8C7146' },
+            { label: 'Inst. humanística', data: [817, 769, 784, 785, 820], color: '#4A7CB5' },
+            { label: 'Resto (ENP+CCH+Escuelas+Otras)', data: [120, 142, 181, 196, 226], color: '#A0C4E8' }
+        ];
+        var totalUNAM = [5430, 5986, 6361, 6521, 6953];
+        var datasets = series.map(function (s) {
+            return { label: s.label, data: s.data, borderColor: s.color, backgroundColor: s.color, tension: 0.25, pointRadius: 4, pointBackgroundColor: s.color };
+        });
+        datasets.push({ label: 'UNAM (total)', data: totalUNAM, borderColor: '#9CA3AF', backgroundColor: '#9CA3AF', borderDash: [6, 4], tension: 0.25, pointRadius: 3, pointBackgroundColor: '#9CA3AF' });
+
+        var modalAAnnotations = {
+            id: 'modalAAnnotations',
+            afterDatasetsDraw: function (chart) {
+                var ctx = chart.ctx;
+                function drawBadge(dsIndex, dataIndex, text, bg) {
+                    var meta = chart.getDatasetMeta(dsIndex);
+                    var point = meta.data[dataIndex];
+                    if (!point) return;
+                    var props = point.getProps(['x', 'y'], true);
+                    ctx.save();
+                    ctx.font = "bold 18px 'Libre Franklin'";
+                    var w = ctx.measureText(text).width + 24;
+                    ctx.fillStyle = bg;
+                    ctx.beginPath();
+                    ctx.roundRect(props.x - w / 2, props.y - 46, w, 28, 6);
+                    ctx.fill();
+                    ctx.fillStyle = '#fff';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(text, props.x, props.y - 32);
+                    ctx.restore();
+                }
+                drawBadge(0, 4, '+1,273 desde 2022 · mayor crecimiento', '#003D79');
+                drawBadge(1, 1, '−358 vs 2022', '#DC2626');
+            }
+        };
+
+        new Chart($('#modalA-line-canvas'), {
+            type: 'line',
+            data: { labels: years, datasets: datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { top: 55 } },
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { size: 18 }, boxWidth: 12, padding: 8 } },
+                    tooltip: { titleFont: { size: 24 }, bodyFont: { size: 22 }, padding: 12 }
+                },
+                scales: {
+                    y: { ticks: { font: { size: 20 } }, grid: { color: '#edeef0' } },
+                    x: { ticks: { font: { size: 22 } } }
+                }
+            },
+            plugins: [modalAAnnotations]
+        });
+
+        var areaLabels = ['Medicina y ciencias de la salud', 'Biotecnología y cs. agropecuarias', 'Biología y química', 'Ingeniería', 'Sociales', 'Físico-matemáticas y cs. de la tierra', 'Interdisciplinaria', 'Humanidades y cs. de la conducta'];
+        var areaPct = [23.1, 19.2, 17.7, 15.7, 12.9, 4.8, 3.7, 2.9];
+        var modalAAreaLabels = {
+            id: 'modalAAreaValueLabels',
+            afterDatasetsDraw: function (chart) {
+                var ctx = chart.ctx;
+                var meta = chart.getDatasetMeta(0);
+                meta.data.forEach(function (bar, i) {
+                    var props = bar.getProps(['x', 'y'], true);
+                    var abs = Math.round(6953 * areaPct[i] / 100);
+                    ctx.save();
+                    ctx.font = "bold 22px 'Libre Franklin'";
+                    ctx.fillStyle = '#191c1e';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(areaPct[i] + '% (' + fmt(abs) + ')', props.x + 10, props.y);
+                    ctx.restore();
+                });
+            }
+        };
+        new Chart($('#modalA-area-canvas'), {
+            type: 'bar',
+            data: { labels: areaLabels, datasets: [{ data: areaPct, backgroundColor: '#D59F0F' }] },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { right: 160 } },
+                plugins: { legend: { display: false }, tooltip: { titleFont: { size: 24 }, bodyFont: { size: 22 }, padding: 12 } },
+                scales: {
+                    x: { grid: { color: '#edeef0' }, ticks: { font: { size: 20 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 22 } } }
+                }
+            },
+            plugins: [modalAAreaLabels]
+        });
+    }
+
+    // ---------- Modal B: Proyectos de investigación ----------
+    var modalBInitialized = false;
+    function initModalBCharts() {
+        if (modalBInitialized) return;
+        modalBInitialized = true;
+        var finLabels = ['Presupuesto UNAM e ingresos prop.', 'SECIHTI', ['Programas institucionales', '(PAPIIT, PAPIME e INFOCAB)'], 'Financiamiento externo'];
+        var finData = [52.7, 37.7, 6.2, 3.4];
+        var finColors = ['#D59F0F', '#003D79', '#8C7146', '#A0C4E8'];
+        new Chart($('#modalB-financiamiento-canvas'), {
+            type: 'bar',
+            data: { labels: finLabels, datasets: [{ data: finData, backgroundColor: finColors }] },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { titleFont: { size: 28 }, bodyFont: { size: 26 }, padding: 14, callbacks: { label: function (ctx) { return ctx.parsed.x + '%'; } } } },
+                scales: {
+                    x: { grid: { color: '#edeef0' }, ticks: { font: { size: 26 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 28 } } }
+                }
+            }
+        });
+
+        new Chart($('#modalB-area-canvas'), {
+            type: 'polarArea',
+            data: { labels: polarLabels, datasets: [{ data: polarData, backgroundColor: polarColors, borderColor: '#fff', borderWidth: 2 }] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { r: { ticks: { display: false }, grid: { color: '#e1e2e4' } } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { titleFont: { size: 24 }, bodyFont: { size: 22 }, padding: 12, callbacks: { label: function (ctx) { return ctx.label + ': ' + ctx.parsed.r + '%'; } } }
+                }
+            }
+        });
+        var areaLegendB = $('#modalB-area-legend');
+        polarLabels.forEach(function (label, i) {
+            var row = document.createElement('div');
+            row.className = 'flex items-start gap-2';
+            row.innerHTML = '<span class="w-3 h-3 rounded-full inline-block shrink-0 mt-1" style="background:' + polarColors[i] + '"></span><span>' + label + ' · ' + polarData[i].toFixed(1) + '%</span>';
+            areaLegendB.appendChild(row);
+        });
+    }
+
+    // ---------- Estado inicial ----------
+    renderGeneralFilter();
+
+    // ---------- Sidebar indicator selection ----------
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto') return;
+            e.preventDefault();
+            alert('El indicador "' + name + '" estará disponible próximamente.');
+        });
+    });
+
+    // ---------- Sidebar collapse toggle (button lives inside the sidebar itself) ----------
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+})();
+</script>
+</body>
+</html>

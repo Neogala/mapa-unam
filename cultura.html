@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Difusión Cultural UNAM · 2025</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    /* Base canvas tuned for a 3840x2160 (4K) display, matching the other pages in this project */
+    html {
+        font-size: 41.6px;
+    }
+    body {
+        margin: 0;
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+
+    #sidebar {
+        width: 664px;
+        transition: width 0.2s ease;
+        overflow-x: hidden;
+    }
+    #sidebar.collapsed {
+        width: 210px;
+    }
+    #sidebar.collapsed #sidebar-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    #sidebar.collapsed .sidebar-label {
+        display: none;
+    }
+    #sidebar.collapsed #sidebar-indicators a {
+        justify-content: center;
+    }
+    #sidebar.collapsed #sidebar-toggle {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213, 159, 15, 0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .chart-canvas {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+    .chart-canvas canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    @keyframes pulse-flash {
+        0% { box-shadow: 0 0 0 4px rgba(213, 159, 15, 0.55); }
+        100% { box-shadow: 0 0 0 0px rgba(213, 159, 15, 0); }
+    }
+    .flash { animation: pulse-flash 0.7s ease-out; }
+
+    /* ---- Dashboard-specific styling ---- */
+    .kpi-card { cursor: pointer; }
+    .kpi-card:focus-visible { outline: 3px solid #D59F0F; }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute;
+        bottom: 22px;
+        right: 22px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #D59F0F;
+        color: #ffffff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 12px 26px;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213, 159, 15, 0.45);
+        border: 2px solid #ffffff;
+        opacity: 1;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        pointer-events: none;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-clickable:hover .kpi-click-hint {
+        transform: scale(1.1);
+        box-shadow: 0 8px 24px rgba(213, 159, 15, 0.6);
+    }
+    .badge-info {
+        font-size: 22px;
+        color: #6b7280;
+        font-weight: 600;
+    }
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 28px;
+        font-weight: 700;
+        padding: 8px 18px;
+        border-radius: 9999px;
+        white-space: normal;
+    }
+    .chip-primary { background: rgba(0,61,121,0.10); color: #003D79; }
+    .chip-secondary { background: rgba(213,159,15,0.14); color: #8a6a0a; }
+    .chip-tertiary { background: rgba(140,113,70,0.14); color: #8C7146; }
+    .chip-alert { background: rgba(186,26,26,0.10); color: #ba1a1a; }
+
+    .stat-card {
+        background: #F4F5F7;
+        border-radius: 10px;
+        padding: 24px 26px;
+        flex: 1;
+        text-align: center;
+    }
+
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 32px; }
+    table.data-table thead th {
+        background: #003D79; color: #fff; font-weight: 700;
+        padding: 16px 22px; text-align: left; position: sticky; top: 0; white-space: nowrap;
+    }
+    table.data-table tbody td { padding: 14px 22px; border-bottom: 1px solid #eceef1; }
+    table.data-table tbody td:first-child { white-space: nowrap; }
+    table.data-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    table.data-table tr.total-row td {
+        background: #003D79 !important; color: #fff; font-weight: 800;
+    }
+    .inline-bar-track { background: #e5e7eb; border-radius: 4px; height: 14px; overflow: hidden; min-width: 90px; }
+    .inline-bar-fill { height: 100%; border-radius: 4px; }
+
+    /* Treemap for Gráfica 1 */
+    .treemap-cell {
+        position: absolute; box-sizing: border-box; border: 2px solid #F4F5F7;
+        border-radius: 4px; color: #fff; font-weight: 700; overflow: hidden;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 4px; transition: opacity 0.25s ease, filter 0.15s ease;
+    }
+    .treemap-cell:hover { filter: brightness(1.08); outline: 2px solid #fff; outline-offset: -2px; }
+    .treemap-cell .tm-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .treemap-cell .tm-value { opacity: 0.92; margin-top: 2px; }
+
+    .tm-tooltip {
+        position: fixed; z-index: 60; pointer-events: none; background: #1A1D21; color: #fff;
+        border-radius: 6px; padding: 10px 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        opacity: 0; transform: translateY(4px); transition: opacity 0.12s ease, transform 0.12s ease;
+        min-width: 180px;
+    }
+    .tm-tooltip.visible { opacity: 1; transform: translateY(0); }
+    .tm-tooltip .tm-tooltip-title { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+    .tm-tooltip .tm-tooltip-row { font-size: 26px; display: flex; justify-content: space-between; gap: 16px; opacity: 0.92; }
+    .tm-tooltip .tm-tooltip-row + .tm-tooltip-row { margin-top: 2px; }
+
+    /* Modal */
+    .modal-overlay {
+        display: none;
+        position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+        z-index: 1000; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-container {
+        background: #fff; border-radius: 12px; max-width: 1500px; width: 96vw;
+        max-height: 92vh; overflow-y: auto; padding: 56px;
+        transform: scale(0.96); opacity: 0; transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .modal-overlay.open .modal-container { transform: scale(1); opacity: 1; }
+    .modal-header { display:flex; align-items:center; justify-content: space-between; margin-bottom: 24px; }
+    .modal-title { font-size: 46px; font-weight: 800; color: #003D79; line-height: 1.15; }
+    .modal-close { cursor: pointer; font-size: 40px; color: #737781; line-height: 1; padding: 4px 8px; }
+    .modal-close:hover { color: #003D79; }
+    .modal-subtitle { font-size: 29px; color: #6b7280; font-weight: 600; margin-bottom: 26px; }
+    .modal-section-title { font-size: 33px; font-weight: 800; color: #003D79; margin: 32px 0 16px; }
+    .modal-source { font-size: 24px; color: #9ca3af; font-style: italic; margin-top: 28px; }
+    #modal-b .modal-container { max-width: 1800px; }
+    #modal-d .modal-container { max-width: 2160px; }
+</style>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<!-- Brand -->
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="cultura.html">
+<span class="material-symbols-outlined text-[50px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-4 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<!-- ================= FILTRO GENERAL (primer elemento visible) ================= -->
+<header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
+  <div>
+    <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Difusión Cultural UNAM</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Concentrado estadístico de actividades y producción cultural 2025.</p>
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="discipline-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Disciplina artística</label>
+    <select id="discipline-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+      <option value="all" selected>Todas las disciplinas</option>
+      <option value="musica">Música y conciertos</option>
+      <option value="teatro">Teatro</option>
+      <option value="danza">Danza</option>
+      <option value="cine">Cine y video</option>
+      <option value="literatura">Literatura</option>
+      <option value="exposiciones">Artes visuales / Exposiciones</option>
+      <option value="talleres_cursos">Talleres y cursos</option>
+      <option value="multi_otras">Multidisciplinario y otras</option>
+    </select>
+    <div class="flex items-center gap-3 mt-0.5">
+      <span id="lock-toast" class="hidden bg-surface-container px-4 py-1 rounded-full text-[18px] font-semibold text-outline">🔒 Dato disponible solo a nivel institucional global</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= FILA DE 4 KPIs ================= -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
+  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-1" tabindex="0">
+    <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-primary text-[54px]">theater_comedy</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Actividades artísticas y culturales</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]" id="kpi-1-value">11,236</span>
+    <span class="text-[30px] text-on-surface-variant font-semibold" id="kpi-1-sub">actividades presenciales y virtuales</span>
+  </div>
+  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-secondary-container flex flex-col justify-center" id="kpi-2" tabindex="0">
+    <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-secondary text-[54px]">groups</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Asistencia total</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]" id="kpi-2-value">1,995,358</span>
+    <span class="text-[30px] text-on-surface-variant font-semibold" id="kpi-2-sub">asistentes presenciales y en línea</span>
+  </div>
+  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-4" tabindex="0">
+    <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-primary text-[54px]">school</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Beneficiados ed. continua</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]">4,544,807</span>
+    <span class="text-[30px] text-on-surface-variant font-semibold">diplomados, cursos, talleres y conferencias</span>
+  </div>
+  <div class="kpi-card card-institutional pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-tertiary flex flex-col justify-center" id="kpi-5" tabindex="0">
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-tertiary text-[54px]">play_circle</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Reproducciones digitales</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]">17,123,103</span>
+    <span class="text-[30px] text-on-surface-variant font-semibold">canales de video del subsistema</span>
+  </div>
+</div>
+
+<!-- ================= GRÁFICAS (2 filas) ================= -->
+<div class="flex-1 min-h-0 flex flex-col gap-4">
+
+  <!-- Fila 1 -->
+  <div class="grid grid-cols-2 gap-4 flex-1 min-h-0" style="flex-basis: 60%;">
+
+    <!-- Gráfica 1 -->
+    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Actividades por disciplina</h3>
+      <div id="chart1-treemap" class="flex-1 min-h-0 relative"></div>
+    </div>
+
+    <!-- Gráfica 2 -->
+    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Asistencia por disciplina</h3>
+      <div class="chart-canvas"><canvas id="chart2"></canvas></div>
+    </div>
+
+  </div>
+
+  <!-- Fila 2 -->
+  <div class="grid gap-4 flex-1 min-h-0" style="flex-basis: 40%; grid-template-columns: 2fr 3fr;">
+
+    <!-- Gráfica 3 -->
+    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Producción artística 2025 · obras creadas</h3>
+      <div class="chart-canvas"><canvas id="chart3"></canvas></div>
+    </div>
+
+    <!-- Gráfica 5 -->
+    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Serie histórica · libros producidos 2021–2025</h3>
+      <div class="chart-canvas"><canvas id="chart5"></canvas></div>
+      <span class="badge-info shrink-0 text-[24px]">Promedio 4.5 libros publicados por día</span>
+    </div>
+
+  </div>
+
+</div>
+
+</main>
+<footer class="border-t border-outline-variant bg-surface-container-lowest py-2 px-4 md:px-8 shrink-0">
+  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+    <div class="text-outline text-[18px] font-semibold">
+      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+    </div>
+    <div class="flex flex-wrap gap-6">
+      <a href="#" class="text-outline text-[18px] font-semibold hover:text-primary transition-colors">Créditos</a>
+      <a href="#" class="text-outline text-[18px] font-semibold hover:text-primary transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+
+<!-- ================= MODALES ================= -->
+
+<!-- MODAL A -->
+<div class="modal-overlay" id="modal-a" data-modal="a">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span class="modal-title">Actividades artísticas y culturales · 2025</span>
+      <span class="modal-close" data-close>✕</span>
+    </div>
+    <div class="modal-subtitle">Incluye actividades presenciales y virtuales</div>
+
+    <div class="modal-section-title">Detalle por tipo de actividad</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-a-table"></table></div>
+    <div class="chip chip-secondary mt-3">Las exposiciones promedian 11,817 asistentes por evento · más que cualquier otro tipo</div>
+
+    <div class="modal-section-title">Proporción de actividades vs asistencia</div>
+    <div class="grid grid-cols-2 gap-4 items-center">
+      <div style="height:220px"><canvas id="modal-a-donut1"></canvas></div>
+      <div style="height:220px"><canvas id="modal-a-donut2"></canvas></div>
+    </div>
+    <div class="text-center text-[26px] font-semibold text-on-surface-variant mt-1">Izquierda: % de actividades · Derecha: % de asistencia</div>
+    <div class="chip chip-alert mt-3">Las exposiciones son el 0.7% de las actividades pero el 44.4% de la asistencia</div>
+
+    <div class="modal-section-title">Top 3 por eficiencia</div>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="stat-card"><div class="text-[34px]">🏆</div><div class="text-[25px] font-bold text-on-surface-variant">Mayor asistencia total</div><div class="text-[32px] font-extrabold text-primary">Exposiciones (886,247)</div></div>
+      <div class="stat-card"><div class="text-[34px]">📊</div><div class="text-[25px] font-bold text-on-surface-variant">Mayor ratio asist./actividad</div><div class="text-[32px] font-extrabold text-primary">Exposiciones (11,817)</div></div>
+      <div class="stat-card"><div class="text-[34px]">🎭</div><div class="text-[25px] font-bold text-on-surface-variant">Mayor número de actividades</div><div class="text-[32px] font-extrabold text-primary">Otras actividades (2,784)</div></div>
+    </div>
+    <div class="modal-source">Fuente: Coordinación de Difusión Cultural, UNAM.</div>
+  </div>
+</div>
+
+<!-- MODAL B -->
+<div class="modal-overlay" id="modal-b" data-modal="b">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span class="modal-title">Asistencia por recinto · Centro Cultural Universitario · 2025</span>
+      <span class="modal-close" data-close>✕</span>
+    </div>
+    <div class="modal-subtitle">2,232 funciones · 492,766 asistentes en el CCU</div>
+
+    <div class="modal-section-title">Por tipo de actividad en el CCU</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-b-table1"></table></div>
+    <div class="chip chip-primary mt-3">El CCU concentra el 24.7% de la asistencia total del subsistema</div>
+
+    <div class="modal-section-title">Por recinto (salas del CCU)</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-b-table2"></table></div>
+    <div class="chip chip-secondary mt-3">La Sala Nezahualcóyotl tuvo más asistentes que todas las demás salas juntas en 2025</div>
+
+    <div class="modal-section-title" style="font-size:38px">CCU vs. resto del subsistema</div>
+    <div style="height:220px"><canvas id="modal-b-bars"></canvas></div>
+    <div class="modal-source">Fuente: Coordinación de Difusión Cultural, UNAM.</div>
+  </div>
+</div>
+
+<!-- MODAL D -->
+<div class="modal-overlay" id="modal-d" data-modal="d">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span class="modal-title">Educación continua y MOOC · UNAM 2025</span>
+      <span class="modal-close" data-close>✕</span>
+    </div>
+    <div class="modal-subtitle">Coordinación de Universidad Abierta y Educación Digital</div>
+
+    <div class="modal-section-title">Por tipo de actividad</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-d-table"></table></div>
+    <div class="flex flex-wrap gap-2 mt-3">
+      <span class="chip chip-primary">Las videoconferencias concentran 80.7% de los beneficiados con solo 7.2% de las actividades</span>
+      <span class="chip chip-secondary">Los diplomados acumulan 296,561 horas (56.9% del total) con solo 12.5% de las actividades</span>
+    </div>
+
+    <div class="modal-section-title" style="font-size:38px">MOOC · beneficiados por área de conocimiento</div>
+    <div style="height:320px"><canvas id="modal-d-bars"></canvas></div>
+    <div class="badge-info mt-1" style="font-size:24px">Las ciencias sociales concentran casi la mitad de los beneficiados de MOOC</div>
+
+    <div class="modal-section-title">Resumen de alcance</div>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="stat-card"><div class="text-[32px] font-extrabold text-primary">9,115</div><div class="text-[25px] font-bold text-on-surface-variant">actividades de educación continua</div></div>
+      <div class="stat-card"><div class="text-[32px] font-extrabold text-primary">521,359</div><div class="text-[25px] font-bold text-on-surface-variant">horas de formación impartidas</div></div>
+      <div class="stat-card"><div class="text-[32px] font-extrabold text-primary">52,114</div><div class="text-[25px] font-bold text-on-surface-variant">ponentes y expertos participantes</div></div>
+    </div>
+    <div class="modal-source">Fuente: Coordinación de Universidad Abierta y Educación Digital, UNAM.</div>
+  </div>
+</div>
+
+<!-- MODAL E -->
+<div class="modal-overlay" id="modal-e" data-modal="e">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span class="modal-title">Presencia digital del subsistema de Difusión Cultural · 2025</span>
+      <span class="modal-close" data-close>✕</span>
+    </div>
+
+    <div class="modal-section-title">Canales de video</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-e-table1"></table></div>
+    <div class="chip chip-primary mt-3">TV Universitaria genera el 67.8% de todas las reproducciones del subsistema</div>
+
+    <div class="modal-section-title">Redes sociales</div>
+    <div class="overflow-x-auto"><table class="data-table" id="modal-e-table2"></table></div>
+    <div class="chip chip-tertiary mt-2">Museo del Chopo lidera en X con 2,033,774 seguidores — la cuenta más grande del subsistema</div>
+    <div class="chip chip-secondary mt-2">La Dirección de Teatro tiene 131,827 seguidores en X — segunda más grande</div>
+
+    <div class="modal-section-title">Top 3 cuentas por plataforma</div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[20px]">
+      <div><div class="font-bold text-primary mb-1">Facebook</div><ol class="list-decimal list-inside space-y-1 font-semibold text-on-surface-variant"><li>Coord. Difusión Cultural (639,684)</li><li>Dir. Literatura (227,264)</li><li>Dir. Danza (216,473)</li></ol></div>
+      <div><div class="font-bold text-primary mb-1">X</div><ol class="list-decimal list-inside space-y-1 font-semibold text-on-surface-variant"><li>Museo del Chopo (2,033,774)</li><li>Dir. de Teatro (131,827)</li><li>TV Universitaria (598,338)</li></ol></div>
+      <div><div class="font-bold text-primary mb-1">Instagram/TikTok</div><ol class="list-decimal list-inside space-y-1 font-semibold text-on-surface-variant"><li>DGAC (117,448)</li><li>Coord. Difusión Cultural (103,273)</li><li>CCU Tlatelolco (65,758)</li></ol></div>
+    </div>
+
+    <div class="modal-section-title">Total presencia digital</div>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <div class="stat-card"><div class="text-[24px] font-extrabold text-primary">84</div><div class="text-[19px] font-bold text-on-surface-variant">páginas web y diarios digitales del subsistema</div></div>
+      <div class="stat-card"><div class="text-[24px] font-extrabold text-primary">32</div><div class="text-[19px] font-bold text-on-surface-variant">canales de video · 6,964 videos nuevos en 2025</div></div>
+      <div class="stat-card"><div class="text-[24px] font-extrabold text-primary">153</div><div class="text-[19px] font-bold text-on-surface-variant">cuentas en redes sociales · 4,970,249 seguidores</div></div>
+    </div>
+    <div class="modal-source">Fuente: Coordinación de Difusión Cultural, UNAM.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+    function fmt(n) { return Math.round(n).toLocaleString('es-MX'); }
+
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    var PRIMARY = '#003D79', SECONDARY = '#D59F0F', TERTIARY = '#8C7146';
+
+    // ============================================================
+    // DATA — actividades / asistencia por disciplina (fuente: PDF)
+    // ============================================================
+    var disciplinas = [
+        { key: 'otras',        label: 'Otras actividades',       act: 2784, asis: 260812, color: '#A0A0A0' },
+        { key: 'talleres',     label: 'Talleres',                 act: 1759, asis: 37375,  color: '#8C7146' },
+        { key: 'visitas',      label: 'Visitas guiadas',          act: 1596, asis: 24473,  color: '#6BA3D6' },
+        { key: 'cine',         label: 'Cine y video',              act: 1358, asis: 33345,  color: '#4A7CB5' },
+        { key: 'literatura',   label: 'Literatura',                act: 1356, asis: 247581, color: '#D59F0F' },
+        { key: 'teatro',       label: 'Teatro',                    act: 887,  asis: 99888,  color: '#003D79' },
+        { key: 'multi',        label: 'Multidisciplinarias',       act: 368,  asis: 78000,  color: '#C49A6C' },
+        { key: 'musica',       label: 'Música y conciertos',       act: 420,  asis: 244908, color: '#1E6B9B' },
+        { key: 'danza',        label: 'Danza',                     act: 311,  asis: 50001,  color: '#B89250' },
+        { key: 'conferencias', label: 'Conferencias',              act: 222,  asis: 30195,  color: '#7A9DC0' },
+        { key: 'cursos',       label: 'Cursos',                    act: 100,  asis: 2533,   color: '#A8C4D8' },
+        { key: 'exposiciones', label: 'Exposiciones',              act: 75,   asis: 886247, color: '#D4A017' }
+    ];
+
+    // ---- Pseudo-3D bevel rendering (Chart.js plugin, no icons) ----
+    function shadeColor(hex, percent) {
+        if (!hex || hex.charAt(0) !== '#' || hex.length !== 7) return hex;
+        var f = parseInt(hex.slice(1), 16), t = percent < 0 ? 0 : 255, p = Math.abs(percent) / 100;
+        var R = f >> 16, G = (f >> 8) & 0x00FF, B = f & 0x0000FF;
+        return '#' + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
+    }
+    function splitColorAlpha(color) {
+        if (color && color.length === 9 && color.charAt(0) === '#') {
+            return { hex: color.slice(0, 7), alpha: parseInt(color.slice(7, 9), 16) / 255 };
+        }
+        return { hex: color, alpha: 1 };
+    }
+    var bar3dPlugin = {
+        id: 'bar3d',
+        afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(0);
+            var colors = chart.data.datasets[0].backgroundColor;
+            meta.data.forEach(function (bar, i) {
+                var props = bar.getProps(['x', 'y', 'height', 'base'], true);
+                var parts = splitColorAlpha(colors[i]);
+                var depth = Math.max(3, Math.min(6, props.height * 0.32));
+                var top = props.y - props.height / 2;
+                ctx.save();
+                ctx.globalAlpha = parts.alpha;
+                // darker end-cap face = illusion of a 3D box end
+                ctx.fillStyle = shadeColor(parts.hex, -32);
+                ctx.fillRect(props.x, top, depth, props.height);
+                // glossy highlight strip along the top of the bar
+                ctx.fillStyle = shadeColor(parts.hex, 45);
+                ctx.globalAlpha = parts.alpha * 0.55;
+                ctx.fillRect(props.base, top, props.x - props.base, Math.max(2, props.height * 0.3));
+                ctx.restore();
+            });
+        }
+    };
+
+    var filterMap = {
+        all:            { act: 11236, asis: 1995358, label: 'todas las disciplinas', keys: [] },
+        musica:         { act: 420,   asis: 244908,  label: 'Música y conciertos', keys: ['musica'] },
+        teatro:         { act: 887,   asis: 99888,   label: 'Teatro', keys: ['teatro'] },
+        danza:          { act: 311,   asis: 50001,   label: 'Danza', keys: ['danza'] },
+        cine:           { act: 1358,  asis: 33345,   label: 'Cine y video', keys: ['cine'] },
+        literatura:     { act: 1356,  asis: 247581,  label: 'Literatura', keys: ['literatura'] },
+        exposiciones:   { act: 75,    asis: 886247,  label: 'Artes visuales / Exposiciones', keys: ['exposiciones'] },
+        talleres_cursos:{ act: 1859,  asis: 39908,   label: 'Talleres y cursos', keys: ['talleres', 'cursos'] },
+        multi_otras:    { act: 3152,  asis: 338812,  label: 'Multidisciplinario y otras', keys: ['multi', 'otras'] }
+    };
+
+    function animateValue(el, target, duration) {
+        var start = parseInt((el.textContent || '0').replace(/[^0-9]/g, ''), 10) || 0;
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var p = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(start + (target - start) * eased);
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var chart2;
+
+    // ============================================================
+    // GRÁFICA 1 — actividades por disciplina (treemap)
+    // ============================================================
+    var linktreeOrder = disciplinas.slice().sort(function (a, b) { return b.act - a.act; });
+
+    // Squarified treemap layout (Bruls/Huizing/Wijk algorithm)
+    function squarify(items, x0, y0, w0, h0) {
+        var total = items.reduce(function (s, d) { return s + d.act; }, 0);
+        var scale = (w0 * h0) / total;
+        var nodes = items.map(function (d) { return { data: d, area: d.act * scale }; });
+        var rects = [];
+        function worst(row, length) {
+            var sum = 0, max = -Infinity, min = Infinity;
+            row.forEach(function (n) { sum += n.area; max = Math.max(max, n.area); min = Math.min(min, n.area); });
+            var s2 = sum * sum, l2 = length * length;
+            return Math.max((l2 * max) / s2, s2 / (l2 * min));
+        }
+        function layoutRow(list, x, y, w, h) {
+            if (!list.length) return;
+            var length = Math.min(w, h);
+            var row = [list[0]], i = 1;
+            while (i < list.length) {
+                var testRow = row.concat([list[i]]);
+                if (worst(testRow, length) <= worst(row, length)) { row = testRow; i++; }
+                else break;
+            }
+            var rowSum = row.reduce(function (s, n) { return s + n.area; }, 0);
+            if (w >= h) {
+                var rowWidth = rowSum / h, cy = y;
+                row.forEach(function (n) {
+                    var rh = n.area / rowWidth;
+                    rects.push({ x: x, y: cy, w: rowWidth, h: rh, data: n.data });
+                    cy += rh;
+                });
+                layoutRow(list.slice(row.length), x + rowWidth, y, w - rowWidth, h);
+            } else {
+                var rowHeight = rowSum / w, cx = x;
+                row.forEach(function (n) {
+                    var rw = n.area / rowHeight;
+                    rects.push({ x: cx, y: y, w: rw, h: rowHeight, data: n.data });
+                    cx += rw;
+                });
+                layoutRow(list.slice(row.length), x, y + rowHeight, w, h - rowHeight);
+            }
+        }
+        layoutRow(nodes, x0, y0, w0, h0);
+        return rects;
+    }
+
+    var tmTooltip = document.getElementById('tm-tooltip') || (function () {
+        var el = document.createElement('div');
+        el.id = 'tm-tooltip';
+        el.className = 'tm-tooltip';
+        document.body.appendChild(el);
+        return el;
+    })();
+
+    function showTmTooltip(d, evt) {
+        tmTooltip.innerHTML =
+            '<div class="tm-tooltip-title">' + d.label + '</div>' +
+            '<div class="tm-tooltip-row"><span>Actividades</span><span>' + fmt(d.act) + '</span></div>' +
+            '<div class="tm-tooltip-row"><span>Asistencia</span><span>' + fmt(d.asis) + '</span></div>';
+        tmTooltip.classList.add('visible');
+        positionTmTooltip(evt);
+    }
+
+    function positionTmTooltip(evt) {
+        var pad = 14, tw = tmTooltip.offsetWidth, th = tmTooltip.offsetHeight;
+        var x = evt.clientX + pad, y = evt.clientY + pad;
+        if (x + tw > window.innerWidth) x = evt.clientX - tw - pad;
+        if (y + th > window.innerHeight) y = evt.clientY - th - pad;
+        tmTooltip.style.left = x + 'px';
+        tmTooltip.style.top = y + 'px';
+    }
+
+    function hideTmTooltip() {
+        tmTooltip.classList.remove('visible');
+    }
+
+    function buildTreemap() {
+        var wrap = $('#chart1-treemap');
+        var w = wrap.clientWidth, h = wrap.clientHeight;
+        if (!w || !h) return;
+        var rects = squarify(linktreeOrder, 0, 0, w, h);
+        wrap.innerHTML = '';
+        rects.forEach(function (r) {
+            var d = r.data;
+            var cell = document.createElement('div');
+            cell.className = 'treemap-cell';
+            cell.dataset.key = d.key;
+            cell.style.left = r.x + 'px';
+            cell.style.top = r.y + 'px';
+            cell.style.width = Math.max(0, r.w) + 'px';
+            cell.style.height = Math.max(0, r.h) + 'px';
+            cell.style.background = d.color;
+            if (r.w > 60 && r.h > 30) {
+                cell.innerHTML = '<span class="tm-label text-[31px]">' + d.label + '</span><span class="tm-value text-[28px]">' + fmt(d.act) + '</span>';
+            } else if (r.w > 34 && r.h > 20) {
+                cell.innerHTML = '<span class="tm-value text-[26px]">' + fmt(d.act) + '</span>';
+            }
+            cell.addEventListener('mouseenter', function (e) { showTmTooltip(d, e); });
+            cell.addEventListener('mousemove', positionTmTooltip);
+            cell.addEventListener('mouseleave', hideTmTooltip);
+            wrap.appendChild(cell);
+        });
+    }
+    buildTreemap();
+    window.addEventListener('resize', function () {
+        clearTimeout(window._tmResize);
+        window._tmResize = setTimeout(buildTreemap, 120);
+    });
+
+    function applyFilter(filterKey) {
+        var f = filterMap[filterKey];
+        animateValue($('#kpi-1-value'), f.act, 400);
+        animateValue($('#kpi-2-value'), f.asis, 400);
+
+        // Highlight/dim treemap cells
+        $$('#chart1-treemap .treemap-cell').forEach(function (item) {
+            item.style.opacity = (filterKey === 'all' || f.keys.indexOf(item.dataset.key) >= 0) ? '1' : '0.35';
+        });
+        if (chart2) {
+            chart2.data.datasets[0].backgroundColor = chart2._baseColors.map(function (c, i) {
+                if (filterKey === 'all') return c;
+                var d = chart2._order[i];
+                return f.keys.indexOf(d.key) >= 0 ? c : c + '4D';
+            });
+            chart2.update();
+        }
+    }
+
+    $('#discipline-filter').addEventListener('change', function (e) { applyFilter(e.target.value); });
+
+    // Locked KPIs: show institutional-only toast
+    [4, 5].forEach(function (n) {
+        $('#kpi-' + n).addEventListener('click', function () {
+            var toast = $('#lock-toast');
+            toast.classList.remove('hidden');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(function () { toast.classList.add('hidden'); }, 2500);
+            openModal(({4:'d',5:'e'})[n]);
+        });
+    });
+    [1, 2].forEach(function (n) {
+        $('#kpi-' + n).addEventListener('click', function () {
+            $('#kpi-' + n).classList.add('flash');
+            setTimeout(function () { $('#kpi-' + n).classList.remove('flash'); }, 800);
+            openModal(n === 1 ? 'a' : 'b');
+        });
+    });
+
+    // ============================================================
+    // MODALES — open/close
+    // ============================================================
+    function openModal(id) {
+        var overlay = $('#modal-' + id);
+        if (!overlay) return;
+        overlay.classList.add('open');
+        if (!overlay._built) { buildModal(id); overlay._built = true; }
+    }
+    function closeModal(overlay) { overlay.classList.remove('open'); }
+
+    $$('.modal-overlay').forEach(function (overlay) {
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(overlay); });
+        $$('[data-close]', overlay).forEach(function (btn) { btn.addEventListener('click', function () { closeModal(overlay); }); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') $$('.modal-overlay.open').forEach(closeModal);
+    });
+
+    function tableHTML(headers, rows, totalRowIndex) {
+        var html = '<thead><tr>' + headers.map(function (h) { return '<th>' + h + '</th>'; }).join('') + '</tr></thead><tbody>';
+        rows.forEach(function (r, i) {
+            html += '<tr' + (i === totalRowIndex ? ' class="total-row"' : '') + '>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>';
+        });
+        return html + '</tbody>';
+    }
+    function inlineBar(value, max, color) {
+        var pct = Math.max(2, Math.round((value / max) * 100));
+        return '<div class="inline-bar-track"><div class="inline-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>';
+    }
+
+    function buildModal(id) {
+        if (id === 'a') buildModalA();
+        else if (id === 'b') buildModalB();
+        else if (id === 'd') buildModalD();
+        else if (id === 'e') buildModalE();
+    }
+
+    // -------- MODAL A --------
+    function buildModalA() {
+        var rows = [
+            ['Funciones de conciertos', '420', fmt(244908), '583'],
+            ['Funciones de obras de teatro', '887', fmt(99888), '113'],
+            ['Funciones de obras de danza', '311', fmt(50001), '161'],
+            ['Funciones fílmicas y videos', '1,358', fmt(33345), '25'],
+            ['Actividades multidisciplinarias', '368', fmt(78000), '212'],
+            ['Exposiciones', '75', fmt(886247), '11,817'],
+            ['Actividades literarias', '1,356', fmt(247581), '183'],
+            ['Talleres', '1,759', fmt(37375), '21'],
+            ['Conferencias', '222', fmt(30195), '136'],
+            ['Cursos', '100', fmt(2533), '25'],
+            ['Visitas guiadas', '1,596', fmt(24473), '15'],
+            ['Otras actividades', '2,784', fmt(260812), '94'],
+            ['TOTAL', '11,236', fmt(1995358), '178']
+        ];
+        rows.forEach(function (r, i) {
+            if (i === rows.length - 1) return;
+            var ratio = parseInt(r[3].replace(/,/g, ''), 10);
+            r[3] = '<div class="flex items-center gap-2">' + r[3] + inlineBar(ratio, 11817, SECONDARY) + '</div>';
+        });
+        $('#modal-a-table').innerHTML = tableHTML(['Tipo', 'Actividades', 'Asistencia', 'Asistentes/actividad'], rows, rows.length - 1);
+
+        var labels = disciplinasParaA().map(function (d) { return d.label; });
+        var actData = disciplinasParaA().map(function (d) { return d.act; });
+        var asisData = disciplinasParaA().map(function (d) { return d.asis; });
+        var colors = disciplinasParaA().map(function (d) { return d.color; });
+        new Chart($('#modal-a-donut1'), donutCfg(labels, actData, colors, 'Actividades'));
+        new Chart($('#modal-a-donut2'), donutCfg(labels, asisData, colors, 'Asistencia'));
+    }
+    function disciplinasParaA() { return disciplinas; }
+    function donutCfg(labels, data, colors, name) {
+        return { type: 'doughnut', data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+                tooltip: { titleFont: { size: 14 }, bodyFont: { size: 13 }, callbacks: { label: function (ctx) {
+                    var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
+                    var pct = (ctx.parsed / total * 100).toFixed(1);
+                    return ctx.label + ': ' + pct + '%';
+                } } } } } };
+    }
+
+    // -------- MODAL B --------
+    function buildModalB() {
+        var rows1 = [
+            ['Conciertos', '256', fmt(314375)],
+            ['Teatro', '351', fmt(50512)],
+            ['Danza', '203', fmt(35438)],
+            ['Obras fílmicas y videos', '854', fmt(17082)],
+            ['Multidisciplinarias', '47', fmt(3014)],
+            ['Actividades literarias', '110', fmt(7240)],
+            ['Otras actividades', '411', fmt(65105)],
+            ['TOTAL CCU', '2,232', fmt(492766)]
+        ];
+        $('#modal-b-table1').innerHTML = tableHTML(['Tipo', 'Funciones', 'Asistencia'], rows1, rows1.length - 1);
+
+        var recintos = [
+            ['Sala Nezahualcóyotl', 201, 307747, '62.5%'],
+            ['Sala Miguel Covarrubias', 203, 56216, '11.4%'],
+            ['Teatro Juan Ruíz de Alarcón', 143, 32949, '6.7%'],
+            ['Explanada de La Espiga', 42, 28474, '5.8%'],
+            ['Sala Julio Bracho', 338, 13828, '2.8%'],
+            ['Sala Carlos Chávez', 104, 9757, '2.0%'],
+            ['Salón de Danza', 235, 7509, '1.5%'],
+            ['Sala José Revueltas', 318, 4745, '1.0%'],
+            ['Foro del CUT', 69, 3228, '0.7%'],
+            ['Caja negra del CUT', 103, 4077, '0.8%'],
+            ['Explanada del CCU', 163, 19710, '4.0%'],
+            ['Sala Carlos Monsiváis', 302, 3833, '0.8%'],
+            ['Foro Sor Juana Inés de la Cruz', 10, 593, '0.1%'],
+            ['Explanada del CUT', 1, 100, '0.0%']
+        ];
+        var rows2 = recintos.map(function (r) {
+            return [r[0], fmt(r[1]), '<div class="flex items-center gap-2">' + fmt(r[2]) + inlineBar(r[2], 307747, PRIMARY) + '</div>', r[3]];
+        });
+        rows2.push(['TOTAL', '2,232', fmt(492766), '100%']);
+        $('#modal-b-table2').innerHTML = tableHTML(['Recinto', 'Funciones', 'Asistencia', '% del CCU'], rows2, rows2.length - 1);
+
+        new Chart($('#modal-b-bars'), {
+            type: 'bar',
+            data: { labels: ['CCU', 'Resto del subsistema'], datasets: [{ data: [492766, 1502592], backgroundColor: [PRIMARY, SECONDARY] }] },
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { bodyFont: { size: 20 }, titleFont: { size: 20 }, callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' (' + (ctx.parsed.x / 1995358 * 100).toFixed(1) + '%)'; } } } },
+                scales: {
+                    x: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 20 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 24, weight: '600' } } }
+                } }
+        });
+    }
+
+    // -------- MODAL D --------
+    function buildModalD() {
+        var rows = [
+            ['Cursos', fmt(4208), fmt(199485), fmt(6294), fmt(216841)],
+            ['Conferencias', fmt(590), fmt(1340), fmt(886), fmt(173531)],
+            ['Diplomados', fmt(1137), fmt(296561), fmt(34309), fmt(25038)],
+            ['Seminarios', fmt(624), fmt(4801), fmt(1785), fmt(109890)],
+            ['Talleres', fmt(1142), fmt(12478), fmt(1503), fmt(290822)],
+            ['Videoconferencias', fmt(660), fmt(1238), fmt(1721), fmt(3665509)],
+            ['Otras actividades', fmt(754), fmt(5456), fmt(5616), fmt(63176)],
+            ['TOTAL', fmt(9115), fmt(521359), fmt(52114), fmt(4544807)]
+        ];
+        rows.forEach(function (r, i) {
+            if (i === rows.length - 1) return;
+            var val = parseInt(r[4].replace(/,/g, ''), 10);
+            r[4] = '<div class="flex items-center gap-2">' + r[4] + inlineBar(val, 3665509, SECONDARY) + '</div>';
+        });
+        $('#modal-d-table').innerHTML = tableHTML(['Tipo', 'Actividades', 'Horas', 'Ponentes', 'Beneficiados'], rows, rows.length - 1);
+
+        new Chart($('#modal-d-bars'), {
+            type: 'bar',
+            data: { labels: ['Ciencias Sociales', 'Cs. Físico-Matemáticas e Ing.', 'Humanidades y Artes', 'Cs. Biológicas, Químicas y Salud'],
+                datasets: [{ data: [126730, 65978, 42606, 34573], backgroundColor: [PRIMARY, SECONDARY, TERTIARY, '#4A7CB5'] }] },
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 20 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 22, weight: '600' } } }
+                } }
+        });
+    }
+
+    // -------- MODAL E --------
+    function buildModalE() {
+        var canales = [
+            ['TV Universitaria', 1, fmt(739), '—', 11611317],
+            ['Dir. Gral. Actividades Cinematogr.', 3, fmt(27209), '193', 3215451],
+            ['Coord. de Difusión Cultural', 12, fmt(15356), '373', 1140181],
+            ['Dirección de Danza', 2, fmt(2259), '151', 555419],
+            ['Dirección General de Música', 1, fmt(8423), '34', 340000],
+            ['Centro Cult. Univ. Tlatelolco', 3, fmt(1354), '87', 82283],
+            ['Museo Universitario del Chopo', 1, fmt(2005), '34', 61661],
+            ['Dir. de Literatura y Fomento Lectura', 2, fmt(82), '5,258', 22848],
+            ['Dirección de Teatro', 1, fmt(617), '42', 27075],
+            ['Dir. Gral. de Artes Visuales', 2, fmt(184), '17', 35916],
+            ['Dir. Gral. de Publicaciones', 1, fmt(182), '25', 7752],
+            ['Casa del Lago «J.J. Arreola»', 1, fmt(105), '11', 20139],
+            ['Centro Universitario de Teatro', 1, fmt(4), '—', 1330],
+            ['Dir. Gral. Radio UNAM', 1, fmt(21), '—', 1731]
+        ];
+        var rows1 = canales.map(function (r) {
+            return [r[0], r[1], r[2], r[3], '<div class="flex items-center gap-2">' + fmt(r[4]) + inlineBar(r[4], 11611317, PRIMARY) + '</div>'];
+        });
+        rows1.push(['TOTAL', '32', fmt(57801), fmt(6964), fmt(17123103)]);
+        $('#modal-e-table1').innerHTML = tableHTML(['Dependencia', 'Cuentas', 'Likes', 'Videos nuevos', 'Reproducciones'], rows1, rows1.length - 1);
+
+        var rows2 = [
+            ['Facebook', '45', fmt(1242308)],
+            ['X (Twitter)', '38', fmt(2801508)],
+            ['Instagram/TikTok', '70', fmt(926433)],
+            ['TOTAL', '153', fmt(4970249)]
+        ];
+        $('#modal-e-table2').innerHTML = tableHTML(['Plataforma', 'Cuentas', 'Seguidores'], rows2, rows2.length - 1);
+    }
+
+    // ============================================================
+    // GRÁFICA 2 — asistencia por disciplina (barras horizontales, log)
+    // ============================================================
+    var order2 = disciplinas.slice().sort(function (a, b) { return b.asis - a.asis; });
+    chart2 = new Chart($('#chart2'), {
+        type: 'bar',
+        data: { labels: order2.map(function (d) { return d.label; }),
+            datasets: [{ data: order2.map(function (d) { return d.asis; }), backgroundColor: order2.map(function (d) { return d.color; }), borderRadius: { topLeft: 3, bottomLeft: 3, topRight: 0, bottomRight: 0 }, maxBarThickness: 16 }] },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }, tooltip: { bodyFont: { size: 30 }, titleFont: { size: 30 }, callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' asistentes'; } } }
+            },
+            scales: { x: { type: 'logarithmic', max: 2000000, grid: { color: '#e5e7eb' }, ticks: { font: { size: 20 }, callback: function (v) { var s = v.toString(); return (['100','1000','10000','100000','1000000'].indexOf(s) >= 0) ? fmt(v) : ''; } } },
+                      y: { grid: { display: false }, ticks: { font: { size: 30 }, padding: 16 } } }
+        },
+        plugins: [bar3dPlugin]
+    });
+    chart2._baseColors = order2.map(function (d) { return d.color; });
+    chart2._order = order2;
+
+    // ============================================================
+    // GRÁFICA 3 — producción artística (pastel pseudo-3D, fijo)
+    // ============================================================
+    var pie3dSquash = 0.55;
+    var pie3dPlugin = {
+        id: 'pie3d',
+        beforeDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(0);
+            var colors = chart.data.datasets[0].backgroundColor;
+            var depth = 16;
+            var center = meta.data[0].getProps(['x', 'y'], true);
+            ctx.save();
+            ctx.translate(center.x, center.y);
+            ctx.scale(1, pie3dSquash);
+            ctx.translate(-center.x, -center.y);
+            for (var layer = depth; layer > 0; layer--) {
+                meta.data.forEach(function (arc, i) {
+                    var props = arc.getProps(['x', 'y', 'startAngle', 'endAngle', 'outerRadius', 'innerRadius'], true);
+                    ctx.beginPath();
+                    ctx.moveTo(props.x, props.y + layer / pie3dSquash);
+                    ctx.arc(props.x, props.y + layer / pie3dSquash, props.outerRadius, props.startAngle, props.endAngle);
+                    ctx.closePath();
+                    ctx.fillStyle = shadeColor(colors[i], -38);
+                    ctx.fill();
+                });
+            }
+            // ctx transform stays active so Chart.js draws the flat top face squashed too
+        },
+        afterDatasetsDraw: function (chart) {
+            chart.ctx.restore();
+        }
+    };
+    new Chart($('#chart3'), {
+        type: 'pie',
+        data: { labels: ['Obras musicales', 'Obras escénicas', 'Obras coreográficas', 'Exposiciones', 'Multidisciplinarias', 'Obras fílmicas'],
+            datasets: [{ data: [91, 15, 13, 15, 14, 2], backgroundColor: [PRIMARY, SECONDARY, TERTIARY, '#4A7CB5', '#C49A6C', '#A8C4D8'], borderColor: '#fff', borderWidth: 2, hoverOffset: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, animation: false, rotation: 0,
+            layout: { padding: { bottom: 16 } },
+            plugins: { legend: { position: 'right', labels: { font: { size: 32 }, boxWidth: 14, padding: 8 } },
+                tooltip: { titleFont: { size: 32 }, bodyFont: { size: 32 } } } },
+        plugins: [pie3dPlugin]
+    });
+
+    // ============================================================
+    // GRÁFICA 5 — serie histórica libros producidos
+    // ============================================================
+    new Chart($('#chart5'), {
+        type: 'line',
+        data: { labels: ['2021', '2022', '2023', '2024', '2025'],
+            datasets: [{ data: [1558, 1862, 1794, 1785, 1657], borderColor: PRIMARY, backgroundColor: 'rgba(0,61,121,0.2)', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: PRIMARY }] },
+        options: { responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: { legend: { display: false }, tooltip: { titleFont: { size: 30 }, bodyFont: { size: 30 }, yAlign: 'bottom', caretPadding: 10 } },
+            scales: { y: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 24 } } }, x: { grid: { display: false }, ticks: { font: { size: 24 } } } } }
+    });
+
+    // ---------- Sidebar indicator selection ----------
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto'].indexOf(name) >= 0) return;
+            e.preventDefault();
+            alert('El indicador "' + name + '" estará disponible próximamente.');
+        });
+    });
+
+    // ---------- Sidebar collapse toggle ----------
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Numeralia UNAM - Población Escolar Total 2025–2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    /* Base canvas tuned for a 3840x2160 (4K) display, matching the other pages in this project */
+    html {
+        font-size: 41.6px;
+    }
+    body {
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    .chart-bar-primary { background: #003D79; }
+    .chart-bar-secondary { background: #D59F0F; }
+    .chart-bar-tertiary { background: #8C7146; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+
+    #sidebar {
+        width: 664px;
+        transition: width 0.2s ease;
+        overflow-x: hidden;
+    }
+    #sidebar.collapsed {
+        width: 210px;
+    }
+    #sidebar.collapsed #sidebar-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    #sidebar.collapsed .sidebar-label {
+        display: none;
+    }
+    #sidebar.collapsed #sidebar-indicators a {
+        justify-content: center;
+    }
+    #sidebar.collapsed #sidebar-toggle {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213, 159, 15, 0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .level-bar-fill, .egreso-bar-fill {
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .filter-chip {
+        transition: all 0.15s ease;
+    }
+    .filter-chip[aria-pressed="true"] {
+        background: #003D79;
+        color: #fff;
+    }
+    /* Chart containers: definite size (height from the row, width from aspect-ratio)
+       so the isometric pie canvas can always resolve a css-pixel box to draw into
+       without a layout feedback loop. */
+    .chart-box {
+        position: relative;
+        flex-shrink: 0;
+        height: 70%;
+        aspect-ratio: 1.3 / 1;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+    }
+    .chart-canvas {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+    .chart-canvas canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    .chart-total {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1.05;
+    }
+    .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: #191c1e;
+        color: #fff;
+        font-size: 29px;
+        font-weight: 700;
+        padding: 10px 21px;
+        border-radius: 10px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, -110%);
+        transition: opacity 0.12s ease;
+        z-index: 50;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+    .career-row { cursor: pointer; }
+    .career-row.hidden-row { display: none; }
+    @keyframes pulse-flash {
+        0% { background-color: rgba(213, 159, 15, 0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+    @keyframes kpi-gold-flash {
+        0% { background-color: #FFF8E1; }
+        100% { background-color: #ffffff; }
+    }
+    .kpi-flash { animation: kpi-gold-flash 0.3s ease-out; }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #D59F0F;
+        color: #ffffff;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 12px 26px;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213, 159, 15, 0.45);
+        border: 2px solid #ffffff;
+        opacity: 1;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        pointer-events: none;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-clickable:hover .kpi-click-hint {
+        transform: scale(1.1);
+        box-shadow: 0 8px 24px rgba(213, 159, 15, 0.6);
+    }
+
+    /* ---------- Filter select ---------- */
+    #nivel-filter {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 32px;
+    }
+
+    /* ---------- Modal system ---------- */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .modal-box {
+        background: #ffffff;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 2100px;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 64px;
+        transform: scale(0.95);
+        opacity: 0;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .modal-overlay.open .modal-box {
+        transform: scale(1);
+        opacity: 1;
+    }
+    .modal-table { width: 100%; border-collapse: collapse; font-size: 30px; }
+    .modal-table th {
+        background: #003D79;
+        color: #fff;
+        text-align: left;
+        padding: 14px 16px;
+        position: sticky;
+        top: 0;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    .modal-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #e1e4e8;
+        white-space: nowrap;
+    }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr:hover { background: #EEF4FA; }
+    .modal-table tr.row-total td {
+        background: #003D79 !important;
+        color: #fff;
+        font-weight: 700;
+    }
+    .modal-table tr.row-subtotal td {
+        background: #D5E3FF !important;
+        color: #003D79;
+        font-weight: 700;
+    }
+    .modal-tab-btn {
+        transition: all 0.15s ease;
+    }
+    .modal-tab-btn.active {
+        background: #003D79;
+        color: #fff;
+    }
+    .modal-close-btn {
+        cursor: pointer;
+        transition: color 0.15s ease;
+    }
+    .modal-close-btn:hover { color: #D59F0F; }
+
+    /* ---------- Careers modal ---------- */
+    .sort-toggle-btn.active {
+        background: #D59F0F;
+        color: #fff;
+        border-color: #D59F0F;
+    }
+    .career-total-bar {
+        transition: width 0.4s ease-out;
+    }
+</style>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<!-- Brand -->
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[50px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+<!-- Header -->
+<header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Población Escolar Total 2025–2026</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Concentrado estadístico detallado y analítico de la matrícula universitaria 2025-2026.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label for="nivel-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Nivel de Estudios</label>
+<select id="nivel-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<option value="todos">Todos los niveles</option>
+<option value="licenciatura">Licenciatura</option>
+<option value="bachillerato">Bachillerato</option>
+<option value="posgrado">Posgrado</option>
+<option value="suayed">SUAyED</option>
+</select>
+</div>
+</header>
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
+<div id="kpi-card-total" class="card-institutional kpi-clickable p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">groups</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Población Total</span>
+</div>
+<span id="kpi-total" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">371,594</span>
+<div class="flex flex-wrap items-baseline gap-x-[54px] gap-y-[20px] text-[37px]">
+<span class="text-primary font-bold">Mujeres <span id="kpi-total-mujeres" class="font-normal">192,888</span></span>
+<span class="text-secondary-container font-bold">Hombres <span id="kpi-total-hombres" class="font-normal">178,698</span></span>
+<span class="text-outline font-bold">No binario <span id="kpi-total-nb" class="font-normal">8</span></span>
+</div>
+</div>
+<div id="kpi-card-ingreso" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-secondary text-[54px]">person_add</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Primer Ingreso</span>
+</div>
+<span id="kpi-ingreso" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">98,401</span>
+<div class="flex flex-wrap items-baseline gap-x-[54px] gap-y-[20px] text-[37px]">
+<span class="text-primary font-bold">Mujeres <span id="kpi-ingreso-mujeres" class="font-normal">52,117</span></span>
+<span class="text-secondary font-bold">Hombres <span id="kpi-ingreso-hombres" class="font-normal">46,276</span></span>
+</div>
+</div>
+<div id="kpi-card-reingreso" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">autorenew</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Reingreso</span>
+</div>
+<span id="kpi-reingreso" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">273,193</span>
+<div class="flex flex-wrap items-baseline gap-x-[54px] gap-y-[20px] text-[37px]">
+<span class="text-primary font-bold">Mujeres <span id="kpi-reingreso-mujeres" class="font-normal">140,771</span></span>
+<span class="text-secondary font-bold">Hombres <span id="kpi-reingreso-hombres" class="font-normal">132,422</span></span>
+</div>
+</div>
+<div id="kpi-card-nivel-mayor" class="card-institutional p-[64px] border-t-4 border-t-tertiary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-tertiary text-[54px]">military_tech</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Nivel Mayor</span>
+</div>
+<div class="flex items-baseline gap-[27px] mb-[34px]">
+<span id="kpi-nivel-mayor-nombre" class="text-[44px] font-bold text-tertiary">Licenciatura</span>
+<span id="kpi-nivel-mayor-valor" class="text-[52px] font-bold text-primary leading-none">231,327</span>
+</div>
+<div class="flex items-center gap-[27px]">
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+<div id="kpi-nivel-mayor-bar" class="bg-tertiary h-full level-bar-fill" data-bar data-target-width="62.4" style="width: 0%"></div>
+</div>
+<span id="kpi-nivel-mayor-pct" class="text-[26px] font-bold text-tertiary shrink-0">62.4%</span>
+</div>
+</div>
+</div>
+<!-- Row A: tarjeta comparativa (Poblacion por nivel + Distribucion por Area) + Top Carreras -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch gap-6 mb-5 flex-1 min-h-0">
+<!-- Comparativa: dos donas lado a lado, cada una con su leyenda a la derecha -->
+<div id="comparativa-card" class="lg:col-span-2 card-institutional p-6 flex flex-col h-full overflow-hidden">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Comparativa: Población por Nivel y Licenciatura por Área</h3>
+<div class="flex-1 min-h-0 grid grid-cols-1 sm:grid-cols-2 items-stretch gap-6">
+<!-- Sub 1: Poblacion por nivel -->
+<div class="flex flex-col min-h-0">
+<h4 id="level-donut-title" class="text-label-md font-bold text-on-surface-variant mb-0.5 shrink-0">Población por nivel</h4>
+<div class="flex-1 min-h-0 flex items-stretch gap-4">
+<div class="chart-box" id="level-donut-wrap" data-chart="level">
+<div class="chart-canvas">
+<canvas id="level-donut-canvas"></canvas>
+<div id="level-donut-tooltip" class="chart-tooltip"></div>
+</div>
+<div class="chart-total">
+<span id="level-donut-total" class="text-headline-md font-bold text-primary leading-none">371,594</span>
+<span class="text-[30px] text-outline font-bold">TOTAL</span>
+</div>
+</div>
+<div class="flex-1 min-w-0 space-y-2 flex flex-col justify-center" id="level-legend"></div>
+</div>
+</div>
+<!-- Sub 2: Distribucion de Licenciatura por Area -->
+<div class="flex flex-col min-h-0">
+<h4 id="area-donut-title" class="text-label-md font-bold text-on-surface-variant mb-0.5 shrink-0">Distribución de Licenciatura por Área</h4>
+<div class="flex-1 min-h-0 flex items-stretch gap-4">
+<div class="chart-box" id="area-donut-wrap" data-chart="area">
+<div class="chart-canvas">
+<canvas id="area-donut-canvas"></canvas>
+<div id="area-donut-tooltip" class="chart-tooltip"></div>
+</div>
+<div class="chart-total">
+<span id="area-donut-total" class="text-headline-md font-bold text-primary leading-none">231,327</span>
+<span id="area-donut-caption" class="text-[30px] text-outline font-bold">Licenciatura</span>
+</div>
+</div>
+<div class="flex-1 min-w-0 space-y-2 flex flex-col justify-center" id="area-legend"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Top Careers -->
+<div class="lg:col-span-1 card-institutional p-6 flex flex-col h-full overflow-hidden">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Top 15 Carreras con más demanda</h3>
+<div class="flex-1 min-h-0 overflow-y-auto pr-1 space-y-4" id="careers-list">
+<div class="flex flex-col gap-1 career-row" data-rank="1">
+<div class="flex justify-between items-center text-[37px]">
+<span class="font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary-container text-[36px] fill-current">stars</span>
+                  1. Derecho
+                </span>
+<span class="font-bold">29,347</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full level-bar-fill" data-bar data-target-width="100" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row" data-rank="2">
+<div class="flex justify-between items-center text-[37px]">
+<span>2. Médico Cirujano</span>
+<span class="font-bold">16,645</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="57" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row" data-rank="3">
+<div class="flex justify-between items-center text-[37px]">
+<span>3. Psicología</span>
+<span class="font-bold">14,760</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="50" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row" data-rank="4">
+<div class="flex justify-between items-center text-[37px]">
+<span>4. Economía</span>
+<span class="font-bold">10,188</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="35" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row" data-rank="5">
+<div class="flex justify-between items-center text-[37px]">
+<span>5. Contaduría</span>
+<span class="font-bold">9,741</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="33" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="6">
+<div class="flex justify-between items-center text-[37px]">
+<span>6. Administración</span>
+<span class="font-bold">9,102</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="31" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="7">
+<div class="flex justify-between items-center text-[37px]">
+<span>7. Arquitectura</span>
+<span class="font-bold">8,554</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="29" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="8">
+<div class="flex justify-between items-center text-[37px]">
+<span>8. Ingeniería Civil</span>
+<span class="font-bold">7,981</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="27" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="9">
+<div class="flex justify-between items-center text-[37px]">
+<span>9. Cirujano Dentista</span>
+<span class="font-bold">7,340</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="25" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="10">
+<div class="flex justify-between items-center text-[37px]">
+<span>10. Ciencias de la Computación</span>
+<span class="font-bold">6,872</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="23" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="11">
+<div class="flex justify-between items-center text-[37px]">
+<span>11. Relaciones Internacionales</span>
+<span class="font-bold">6,215</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="21" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="12">
+<div class="flex justify-between items-center text-[37px]">
+<span>12. Comunicación</span>
+<span class="font-bold">5,890</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="20" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="13">
+<div class="flex justify-between items-center text-[37px]">
+<span>13. Biología</span>
+<span class="font-bold">5,412</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="18" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="14">
+<div class="flex justify-between items-center text-[37px]">
+<span>14. Química Farmacéutico Biológica</span>
+<span class="font-bold">4,988</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="17" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1 career-row hidden-row" data-rank="15">
+<div class="flex justify-between items-center text-[37px]">
+<span>15. Pedagogía</span>
+<span class="font-bold">4,601</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full level-bar-fill" data-bar data-target-width="16" style="width:0%"></div>
+</div>
+</div>
+</div>
+<button id="toggle-careers" class="w-full mt-4 py-2 border border-primary text-primary text-[31px] font-bold rounded hover:bg-primary/5 transition-colors shrink-0">
+            VER LAS 15 CARRERAS →
+          </button>
+</div>
+</div>
+<!-- Section 2: Egreso Columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch gap-6 shrink-0">
+<!-- EGRESO BACHILLERATO -->
+<div id="kpi-card-egreso-bach" class="card-institutional kpi-clickable p-5">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary text-[54px]">menu_book</span>
+<h4 class="font-headline-sm text-headline-sm text-primary text-[42px] tracking-tight">Egreso bachillerato</h4>
+</div>
+<div class="mb-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-bold text-primary">29,450</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="bg-surface-container-low p-3 rounded text-center">
+<span class="text-[34px] text-outline uppercase block">ENP</span>
+<span class="text-[40px] font-bold">13,171</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded text-center">
+<span class="text-[34px] text-outline uppercase block">CCH</span>
+<span class="text-[40px] font-bold">16,279</span>
+</div>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden flex mb-2">
+<div class="bg-primary h-full egreso-bar-fill" style="width: 52.7%"></div>
+<div class="bg-secondary-container h-full egreso-bar-fill" style="width: 47.3%"></div>
+</div>
+<div class="flex justify-between text-[35px] font-bold">
+<span class="text-primary">M 52.7%</span>
+<span class="text-secondary">H 47.3%</span>
+</div>
+</div>
+<!-- EGRESO LICENCIATURA -->
+<div class="card-institutional p-5 flex flex-col justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[54px]">school</span>
+<h4 class="font-headline-sm text-headline-sm text-primary text-[42px] tracking-tight">Egreso licenciatura</h4>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-bold text-primary">36,308</span>
+</div>
+<div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden flex mb-2">
+<div class="bg-primary h-full egreso-bar-fill" style="width: 56.2%"></div>
+<div class="bg-secondary-container h-full egreso-bar-fill" style="width: 43.8%"></div>
+</div>
+<div class="flex justify-between text-[35px] font-bold">
+<span class="text-primary">M 56.2%</span>
+<span class="text-secondary">H 43.8%</span>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container text-[33px] font-bold rounded">Tesis: 4,065</span>
+<span class="px-2 py-1 bg-surface-container text-[33px] font-bold rounded">Otras: 24,831</span>
+</div>
+</div>
+<!-- GRADOS POSGRADO -->
+<div id="kpi-card-grados-pos" class="card-institutional kpi-clickable p-5">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-tertiary text-[54px]">workspace_premium</span>
+<h4 class="font-headline-sm text-headline-sm text-primary text-[42px] tracking-tight">Grados posgrado 2025</h4>
+</div>
+<div class="text-center mb-3">
+<span class="text-headline-lg font-bold text-tertiary">10,447</span>
+<span class="text-[30px] text-outline block uppercase tracking-wider">Exámenes realizados</span>
+</div>
+<div class="space-y-3">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[36px]">
+<span class="font-bold text-tertiary">Especialización</span>
+<span class="font-bold">6,817</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full level-bar-fill" data-bar data-target-width="65" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[36px]">
+<span class="font-bold text-primary">Maestría</span>
+<span class="font-bold">2,673</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full level-bar-fill" data-bar data-target-width="26" style="width:0%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[36px]">
+<span class="font-bold text-secondary">Doctorado</span>
+<span class="font-bold">957</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full level-bar-fill" data-bar data-target-width="9" style="width:0%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</main>
+
+<!-- ============ MODAL A: Población Total por entidad ============ -->
+<div id="modal-total" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Población escolar de licenciatura por entidad · 2025-2026</h3>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-total">close</span>
+</div>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead>
+<tr>
+<th>Entidad</th><th>PI Hom</th><th>PI Muj</th><th>PI Total</th><th>Reing H</th><th>Reing M</th><th>Reing Total</th><th>TOTAL</th>
+</tr>
+</thead>
+<tbody id="modal-total-tbody"></tbody>
+</table>
+</div>
+<p class="text-[26px] text-outline mt-4">Incluye Sistema Universidad Abierta y Educación a Distancia (a)</p>
+<p class="text-[24px] text-outline">Fuente: Dirección General de Administración Escolar, UNAM</p>
+</div>
+</div>
+
+<!-- ============ MODAL B: Egreso bachillerato por plantel ============ -->
+<div id="modal-egreso-bach" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Egreso de bachillerato por plantel · 2025</h3>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-egreso-bach">close</span>
+</div>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead>
+<tr><th>Plantel</th><th>Hombres</th><th>Mujeres</th><th>Total</th></tr>
+</thead>
+<tbody id="modal-egreso-bach-tbody"></tbody>
+</table>
+</div>
+<p class="text-[26px] text-outline mt-4">Se refiere a alumnos que completaron el plan de estudios en 2025</p>
+<p class="text-[24px] text-outline">Fuente: Dirección General de Administración Escolar, UNAM</p>
+</div>
+</div>
+
+<!-- ============ MODAL C: Grados posgrado ============ -->
+<div id="modal-grados-pos" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Exámenes de grado de posgrado · 2025</h3>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-grados-pos">close</span>
+</div>
+<div class="flex gap-3 mb-6">
+<button class="modal-tab-btn active px-8 py-3 rounded-full border-2 border-primary text-[30px] font-bold text-primary" data-tab="esp">ESPECIALIZACIÓN</button>
+<button class="modal-tab-btn px-8 py-3 rounded-full border-2 border-primary text-[30px] font-bold text-primary" data-tab="mayd">MAESTRÍA Y DOCTORADO</button>
+</div>
+<div id="modal-grados-tab-esp" class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Entidad</th><th>Hombres</th><th>Mujeres</th><th>Total</th></tr></thead>
+<tbody id="modal-grados-esp-tbody"></tbody>
+</table>
+</div>
+<div id="modal-grados-tab-mayd" class="overflow-x-auto hidden">
+<table class="modal-table">
+<thead><tr><th>Área</th><th>Maestría H</th><th>Maestría M</th><th>Maestría Total</th><th>Doc H</th><th>Doc M</th><th>Doc Total</th><th>Área Total</th></tr></thead>
+<tbody id="modal-grados-mayd-tbody"></tbody>
+</table>
+</div>
+<p class="text-[26px] text-outline mt-4">Incluye Sistema Universidad Abierta y Educación a Distancia</p>
+<p class="text-[24px] text-outline">Fuente: Dirección General de Administración Escolar, UNAM</p>
+</div>
+</div>
+
+<!-- ============ MODAL D: Top 15 carreras (búsqueda y orden) ============ -->
+<div id="modal-carreras" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-6">
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Las 15 carreras con mayor matrícula · Licenciatura 2025-2026</h3>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-carreras">close</span>
+</div>
+<div class="flex flex-wrap items-center gap-4 mb-6">
+<button class="sort-toggle-btn active px-6 py-3 rounded-full border-2 border-primary text-[26px] font-bold text-primary" data-sort="total">↓ Mayor matrícula</button>
+<button class="sort-toggle-btn px-6 py-3 rounded-full border-2 border-primary text-[26px] font-bold text-primary" data-sort="mujeres">↓ Mayor % Mujeres</button>
+<button class="sort-toggle-btn px-6 py-3 rounded-full border-2 border-primary text-[26px] font-bold text-primary" data-sort="nombre">A→Z Nombre</button>
+</div>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead>
+<tr><th>#</th><th>Carrera</th><th>Total</th><th>% Mujeres</th><th>% Hombres</th><th>Sistema</th></tr>
+</thead>
+<tbody id="modal-carreras-tbody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<footer class="border-t border-outline-variant bg-surface-container-lowest py-3 px-4 md:px-8 shrink-0">
+  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-outline text-label-md font-body-lg">
+      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+    </div>
+    <div class="flex flex-wrap gap-8">
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Créditos</a>
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+<script>
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+    // ---------- Animate bars on load ----------
+    function animateBars(root) {
+        $$('[data-bar]', root).forEach(function (bar) {
+            var target = bar.getAttribute('data-target-width');
+            requestAnimationFrame(function () {
+                bar.style.width = target + '%';
+            });
+        });
+    }
+
+    // ---------- Isometric 3D pie charts ----------
+    var TWO_PI = Math.PI * 2;
+
+    function shade(hex, amt) {
+        var n = parseInt(hex.slice(1), 16);
+        var r = Math.max(0, Math.min(255, ((n >> 16) & 255) + amt));
+        var g = Math.max(0, Math.min(255, ((n >> 8) & 255) + amt));
+        var b = Math.max(0, Math.min(255, (n & 255) + amt));
+        return 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
+    function normalizeAngle(a) {
+        var n = a % TWO_PI;
+        return n < 0 ? n + TWO_PI : n;
+    }
+
+    function buildSlices(data) {
+        var cum = -Math.PI / 2;
+        return data.map(function (d) {
+            var sweep = (d.pct / 100) * TWO_PI;
+            var a0 = cum, a1 = cum + sweep;
+            cum = a1;
+            var a0n = normalizeAngle(a0);
+            return { label: d.label, pct: d.pct, color: d.color, a0: a0, a1: a1, a0n: a0n, a1n: a0n + (a1 - a0) };
+        });
+    }
+
+    function findSliceAt(slices, angleRaw) {
+        var qn = normalizeAngle(angleRaw);
+        for (var i = 0; i < slices.length; i++) {
+            var s = slices[i];
+            if (s.a1n <= TWO_PI) {
+                if (qn >= s.a0n && qn < s.a1n) return s;
+            } else if (qn >= s.a0n || qn < s.a1n - TWO_PI) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    function IsoPie(canvasId, tooltipId, legendId, data) {
+        var canvas = $(canvasId);
+        var tooltip = $(tooltipId);
+        var legend = $(legendId);
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var slices = buildSlices(data);
+        var geo = null;
+        var active = null;
+        var legendHandlers = [];
+
+        function draw() {
+            var cssW = canvas.clientWidth, cssH = canvas.clientHeight;
+            if (!cssW || !cssH) return;
+            var dpr = window.devicePixelRatio || 1;
+            canvas.width = Math.round(cssW * dpr);
+            canvas.height = Math.round(cssH * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, cssW, cssH);
+
+            var cx = cssW / 2, cy = cssH * 0.40;
+            var rx = cssW * 0.42, ry = cssH * 0.26, depth = cssH * 0.20;
+            geo = { cx: cx, cy: cy, rx: rx, ry: ry, depth: depth };
+
+            function topPoint(ang) { return [cx + rx * Math.cos(ang), cy + ry * Math.sin(ang)]; }
+
+            // base shadow
+            ctx.beginPath();
+            ctx.ellipse(cx, cy + depth, rx, ry, 0, 0, TWO_PI);
+            ctx.fillStyle = 'rgba(15,25,35,0.12)';
+            ctx.fill();
+
+            // side walls, clipped to the front-facing arc (canvas angle 0..PI)
+            slices.forEach(function (s) {
+                var dimmed = active && s.label !== active;
+                var a = s.a0, b = s.a1;
+                var base = Math.floor(a / TWO_PI) * TWO_PI;
+                for (; base < b; base += TWO_PI) {
+                    var lo = Math.max(a, base), hi = Math.min(b, base + TWO_PI);
+                    var fLo = Math.max(lo, base), fHi = Math.min(hi, base + Math.PI);
+                    if (fHi <= fLo) continue;
+                    var steps = Math.max(2, Math.ceil(((fHi - fLo) / TWO_PI) * 56));
+                    ctx.beginPath();
+                    for (var i = 0; i <= steps; i++) {
+                        var ang = fLo + (fHi - fLo) * i / steps;
+                        var p = topPoint(ang);
+                        if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+                    }
+                    for (var j = steps; j >= 0; j--) {
+                        var ang2 = fLo + (fHi - fLo) * j / steps;
+                        ctx.lineTo(cx + rx * Math.cos(ang2), cy + depth + ry * Math.sin(ang2));
+                    }
+                    ctx.closePath();
+                    ctx.globalAlpha = dimmed ? 0.28 : 1;
+                    ctx.fillStyle = shade(s.color, -46);
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            });
+
+            // top face
+            slices.forEach(function (s) {
+                var dimmed = active && s.label !== active;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.ellipse(cx, cy, rx, ry, 0, s.a0, s.a1);
+                ctx.closePath();
+                ctx.globalAlpha = dimmed ? 0.35 : 1;
+                ctx.fillStyle = s.color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+            });
+        }
+
+        function sliceAt(px, py) {
+            if (!geo) return null;
+            var dx = px - geo.cx, dy = py - geo.cy;
+            var nx = dx / geo.rx, ny = dy / geo.ry;
+            if (nx * nx + ny * ny <= 1) return findSliceAt(slices, Math.atan2(ny, nx));
+            if (nx >= -1 && nx <= 1) {
+                var theta = Math.acos(Math.max(-1, Math.min(1, nx)));
+                var yTop = geo.cy + geo.ry * Math.sin(theta);
+                if (py >= yTop && py <= yTop + geo.depth) return findSliceAt(slices, theta);
+            }
+            return null;
+        }
+
+        function setActive(label) {
+            if (active === label) return;
+            active = label;
+            draw();
+        }
+
+        canvas.addEventListener('mousemove', function (e) {
+            var rect = canvas.getBoundingClientRect();
+            var px = e.clientX - rect.left, py = e.clientY - rect.top;
+            var hit = sliceAt(px, py);
+            if (tooltip) {
+                tooltip.style.left = px + 'px';
+                tooltip.style.top = py + 'px';
+            }
+            if (hit) {
+                setActive(hit.label);
+                if (tooltip) {
+                    tooltip.textContent = hit.label + ': ' + hit.pct.toFixed(1) + '%';
+                    tooltip.classList.add('visible');
+                }
+            } else {
+                setActive(null);
+                if (tooltip) tooltip.classList.remove('visible');
+            }
+        });
+        canvas.addEventListener('mouseleave', function () {
+            setActive(null);
+            if (tooltip) tooltip.classList.remove('visible');
+        });
+
+        function bindLegend() {
+            legendHandlers.forEach(function (h) {
+                h.item.removeEventListener('mouseenter', h.enter);
+                h.item.removeEventListener('mouseleave', h.leave);
+            });
+            legendHandlers = [];
+            if (!legend) return;
+            $$('[data-label]', legend).forEach(function (item) {
+                var label = item.getAttribute('data-label');
+                var enter = function () { setActive(label); };
+                var leave = function () { setActive(null); };
+                item.addEventListener('mouseenter', enter);
+                item.addEventListener('mouseleave', leave);
+                legendHandlers.push({ item: item, enter: enter, leave: leave });
+            });
+        }
+
+        function update(newData) {
+            slices = buildSlices(newData);
+            active = null;
+            draw();
+            bindLegend();
+        }
+
+        bindLegend();
+        draw();
+        return { redraw: draw, update: update, rebindLegend: bindLegend };
+    }
+
+    // ---------- DATA: filtro por nivel de estudios ----------
+    var DATA = {
+        todos: {
+            label: "Todos los niveles",
+            total: 371594, hombres: 178698, mujeres: 192888, nobinario: 8,
+            primerIngreso: 98401, pi_h: 46276, pi_m: 52117, pi_nb: 8,
+            reingreso: 273193, re_h: 132422, re_m: 140771,
+            nivelMayor: "Licenciatura", nivelMayorN: 231327, nivelMayorPct: 62.4,
+            donut: [
+                { label: "Licenciatura", val: 231327, pct: 62.4, color: "#003D79" },
+                { label: "Bachillerato", val: 106432, pct: 28.7, color: "#D59F0F" },
+                { label: "Posgrado", val: 33193, pct: 8.9, color: "#8C7146" },
+                { label: "Música/Otros", val: 642, pct: 0.2, color: "#C8C8C8" }
+            ],
+            areaDonut: [
+                { label: "Ciencias Sociales", pct: 38.1, color: "#003D79" },
+                { label: "Bio-Quím-Salud", pct: 31.0, color: "#D59F0F" },
+                { label: "Fís-Mat-Ing", pct: 20.9, color: "#8C7146" },
+                { label: "Humanidades", pct: 10.0, color: "#C8C8C8" }
+            ],
+            egresoBach: 29450, egresoLic: 36308, gradosPos: 10447
+        },
+        licenciatura: {
+            label: "Licenciatura",
+            total: 231327, hombres: 108484, mujeres: 122843, nobinario: 0,
+            primerIngreso: 48827, pi_h: 22834, pi_m: 25993, pi_nb: 0,
+            reingreso: 182500, re_h: 85650, re_m: 96850,
+            nivelMayor: "Esc. Escolarizado", nivelMayorN: 186980, nivelMayorPct: 80.9,
+            donut: [
+                { label: "Escolarizado", val: 186980, pct: 80.9, color: "#003D79" },
+                { label: "SUAyED", val: 44347, pct: 19.2, color: "#D59F0F" }
+            ],
+            areaDonut: [
+                { label: "Ciencias Sociales", pct: 38.1, color: "#003D79" },
+                { label: "Bio-Quím-Salud", pct: 31.0, color: "#D59F0F" },
+                { label: "Fís-Mat-Ing", pct: 20.9, color: "#8C7146" },
+                { label: "Humanidades", pct: 10.0, color: "#C8C8C8" }
+            ],
+            egresoLic: 36308, egresoLic_h: 15918, egresoLic_m: 20390,
+            tituladosTotal: 28896, titulados_h: 12127, titulados_m: 16768,
+            tesisTrad: 4065, otrasOpc: 24831
+        },
+        bachillerato: {
+            label: "Bachillerato",
+            total: 106432, hombres: 54319, mujeres: 52113, nobinario: 0,
+            primerIngreso: 35819, pi_h: 17113, pi_m: 18706,
+            reingreso: 70613, re_h: 37206, re_m: 33407,
+            nivelMayor: "CCH", nivelMayorN: 57062, nivelMayorPct: 53.6,
+            donut: [
+                { label: "CCH", val: 57062, pct: 53.6, color: "#003D79" },
+                { label: "ENP", val: 47431, pct: 44.6, color: "#D59F0F" },
+                { label: "Iniciación Univ.", val: 1939, pct: 1.8, color: "#8C7146" }
+            ],
+            areaDonut: [
+                { label: "CCH", pct: 53.6, color: "#003D79" },
+                { label: "ENP", pct: 44.6, color: "#D59F0F" },
+                { label: "Iniciación", pct: 1.8, color: "#8C7146" }
+            ],
+            egresoTotal: 29450, egreso_h: 13941, egreso_m: 15509,
+            egresoENP: 13171, egresoCCH: 16279
+        },
+        posgrado: {
+            label: "Posgrado",
+            total: 33193, hombres: 15502, mujeres: 17683, nobinario: 8,
+            primerIngreso: 13538, pi_h: 6183, pi_m: 7347, pi_nb: 8,
+            reingreso: 19655, re_h: 9319, re_m: 10336,
+            nivelMayor: "Especialización", nivelMayorN: 20579, nivelMayorPct: 62.0,
+            donut: [
+                { label: "Especialización", val: 20579, pct: 62.0, color: "#003D79" },
+                { label: "Maestría", val: 7951, pct: 24.0, color: "#D59F0F" },
+                { label: "Doctorado", val: 4663, pct: 14.0, color: "#8C7146" }
+            ],
+            areaDonut: [
+                { label: "Ciencias Sociales", pct: 43.5, color: "#003D79" },
+                { label: "Bio-Quím-Salud", pct: 22.1, color: "#D59F0F" },
+                { label: "Fís-Mat-Ing", pct: 18.8, color: "#8C7146" },
+                { label: "Humanidades", pct: 15.6, color: "#C8C8C8" }
+            ],
+            gradosEsp: 6817, gradosMaestria: 2673, gradosDoc: 957, gradosTotal: 10447
+        },
+        suayed: {
+            label: "SUAyED",
+            total: 44500, hombres: 19642, mujeres: 24858, nobinario: 0,
+            primerIngreso: 9957, pi_h: 4404, pi_m: 5553,
+            reingreso: 34543, re_h: 15238, re_m: 19228,
+            nivelMayor: "Licenciatura SUAyED", nivelMayorN: 44347, nivelMayorPct: 99.7,
+            donut: [
+                { label: "Licenciatura", val: 44347, pct: 99.7, color: "#003D79" },
+                { label: "Posgrado", val: 153, pct: 0.3, color: "#D59F0F" }
+            ],
+            areaDonut: [
+                { label: "Ciencias Sociales", pct: 48.2, color: "#003D79" },
+                { label: "Bio-Quím-Salud", pct: 28.1, color: "#D59F0F" },
+                { label: "Humanidades", pct: 14.3, color: "#8C7146" },
+                { label: "Fís-Mat-Ing", pct: 9.4, color: "#C8C8C8" }
+            ]
+        }
+    };
+
+    // ---------- Number counter animation ----------
+    function formatNum(n) { return Math.round(n).toLocaleString('es-MX'); }
+
+    function animateNumber(el, to, duration) {
+        if (!el) return;
+        duration = duration || 400;
+        var from = parseFloat((el.textContent || '0').replace(/[^0-9.\-]/g, '')) || 0;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = formatNum(from + (to - from) * eased);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = formatNum(to);
+        }
+        requestAnimationFrame(step);
+    }
+
+    function animateNumberPct(el, to, duration) {
+        if (!el) return;
+        duration = duration || 400;
+        var from = parseFloat((el.textContent || '0').replace(/[^0-9.\-]/g, '')) || 0;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = (from + (to - from) * eased).toFixed(1) + '%';
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = to.toFixed(1) + '%';
+        }
+        requestAnimationFrame(step);
+    }
+
+    function flashCard(el) {
+        if (!el) return;
+        el.classList.remove('kpi-flash');
+        void el.offsetWidth;
+        el.classList.add('kpi-flash');
+    }
+
+    // ---------- Legend rendering ----------
+    function renderLegend(container, items) {
+        if (!container) return;
+        container.innerHTML = items.map(function (it) {
+            return '<div class="flex items-center justify-between text-[30px] cursor-pointer" data-label="' + it.label + '">' +
+                '<div class="flex items-center gap-2"><span class="w-3 h-3 rounded" style="background:' + it.color + '"></span> ' + it.label + '</div>' +
+                '<span class="font-bold">' + it.pct.toFixed(1) + '%</span>' +
+                '</div>';
+        }).join('');
+    }
+
+    renderLegend($('#level-legend'), DATA.todos.donut);
+    renderLegend($('#area-legend'), DATA.todos.areaDonut);
+
+    var levelPie = IsoPie('#level-donut-canvas', '#level-donut-tooltip', '#level-legend', DATA.todos.donut);
+    var areaPie = IsoPie('#area-donut-canvas', '#area-donut-tooltip', '#area-legend', DATA.todos.areaDonut);
+    var redraws = [levelPie, areaPie].filter(Boolean).map(function (p) { return p.redraw; });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { redraws.forEach(function (fn) { fn(); }); }, 100);
+    });
+
+    // ---------- Interacción 1: filtros en tiempo real ----------
+    function applyFilter(key) {
+        var lvl = DATA[key];
+        if (!lvl) return;
+
+        animateNumber($('#kpi-total'), lvl.total);
+        animateNumber($('#kpi-total-mujeres'), lvl.mujeres);
+        animateNumber($('#kpi-total-hombres'), lvl.hombres);
+        animateNumber($('#kpi-total-nb'), lvl.nobinario || 0);
+
+        animateNumber($('#kpi-ingreso'), lvl.primerIngreso);
+        animateNumber($('#kpi-ingreso-mujeres'), lvl.pi_m);
+        animateNumber($('#kpi-ingreso-hombres'), lvl.pi_h);
+
+        animateNumber($('#kpi-reingreso'), lvl.reingreso);
+        animateNumber($('#kpi-reingreso-mujeres'), lvl.re_m);
+        animateNumber($('#kpi-reingreso-hombres'), lvl.re_h);
+
+        $('#kpi-nivel-mayor-nombre').textContent = lvl.nivelMayor;
+        animateNumber($('#kpi-nivel-mayor-valor'), lvl.nivelMayorN);
+        animateNumberPct($('#kpi-nivel-mayor-pct'), lvl.nivelMayorPct);
+        var bar = $('#kpi-nivel-mayor-bar');
+        bar.setAttribute('data-target-width', lvl.nivelMayorPct);
+        bar.style.width = lvl.nivelMayorPct + '%';
+
+        var levelTitle = key === 'todos' ? 'Población por nivel' : 'Modalidad — ' + lvl.label;
+        $('#level-donut-title').textContent = levelTitle;
+        renderLegend($('#level-legend'), lvl.donut);
+        levelPie.update(lvl.donut);
+        animateNumber($('#level-donut-total'), lvl.total);
+
+        var areaItems, areaTotal, areaCaption, areaTitleText;
+        if (key === 'todos') {
+            areaItems = DATA.todos.areaDonut;
+            areaTotal = DATA.todos.nivelMayorN;
+            areaCaption = DATA.todos.nivelMayor;
+            areaTitleText = 'Distribución de Licenciatura por Área';
+        } else {
+            areaItems = lvl.areaDonut;
+            areaTotal = lvl.total;
+            areaCaption = lvl.label;
+            areaTitleText = key === 'bachillerato' ? 'Distribución por Plantel' : ('Distribución de ' + lvl.label + ' por Área');
+        }
+        $('#area-donut-title').textContent = areaTitleText;
+        renderLegend($('#area-legend'), areaItems);
+        areaPie.update(areaItems);
+        animateNumber($('#area-donut-total'), areaTotal);
+        $('#area-donut-caption').textContent = areaCaption;
+
+        [
+            $('#kpi-card-total'), $('#kpi-card-ingreso'), $('#kpi-card-reingreso'),
+            $('#kpi-card-nivel-mayor'), $('#comparativa-card')
+        ].forEach(flashCard);
+    }
+
+    var nivelFilter = $('#nivel-filter');
+    if (nivelFilter) {
+        nivelFilter.addEventListener('change', function () { applyFilter(this.value); });
+    }
+
+    // ---------- Interacción 2: modales drill-down ----------
+    function openModal(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('open');
+        el.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(el) {
+        if (!el) return;
+        el.classList.remove('open');
+        el.setAttribute('aria-hidden', 'true');
+        if (!$$('.modal-overlay.open').length) document.body.style.overflow = '';
+    }
+    function closeAllModals() {
+        $$('.modal-overlay.open').forEach(closeModal);
+    }
+
+    $$('.modal-overlay').forEach(function (overlay) {
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeModal(overlay);
+        });
+    });
+    $$('.modal-close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            closeModal(document.getElementById(btn.getAttribute('data-close')));
+        });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeAllModals();
+    });
+
+    // --- Modal A: Población total por entidad ---
+    var totalRows = [
+        ["FES Acatlán", 2406, 2285, 4691, 9143, 8615, 17758, 22449],
+        ["FES Aragón", 2581, 1946, 4527, 9269, 6937, 16206, 20733],
+        ["FES Iztacala", 1396, 2872, 4268, 4569, 9274, 13843, 18111],
+        ["Fac. Derecho", 1566, 1838, 3404, 6449, 7702, 14151, 17555],
+        ["FES Cuautitlán", 1765, 1642, 3407, 6587, 6360, 12947, 16354],
+        ["Fac. C. y Admon.", 2078, 2183, 4261, 5982, 5820, 11802, 16063],
+        ["FES Zaragoza", 1105, 1829, 2934, 3795, 6369, 10164, 13098],
+        ["Fac. Ingeniería", 1801, 690, 2491, 7999, 2843, 10842, 13333],
+        ["Fac. C. Políticas", 1418, 1689, 3107, 4724, 5258, 9982, 13089],
+        ["Fac. Filosofía", 971, 1382, 2353, 3381, 4942, 8323, 10676],
+        ["Fac. Arquitectura", 520, 691, 1211, 2716, 2907, 5623, 6834],
+        ["Fac. Química", 622, 659, 1281, 3129, 3616, 6745, 8026],
+        ["Fac. Ciencias", 1163, 688, 1851, 4720, 2961, 7681, 9532],
+        ["Fac. Medicina", 626, 1212, 1838, 3003, 6676, 9679, 11517],
+        ["Fac. Psicología", 297, 629, 926, 997, 2318, 3315, 4241],
+        ["Fac. Economía", 1004, 483, 1487, 4046, 1827, 5873, 7360],
+        ["Fac. Odontología", 116, 428, 544, 622, 1773, 2395, 2939],
+        ["Fac. Artes y Diseño", 213, 590, 803, 656, 1950, 2606, 3409],
+        ["ENTS", 194, 663, 857, 603, 2328, 2931, 3788],
+        ["Fac. Enf. Obstet.", 168, 375, 543, 749, 1957, 2706, 3249],
+        ["Fac. Med. Vet.", 151, 441, 592, 715, 2023, 2738, 3330],
+        ["ENES León", 118, 200, 318, 253, 488, 741, 1059],
+        ["ENES Morelia", 143, 167, 310, 400, 560, 960, 1270],
+        ["ENES Juriquilla", 122, 132, 254, 183, 196, 379, 633],
+        ["ENES Mérida", 33, 38, 71, 129, 215, 344, 415],
+        ["ENCT", 97, 72, 169, 194, 198, 392, 561],
+        ["ENCF", 10, 44, 54, 58, 127, 185, 239],
+        ["ENLLT", 22, 71, 93, 112, 312, 424, 517],
+        ["ENAC", 2, 1, 3, 40, 48, 88, 91],
+        ["Fac. Música", 78, 35, 113, 293, 185, 478, 591],
+        ["IBt", 4, 4, 8, 21, 21, 42, 50],
+        ["IER", 9, 4, 13, 30, 16, 46, 59],
+        ["IIMAS", 21, 4, 25, 39, 6, 45, 70],
+        ["CNyN", 14, 6, 20, 44, 22, 66, 86]
+    ];
+    (function buildModalTotal() {
+        var tbody = $('#modal-total-tbody');
+        var html = totalRows.map(function (r) {
+            return '<tr><td>' + r[0] + '</td><td>' + r[1].toLocaleString('es-MX') + '</td><td>' + r[2].toLocaleString('es-MX') + '</td><td>' + r[3].toLocaleString('es-MX') + '</td><td>' + r[4].toLocaleString('es-MX') + '</td><td>' + r[5].toLocaleString('es-MX') + '</td><td>' + r[6].toLocaleString('es-MX') + '</td><td>' + r[7].toLocaleString('es-MX') + '</td></tr>';
+        }).join('');
+        html += '<tr class="row-total"><td>TOTAL</td><td>22,834</td><td>25,993</td><td>48,827</td><td>85,650</td><td>96,850</td><td>182,500</td><td>231,327</td></tr>';
+        tbody.innerHTML = html;
+    })();
+
+    // --- Modal B: Egreso bachillerato por plantel ---
+    (function buildModalEgresoBach() {
+        var tbody = $('#modal-egreso-bach-tbody');
+        var rows = [];
+        rows.push('<tr class="row-subtotal"><td>Escuela Nacional Preparatoria</td><td>6,447</td><td>6,724</td><td>13,171</td></tr>');
+        [
+            ["Plantel 1 Gabino Barreda", 525, 599, 1124],
+            ["Plantel 2 Erasmo Castellanos Q.", 731, 682, 1413],
+            ["Plantel 3 Justo Sierra", 642, 705, 1347],
+            ["Plantel 4 Vidal Castañeda y N.", 534, 659, 1193],
+            ["Plantel 5 José Vasconcelos", 1063, 1167, 2230],
+            ["Plantel 6 Antonio Caso", 833, 730, 1563],
+            ["Plantel 7 Ezequiel A. Chávez", 660, 759, 1419],
+            ["Plantel 8 Miguel E. Schulz", 679, 723, 1402],
+            ["Plantel 9 Pedro de Alba", 780, 700, 1480]
+        ].forEach(function (r) {
+            rows.push('<tr><td>' + r[0] + '</td><td>' + r[1].toLocaleString('es-MX') + '</td><td>' + r[2].toLocaleString('es-MX') + '</td><td>' + r[3].toLocaleString('es-MX') + '</td></tr>');
+        });
+        rows.push('<tr class="row-subtotal"><td>Colegio de Ciencias y Humanidades</td><td>7,494</td><td>8,785</td><td>16,279</td></tr>');
+        [
+            ["Plantel Azcapotzalco", 1469, 1663, 3132],
+            ["Plantel Naucalpan", 1392, 1719, 3111],
+            ["Plantel Oriente", 1670, 1911, 3581],
+            ["Plantel Sur", 1520, 1753, 3273],
+            ["Plantel Vallejo", 1443, 1739, 3182]
+        ].forEach(function (r) {
+            rows.push('<tr><td>' + r[0] + '</td><td>' + r[1].toLocaleString('es-MX') + '</td><td>' + r[2].toLocaleString('es-MX') + '</td><td>' + r[3].toLocaleString('es-MX') + '</td></tr>');
+        });
+        rows.push('<tr class="row-total"><td>TOTAL BACHILLERATO</td><td>13,941</td><td>15,509</td><td>29,450</td></tr>');
+        tbody.innerHTML = rows.join('');
+    })();
+
+    // --- Modal C: Grados posgrado (tabs) ---
+    (function buildModalGrados() {
+        var espRows = [
+            ["Fac. Medicina", 2080, 2703, 4783],
+            ["Fac. Enfermería y Obstet.", 120, 454, 574],
+            ["ENTS", 10, 93, 103],
+            ["Fac. Derecho", 121, 126, 247],
+            ["FES Acatlán", 109, 112, 221],
+            ["Fac. Contaduría y Admon.", 57, 64, 121],
+            ["Fac. Odontología", 41, 87, 128],
+            ["FES Aragón", "—", "—", "—"],
+            ["FES Zaragoza", 17, 29, 46],
+            ["FES Cuautitlán", 19, 19, 38],
+            ["FES Iztacala", 11, 17, 28],
+            ["Fac. Economía", 64, 85, 149],
+            ["Fac. Ingeniería", 70, 28, 98],
+            ["Fac. Arquitectura", 55, 61, 116],
+            ["Fac. Med. Vet. y Zoot.", 36, 30, 66],
+            ["Fac. C. Políticas y Soc.", 6, 5, 11],
+            ["Fac. Filosofía y Letras", 8, 28, 36],
+            ["Fac. Psicología", 3, 7, 10],
+            ["Fac. Química", 5, 2, 7],
+            ["Fac. Ciencias", 3, 0, 3],
+            ["ENES León", 8, 5, 13],
+            ["IIMAS", 4, 0, 4],
+            ["IIE", 2, 6, 8],
+            ["CRIM", 0, 1, 1]
+        ];
+        var espHtml = espRows.map(function (r) {
+            function f(v) { return typeof v === 'number' ? v.toLocaleString('es-MX') : v; }
+            return '<tr><td>' + r[0] + '</td><td>' + f(r[1]) + '</td><td>' + f(r[2]) + '</td><td>' + f(r[3]) + '</td></tr>';
+        }).join('');
+        espHtml += '<tr class="row-total"><td>TOTAL</td><td>2,850</td><td>3,967</td><td>6,817</td></tr>';
+        $('#modal-grados-esp-tbody').innerHTML = espHtml;
+
+        var maydRows = [
+            ["Ciencias Físico Mat. e Ing.", 263, 109, 372, 134, 50, 184, 556],
+            ["Ciencias Bio., Quím. y Salud", 309, 394, 703, 197, 198, 395, 1098],
+            ["Ciencias Sociales", 548, 574, 1122, 119, 76, 195, 1317],
+            ["Humanidades y Artes", 218, 258, 476, 87, 96, 183, 659]
+        ];
+        var maydHtml = maydRows.map(function (r) {
+            return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3].toLocaleString('es-MX') + '</td><td>' + r[4] + '</td><td>' + r[5] + '</td><td>' + r[6].toLocaleString('es-MX') + '</td><td>' + r[7].toLocaleString('es-MX') + '</td></tr>';
+        }).join('');
+        maydHtml += '<tr class="row-subtotal"><td>TOTAL MAESTRÍA</td><td>1,338</td><td>1,335</td><td>2,673</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>';
+        maydHtml += '<tr class="row-subtotal"><td>TOTAL DOCTORADO</td><td>—</td><td>—</td><td>—</td><td>537</td><td>420</td><td>957</td><td>—</td></tr>';
+        maydHtml += '<tr class="row-total"><td>GRAN TOTAL</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>3,630</td></tr>';
+        $('#modal-grados-mayd-tbody').innerHTML = maydHtml;
+
+        $$('.modal-tab-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                $$('.modal-tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                var tab = btn.getAttribute('data-tab');
+                $('#modal-grados-tab-esp').classList.toggle('hidden', tab !== 'esp');
+                $('#modal-grados-tab-mayd').classList.toggle('hidden', tab !== 'mayd');
+            });
+        });
+    })();
+
+    $('#kpi-card-total').addEventListener('click', function () { openModal('modal-total'); });
+    $('#kpi-card-egreso-bach').addEventListener('click', function () { openModal('modal-egreso-bach'); });
+    $('#kpi-card-grados-pos').addEventListener('click', function () { openModal('modal-grados-pos'); });
+
+    // ---------- Interacción 3: modal Top 15 carreras con búsqueda y orden ----------
+    var carreras15 = [
+        { rank: 1, nombre: "Derecho", total: 29347, pctM: 54.3, pctH: 45.7, sistema: "Esc+SUAyED" },
+        { rank: 2, nombre: "Médico Cirujano", total: 16645, pctM: 67.8, pctH: 32.2, sistema: "Escolarizado" },
+        { rank: 3, nombre: "Psicología", total: 14760, pctM: 69.5, pctH: 30.5, sistema: "Esc+SUAyED" },
+        { rank: 4, nombre: "Economía", total: 10188, pctM: 31.4, pctH: 68.6, sistema: "Esc+SUAyED" },
+        { rank: 5, nombre: "Contaduría", total: 9741, pctM: 50.1, pctH: 49.9, sistema: "Esc+SUAyED" },
+        { rank: 6, nombre: "Arquitectura", total: 9283, pctM: 52.6, pctH: 47.4, sistema: "Escolarizado" },
+        { rank: 7, nombre: "Administración", total: 8493, pctM: 50.3, pctH: 49.7, sistema: "Esc+SUAyED" },
+        { rank: 8, nombre: "Cirujano Dentista", total: 7318, pctM: 74.1, pctH: 25.9, sistema: "Escolarizado" },
+        { rank: 9, nombre: "Relaciones Internacionales", total: 6781, pctM: 64.8, pctH: 35.2, sistema: "Escolarizado" },
+        { rank: 10, nombre: "Med. Veterinaria y Zoot.", total: 6443, pctM: 62.7, pctH: 37.3, sistema: "Escolarizado" },
+        { rank: 11, nombre: "Biología", total: 5661, pctM: 52.3, pctH: 47.7, sistema: "Escolarizado" },
+        { rank: 12, nombre: "Pedagogía", total: 5250, pctM: 74.6, pctH: 25.4, sistema: "Esc+SUAyED" },
+        { rank: 13, nombre: "Enfermería", total: 5167, pctM: 82.6, pctH: 17.4, sistema: "Esc+SUAyED" },
+        { rank: 14, nombre: "Cs. de la Comunicación", total: 4871, pctM: 63.2, pctH: 36.8, sistema: "Escolarizado" },
+        { rank: 15, nombre: "Q. Farmacéutico Biológica", total: 4852, pctM: 50.5, pctH: 49.5, sistema: "Escolarizado" }
+    ];
+    var carrerasMax = Math.max.apply(null, carreras15.map(function (c) { return c.total; }));
+
+    var currentSort = 'total';
+
+    function renderCarreras() {
+        var sorted = carreras15.slice().sort(function (a, b) {
+            if (currentSort === 'total') return b.total - a.total;
+            if (currentSort === 'mujeres') return b.pctM - a.pctM;
+            if (currentSort === 'nombre') return a.nombre.localeCompare(b.nombre, 'es');
+            return 0;
+        });
+        var tbody = $('#modal-carreras-tbody');
+        tbody.innerHTML = sorted.map(function (c) {
+            var isTop = c.rank === 1;
+            var barWidth = (c.total / carrerasMax * 100).toFixed(1);
+            var sistemaClass = c.sistema === 'Esc+SUAyED' ? 'bg-surface-container text-on-surface-variant' : 'bg-white border border-outline-variant text-on-surface-variant';
+            return '<tr' + (isTop ? ' style="background:#FFF8E1"' : '') + '>' +
+                '<td>' + c.rank + '</td>' +
+                '<td>' + c.nombre + (isTop ? ' <span class="ml-2 px-3 py-1 rounded-full bg-secondary text-white text-[22px] font-bold whitespace-nowrap">👑 1er lugar</span>' : '') + '</td>' +
+                '<td><div class="flex items-center gap-3"><div class="flex-1 min-w-[120px] bg-surface-container rounded h-3 overflow-hidden"><div class="h-full bg-primary career-total-bar" style="width:' + barWidth + '%"></div></div><span class="font-bold shrink-0">' + c.total.toLocaleString('es-MX') + '</span></div></td>' +
+                '<td><span class="px-3 py-1 rounded-full bg-primary text-white text-[26px] font-bold">' + c.pctM.toFixed(1) + '%</span></td>' +
+                '<td><span class="px-3 py-1 rounded-full bg-secondary text-white text-[26px] font-bold">' + c.pctH.toFixed(1) + '%</span></td>' +
+                '<td><span class="px-3 py-1 rounded-full text-[24px] font-bold ' + sistemaClass + '">' + c.sistema + '</span></td>' +
+                '</tr>';
+        }).join('');
+    }
+
+    $$('.sort-toggle-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            $$('.sort-toggle-btn').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            currentSort = btn.getAttribute('data-sort');
+            renderCarreras();
+        });
+    });
+
+    $('#toggle-careers').addEventListener('click', function () {
+        currentSort = 'total';
+        $$('.sort-toggle-btn').forEach(function (b, i) { b.classList.toggle('active', i === 0); });
+        renderCarreras();
+        openModal('modal-carreras');
+    });
+
+    // ---------- Sidebar indicator selection ----------
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (name !== 'Población Escolar' && name !== 'Personal Académico' && name !== 'Investigación' && name !== 'Cultura' && name !== 'Presupuesto') {
+                e.preventDefault();
+                alert('El indicador "' + name + '" estará disponible próximamente.');
+                return;
+            }
+            $$('#sidebar-indicators a').forEach(function (l) { l.classList.remove('sidebar-active-item'); l.classList.add('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium'); });
+            link.classList.add('sidebar-active-item');
+            link.classList.remove('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium');
+        });
+    });
+
+    // ---------- Sidebar collapse toggle (button lives inside the sidebar itself) ----------
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+
+    // ---------- Card hover lift (institutional cards) ----------
+    // handled purely via CSS now (see .card-institutional:hover)
+
+    // ---------- Init ----------
+    animateBars(document);
+})();
+</script>
+</body>
+</html>

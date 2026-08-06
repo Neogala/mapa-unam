@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Numeralia UNAM - Presupuesto 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    /* Base canvas: 3840×2160 (4K display) */
+    html { font-size: 41.6px; }
+    body {
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+    #sidebar { width: 664px; transition: width 0.2s ease; overflow-x: hidden; }
+    #sidebar.collapsed { width: 210px; }
+    #sidebar.collapsed #sidebar-inner { padding-left: 24px; padding-right: 24px; }
+    #sidebar.collapsed .sidebar-label { display: none; }
+    #sidebar.collapsed #sidebar-indicators a { justify-content: center; }
+    #sidebar.collapsed #sidebar-toggle { display: block; margin: auto; }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213,159,15,0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .level-bar-fill { transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .filter-chip { transition: all 0.15s ease; }
+    .filter-chip[aria-pressed="true"] { background: #003D79; color: #fff; }
+    @keyframes kpi-gold-flash {
+        0%   { background-color: #FFF8E1; }
+        100% { background-color: #ffffff; }
+    }
+    .kpi-flash { animation: kpi-gold-flash 0.3s ease-out; }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute; top: 22px; right: 22px;
+        display: flex; align-items: center; gap: 10px;
+        background: #D59F0F; color: #ffffff;
+        font-size: 32px; font-weight: 800; letter-spacing: 0.02em;
+        padding: 12px 26px; border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213,159,15,0.45);
+        border: 2px solid #ffffff;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        pointer-events: none; z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    @keyframes pulse-flash {
+        0%   { background-color: rgba(213,159,15,0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+    /* Modal */
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+        z-index: 200; display: flex; align-items: center;
+        justify-content: center; padding: 60px;
+        opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: #ffffff; border-radius: 24px;
+        width: 100%; max-width: 2100px; max-height: 85vh;
+        overflow-y: auto; padding: 64px;
+        transform: scale(0.95); opacity: 0;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); opacity: 1; }
+    .modal-table { width: 100%; border-collapse: collapse; font-size: 30px; }
+    .modal-table th {
+        background: #003D79; color: #fff; text-align: left;
+        padding: 14px 16px; position: sticky; top: 0;
+        font-weight: 700; white-space: nowrap;
+    }
+    .modal-table td {
+        padding: 12px 16px; border-bottom: 1px solid #e1e4e8; white-space: nowrap;
+    }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr:hover { background: #EEF4FA; }
+    .modal-table tr.row-total td {
+        background: #003D79 !important; color: #fff; font-weight: 700;
+    }
+    .modal-table tr.row-subtotal td {
+        background: #D5E3FF !important; color: #003D79; font-weight: 700;
+    }
+    .modal-tab-btn { transition: all 0.15s ease; }
+    .modal-tab-btn.active { background: #003D79; color: #fff; }
+    .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
+    .modal-close-btn:hover { color: #D59F0F; }
+
+    /* ---------- Filter select ---------- */
+    #funcion-filter {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 32px;
+    }
+
+    /* ---------- Presupuesto page specifics ---------- */
+    #treemap-wrap, #radial-wrap { position: relative; width: 100%; height: 100%; }
+    /* Chart.js requires its canvas's immediate parent to be position:relative
+       with a resolvable size for the responsive resize observer to work. */
+    .chart-canvas-wrap { position: relative; width: 100%; }
+    .chart-canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+    .treemap-node { transition: opacity 0.2s ease; }
+    .radial-arc { transition: opacity 0.2s ease; }
+    .insight-chip {
+        border-radius: 10px;
+        padding: 18px 24px;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+    .lock-badge {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 20px; color: #6B7280; font-weight: 600;
+    }
+</style>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<!-- Brand -->
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="presupuesto.html">
+<span class="material-symbols-outlined text-[50px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+<!-- Header -->
+<header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Presupuesto UNAM · 2026</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Ingresos y egresos institucionales.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label for="funcion-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Filtrar por función de egreso:</label>
+<select id="funcion-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<option value="todas">Todas las funciones</option>
+<option value="docencia">Docencia</option>
+<option value="investigacion">Investigación</option>
+<option value="extension">Extensión Univ.</option>
+<option value="gestion">Gestión Inst.</option>
+</select>
+</div>
+</header>
+
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
+  <!-- KPI 1: Presupuesto total / por función -->
+  <div id="kpi-card-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-primary text-[54px]">payments</span>
+      <span id="kpi1-label" class="text-[38px] font-label-md text-outline uppercase tracking-wider">Presupuesto UNAM</span>
+    </div>
+    <span id="kpi1-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$59,877 MDP</span>
+    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">millones de pesos</span>
+  </div>
+  <!-- KPI 2: Subsidio Gobierno Federal (estático) -->
+  <div class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-secondary text-[54px]">account_balance</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Subsidio Gobierno Federal</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$53,749 MDP</span>
+    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">89.76% del presupuesto total</span>
+    <span class="lock-badge mt-[14px]"><span class="material-symbols-outlined text-[24px]">lock</span>Dato institucional · no varía por función</span>
+  </div>
+  <!-- KPI 3: Ingresos propios UNAM (estático) -->
+  <div class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-secondary text-[54px]">trending_up</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Ingresos propios UNAM</span>
+    </div>
+    <span class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$6,129 MDP</span>
+    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">10.24% del presupuesto total</span>
+    <span class="lock-badge mt-[14px]"><span class="material-symbols-outlined text-[24px]">lock</span>Dato institucional · no varía por función</span>
+  </div>
+  <!-- KPI 4: Mayor función de gasto -->
+  <div class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+    <div class="flex items-center gap-3 mb-[20px]">
+      <span class="material-symbols-outlined text-primary text-[54px]">bar_chart</span>
+      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Mayor función de gasto</span>
+    </div>
+    <span id="kpi4-value" class="text-[50px] font-bold text-primary leading-none block mb-[16px]">Docencia · $36,903 MDP</span>
+    <span id="kpi4-sub" class="text-[26px] text-outline font-bold uppercase tracking-wide">61.7% del presupuesto total</span>
+  </div>
+</div>
+
+<!-- Fila A: Treemap, a todo lo ancho -->
+<div class="mb-6" style="height:660px;">
+  <div class="card-institutional p-6 h-full flex flex-col overflow-hidden">
+    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">Distribución del presupuesto de egresos · por función</h3>
+    <div id="treemap-wrap" class="flex-1 min-h-0"></div>
+  </div>
+</div>
+
+<!-- Fila B: Radial Bar (40%) + Waterfall (60%) -->
+<div class="grid grid-cols-1 lg:grid-cols-5 items-stretch gap-6 flex-1 min-h-0" style="min-height:600px;">
+  <!-- Gráfica 3: Radial bar -->
+  <div class="lg:col-span-2 card-institutional p-6 flex flex-col overflow-hidden">
+    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">% del presupuesto · por función</h3>
+    <div class="flex-1 min-h-0 flex items-stretch gap-4">
+      <div id="radial-legend" class="flex flex-col justify-center gap-3 shrink-0" style="width:340px;"></div>
+      <div class="flex-1 min-h-0 flex items-center justify-center">
+        <div id="radial-wrap" style="width:100%; height:100%;"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Gráfica 2: Waterfall -->
+  <div id="waterfall-card" class="lg:col-span-3 card-institutional kpi-clickable p-6 flex flex-col overflow-hidden">
+    <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
+    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">Composición de ingresos 2026 · millones de pesos</h3>
+    <span id="waterfall-static-badge" class="text-[30px] text-outline shrink-0" style="display:none;">Datos institucionales · no varía por función</span>
+    <div id="waterfall-wrap" class="flex-1 min-h-0"></div>
+  </div>
+</div>
+
+</main>
+
+<!-- ============ MODAL A: Desglose de ingresos ============ -->
+<div id="modal-ingresos" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-4">
+<div>
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Presupuesto de ingresos UNAM 2026</h3>
+<p class="text-[28px] text-outline">Total: $59,877,625,970</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-ingresos">close</span>
+</div>
+<div class="overflow-x-auto mb-8">
+<table class="modal-table">
+<thead><tr><th>Concepto</th><th>Monto (pesos)</th><th>%</th></tr></thead>
+<tbody>
+<tr class="row-subtotal"><td>SUBSIDIO DEL GOBIERNO FEDERAL</td><td>53,748,541,238</td><td>89.76%</td></tr>
+<tr class="row-subtotal"><td>INGRESOS PROPIOS</td><td>6,129,084,732</td><td>10.24%</td></tr>
+<tr><td style="padding-left:48px;">Servicios y Productos</td><td>4,419,196,420</td><td>7.38%</td></tr>
+<tr><td style="padding-left:48px;">Productos del Patrimonio</td><td>1,315,876,312</td><td>2.20%</td></tr>
+<tr><td style="padding-left:96px;">└ Rendimientos</td><td>1,215,876,312</td><td>2.03%</td></tr>
+<tr><td style="padding-left:96px;">└ Otros Productos</td><td>100,000,000</td><td>0.17%</td></tr>
+<tr><td style="padding-left:48px;">Servicios de Educación</td><td>394,012,000</td><td>0.66%</td></tr>
+<tr><td style="padding-left:96px;">└ Incorporaciones y Revalidaciones</td><td>215,000,000</td><td>0.36%</td></tr>
+<tr><td style="padding-left:96px;">└ Concurso de Selección</td><td>147,437,000</td><td>0.25%</td></tr>
+<tr><td style="padding-left:96px;">└ Inscripciones y Colegiaturas</td><td>31,575,000</td><td>0.05%</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>59,877,625,970</td><td>100%</td></tr>
+</tbody>
+</table>
+</div>
+<h4 class="text-[32px] font-bold text-primary mb-3">Composición de los ingresos propios ($6,129 MDP)</h4>
+<div class="space-y-3 mb-8">
+  <div>
+    <div class="flex justify-between text-[24px] font-bold mb-1"><span>Servicios y Productos</span><span>72.1%</span></div>
+    <div class="w-full bg-surface-container h-4 rounded-full overflow-hidden"><div class="h-full" style="width:72.1%; background:#8C7146;"></div></div>
+  </div>
+  <div>
+    <div class="flex justify-between text-[24px] font-bold mb-1"><span>Productos Patrimonio</span><span>21.5%</span></div>
+    <div class="w-full bg-surface-container h-4 rounded-full overflow-hidden"><div class="h-full" style="width:21.5%; background:#D59F0F;"></div></div>
+  </div>
+  <div>
+    <div class="flex justify-between text-[24px] font-bold mb-1"><span>Servicios Educación</span><span>6.4%</span></div>
+    <div class="w-full bg-surface-container h-4 rounded-full overflow-hidden"><div class="h-full" style="width:6.4%; background:#4A7CB5;"></div></div>
+  </div>
+</div>
+<div class="flex flex-col gap-3 mb-6">
+  <div class="insight-chip" style="background:#003D79; color:#fff;">Por cada $100 del presupuesto UNAM, $89.76 provienen del Gobierno Federal</div>
+  <div class="insight-chip" style="background:#FFF3D6; color:#7a5900;">Los ingresos propios incluyen servicios educativos, patrimonio y productos institucionales</div>
+</div>
+<p class="text-[24px] text-outline">Fuente: Dirección General de Presupuesto, UNAM.</p>
+</div>
+</div>
+
+<footer class="border-t border-outline-variant bg-surface-container-lowest py-3 px-4 md:px-8 shrink-0">
+  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-outline text-label-md font-body-lg">
+      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+    </div>
+    <div class="flex flex-wrap gap-8">
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Créditos</a>
+      <a href="#" class="text-outline text-label-md font-body-lg hover:text-primary transition-colors">Contacto</a>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+<script>
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+    var COLOR = {
+        primary: '#003D79',
+        secondary: '#D59F0F',
+        tertiary: '#8C7146',
+        blue2: '#4A7CB5',
+        blue3: '#8B9DB5'
+    };
+
+    // ---------------- Data: funciones de egreso (treemap / radial) ----------------
+    var FUNCIONES = {
+        docencia_superior: { name: 'Docencia Superior', monto: 28953446248, pct: 48.4, color: COLOR.primary },
+        investigacion: { name: 'Investigación', monto: 15708295500, pct: 26.2, color: COLOR.secondary },
+        docencia_bach: { name: 'Docencia Bachillerato', monto: 7949640293, pct: 13.3, color: COLOR.tertiary },
+        extension: { name: 'Extensión Universitaria', monto: 4501891293, pct: 7.5, color: COLOR.blue2 },
+        gestion: { name: 'Gestión Institucional', monto: 2764352636, pct: 4.6, color: COLOR.blue3 }
+    };
+
+    // ---------------- Data: filtro por función (KPIs / badge) ----------------
+    var TOTAL_MDP = 59877;
+    var FN_META = {
+        docencia: { name: 'Docencia', monto: 36903, pct: 61.7, treemapKeys: ['docencia_superior', 'docencia_bach'] },
+        investigacion: { name: 'Investigación', monto: 15708, pct: 26.2, treemapKeys: ['investigacion'] },
+        extension: { name: 'Extensión Univ.', monto: 4502, pct: 7.5, treemapKeys: ['extension'] },
+        gestion: { name: 'Gestión Inst.', monto: 2764, pct: 4.6, treemapKeys: ['gestion'] }
+    };
+    var MAYOR_FUNCION_KEY = 'docencia'; // función con mayor % cuando el filtro está en "todas"
+
+    function fmtMoney(n) { return '$' + Math.round(n).toLocaleString('es-MX') + ' MDP'; }
+
+    // ---------------- Counter animation ----------------
+    function animateNumber(el, from, to, formatFn, duration) {
+        duration = duration || 400;
+        var start = Date.now();
+        function step() {
+            var t = Math.min((Date.now() - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            var val = from + (to - from) * eased;
+            el.textContent = formatFn(val);
+            if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var kpi1State = TOTAL_MDP;
+
+    function applyFilter(key) {
+        var isTodas = (key === 'todas');
+
+        // KPI 1: presupuesto total / por función
+        $('#kpi1-label').textContent = isTodas ? 'Presupuesto UNAM' : ('Presupuesto · ' + FN_META[key].name);
+        var kpi1Target = isTodas ? TOTAL_MDP : FN_META[key].monto;
+        animateNumber($('#kpi1-value'), kpi1State, kpi1Target, function (v) { return fmtMoney(v); });
+        kpi1State = kpi1Target;
+
+        // KPI 4: mayor función de gasto / función seleccionada
+        var fnForKpi4 = isTodas ? FN_META[MAYOR_FUNCION_KEY] : FN_META[key];
+        $('#kpi4-value').textContent = fnForKpi4.name + ' · $' + fnForKpi4.monto.toLocaleString('es-MX') + ' MDP';
+        $('#kpi4-sub').textContent = isTodas
+            ? (fnForKpi4.pct + '% del presupuesto total')
+            : (fnForKpi4.pct + '% del presupuesto total UNAM');
+
+        // Flash KPI cards
+        $$('.card-institutional').slice(0, 4).forEach(function (c) {
+            c.classList.remove('kpi-flash');
+            void c.offsetWidth;
+            c.classList.add('kpi-flash');
+        });
+
+        var treemapKeys = isTodas ? null : FN_META[key].treemapKeys;
+        updateTreemap(treemapKeys);
+        updateRadial(treemapKeys);
+
+        $('#waterfall-static-badge').style.display = isTodas ? 'none' : 'block';
+    }
+
+    var funcionFilter = $('#funcion-filter');
+    if (funcionFilter) {
+        funcionFilter.addEventListener('change', function () { applyFilter(this.value); });
+    }
+
+    // ---------------- Sidebar toggle ----------------
+    var sidebar = $('#sidebar');
+    var toggleBtn = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+            toggleIcon.textContent = sidebar.classList.contains('collapsed') ? 'menu' : 'close';
+        });
+    }
+
+    // ---------------- Modals ----------------
+    function openModal(id) {
+        var m = $('#' + id);
+        if (!m) return;
+        m.classList.add('open');
+        m.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+        var m = $('#' + id);
+        if (!m) return;
+        m.classList.remove('open');
+        m.setAttribute('aria-hidden', 'true');
+        if (!$$('.modal-overlay.open').length) document.body.style.overflow = '';
+    }
+    $$('.modal-close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { closeModal(btn.getAttribute('data-close')); });
+    });
+    $$('.modal-overlay').forEach(function (ov) {
+        ov.addEventListener('click', function (e) { if (e.target === ov) closeModal(ov.id); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') $$('.modal-overlay.open').forEach(function (ov) { closeModal(ov.id); });
+    });
+
+    $('#waterfall-card').addEventListener('click', function () { openModal('modal-ingresos'); });
+
+    // ---------------- Gráfica 1: Treemap (D3) ----------------
+    var treemapNodes = null;
+    function buildTreemap() {
+        var wrap = $('#treemap-wrap');
+        wrap.innerHTML = '';
+        var w = wrap.clientWidth, h = wrap.clientHeight;
+        if (!w || !h) return;
+        var root = d3.hierarchy({ children: Object.keys(FUNCIONES).map(function (k) {
+            var f = FUNCIONES[k];
+            return { key: k, name: f.name, value: f.monto, pct: f.pct, color: f.color };
+        }) }).sum(function (d) { return d.value; }).sort(function (a, b) { return b.value - a.value; });
+
+        d3.treemap().size([w, h]).padding(3)(root);
+
+        var svg = d3.select(wrap).append('svg').attr('width', w).attr('height', h);
+        treemapNodes = svg.selectAll('g.treemap-node')
+            .data(root.leaves())
+            .enter().append('g')
+            .attr('class', 'treemap-node')
+            .attr('data-key', function (d) { return d.data.key; })
+            .attr('transform', function (d) { return 'translate(' + d.x0 + ',' + d.y0 + ')'; });
+
+        treemapNodes.append('rect')
+            .attr('width', function (d) { return Math.max(0, d.x1 - d.x0); })
+            .attr('height', function (d) { return Math.max(0, d.y1 - d.y0); })
+            .attr('fill', function (d) { return d.data.color; })
+            .attr('rx', 4);
+
+        treemapNodes.each(function (d) {
+            var bw = d.x1 - d.x0, bh = d.y1 - d.y0;
+            var g = d3.select(this);
+            if (bw < 60 || bh < 40) return;
+            var pad = 14;
+            var lineHeight = 36;
+
+            var lines = [{ text: d.data.name, weight: 700, color: '#fff' }];
+            if (bh > 72) lines.push({ text: d.data.pct + '%', weight: 800, color: '#fff' });
+            if (bh > 102) lines.push({ text: '$' + Math.round(d.data.value / 1e6).toLocaleString('es-MX') + ' MDP', weight: 600, color: 'rgba(255,255,255,0.85)' });
+
+            // Vertically center the label stack inside the rectangle instead of
+            // always anchoring to the top, so text is evenly distributed regardless
+            // of how tall/short each function's rectangle ends up being.
+            var totalH = lines.length * lineHeight;
+            var startY = Math.max(pad + lineHeight * 0.72, (bh - totalH) / 2 + lineHeight * 0.72);
+
+            lines.forEach(function (ln, i) {
+                g.append('text')
+                    .attr('x', pad).attr('y', startY + i * lineHeight)
+                    .attr('fill', ln.color).attr('font-weight', ln.weight).attr('font-size', 30)
+                    .text(ln.text);
+            });
+        });
+    }
+    function updateTreemap(activeKeys) {
+        if (!treemapNodes) return;
+        treemapNodes.select('rect')
+            .attr('stroke', function (d) { return (activeKeys && activeKeys.indexOf(d.data.key) !== -1) ? '#fff' : 'none'; })
+            .attr('stroke-width', 2);
+        treemapNodes.style('opacity', function (d) {
+            if (!activeKeys) return 1;
+            return activeKeys.indexOf(d.data.key) !== -1 ? 1 : 0.2;
+        });
+    }
+
+    // ---------------- Gráfica 2: Waterfall (D3 SVG — same measured-container
+    // pattern as the treemap/radial charts, avoids Chart.js canvas sizing quirks) ----------------
+    var WF_LABELS = ['Subsidio Federal', 'Servicios y productos', 'Productos del Patrimonio', 'Servicios de Educación', 'TOTAL'];
+    var WF_RANGES = [
+        [0, 53748.5],
+        [53748.5, 58167.7],
+        [58167.7, 59483.6],
+        [59483.6, 59877.6],
+        [0, 59877.6]
+    ];
+    var WF_INCREMENTS = [53748.5, 4419.2, 1315.9, 394.0, 59877.6];
+    var WF_COLORS = [COLOR.primary, COLOR.tertiary, COLOR.secondary, COLOR.blue2, '#001B3C'];
+
+    function buildWaterfall() {
+        var wrap = $('#waterfall-wrap');
+        wrap.innerHTML = '';
+        var w = wrap.clientWidth, h = wrap.clientHeight;
+        if (!w || !h) return;
+
+        var margin = { top: 30, right: 12, bottom: 50, left: 50 };
+        var iw = Math.max(10, w - margin.left - margin.right);
+        var ih = Math.max(10, h - margin.top - margin.bottom);
+
+        var svg = d3.select(wrap).append('svg').attr('width', w).attr('height', h);
+        var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        var x = d3.scaleBand().domain(WF_LABELS).range([0, iw]).padding(0.32);
+        var y = d3.scaleLinear().domain([0, 60000]).range([ih, 0]);
+
+        // Gridlines + y-axis labels
+        var yTicks = y.ticks(6);
+        g.selectAll('.wf-grid').data(yTicks).enter().append('line')
+            .attr('x1', 0).attr('x2', iw)
+            .attr('y1', function (d) { return y(d); }).attr('y2', function (d) { return y(d); })
+            .attr('stroke', '#e1e4e8').attr('stroke-width', 1);
+        g.selectAll('.wf-ylabel').data(yTicks).enter().append('text')
+            .attr('x', -8).attr('y', function (d) { return y(d); }).attr('dy', '0.32em')
+            .attr('text-anchor', 'end').attr('font-size', 24).attr('fill', '#737781')
+            .text(function (d) { return (d / 1000) + 'k'; });
+
+        // Dashed connectors between consecutive bars (not into TOTAL)
+        for (var i = 0; i < 3; i++) {
+            var yTop = y(WF_RANGES[i][1]);
+            var xA = x(WF_LABELS[i]) + x.bandwidth();
+            var xB = x(WF_LABELS[i + 1]);
+            g.append('line')
+                .attr('x1', xA).attr('x2', xB).attr('y1', yTop).attr('y2', yTop)
+                .attr('stroke', '#9CA3AF').attr('stroke-width', 1).attr('stroke-dasharray', '4,4');
+        }
+
+        var bars = WF_LABELS.map(function (l, i) {
+            return { label: l, range: WF_RANGES[i], inc: WF_INCREMENTS[i], color: WF_COLORS[i] };
+        });
+
+        // Bars
+        g.selectAll('.wf-bar').data(bars).enter().append('rect')
+            .attr('class', 'wf-bar')
+            .attr('x', function (d) { return x(d.label); })
+            .attr('width', x.bandwidth())
+            .attr('y', function (d) { return y(d.range[1]); })
+            .attr('height', function (d) { return Math.max(0, y(d.range[0]) - y(d.range[1])); })
+            .attr('rx', 4)
+            .attr('fill', function (d) { return d.color; })
+            .attr('stroke', function (d) { return d.label === 'TOTAL' ? '#001B3C' : 'none'; })
+            .attr('stroke-width', 2)
+            .attr('stroke-dasharray', function (d) { return d.label === 'TOTAL' ? '5,3' : null; });
+
+        // Value labels above bars
+        g.selectAll('.wf-value').data(bars).enter().append('text')
+            .attr('class', 'wf-value')
+            .attr('x', function (d) { return x(d.label) + x.bandwidth() / 2; })
+            .attr('y', function (d) { return y(d.range[1]) - 8; })
+            .attr('text-anchor', 'middle').attr('font-size', 24).attr('font-weight', 700).attr('fill', '#191c1e')
+            .text(function (d) { return '+' + d.inc.toLocaleString('es-MX'); });
+
+        // X-axis labels
+        g.selectAll('.wf-xlabel').data(bars).enter().append('text')
+            .attr('class', 'wf-xlabel')
+            .attr('x', function (d) { return x(d.label) + x.bandwidth() / 2; })
+            .attr('y', ih + 34)
+            .attr('text-anchor', 'middle').attr('font-size', 26).attr('font-weight', 600).attr('fill', '#434750')
+            .text(function (d) { return d.label; });
+
+        // Native tooltips
+        g.selectAll('.wf-bar').append('title')
+            .text(function (d) { return d.label + ': +$' + d.inc.toLocaleString('es-MX') + ' MDP'; });
+    }
+
+    // ---------------- Gráfica 3: Radial bar (D3) ----------------
+    var radialArcs = null;
+    var RADIAL_ORDER = ['docencia_superior', 'investigacion', 'docencia_bach', 'extension', 'gestion'];
+    function buildRadial() {
+        var wrap = $('#radial-wrap');
+        wrap.innerHTML = '';
+        var w = wrap.clientWidth, h = wrap.clientHeight;
+        if (!w || !h) return;
+        var size = Math.min(w, h);
+        var svg = d3.select(wrap).append('svg').attr('width', w).attr('height', h);
+        var g = svg.append('g').attr('transform', 'translate(' + w / 2 + ',' + h / 2 + ')');
+
+        var maxR = size / 2 - 10;
+        var ringWidth = 18, gap = 10;
+        var n = RADIAL_ORDER.length;
+        var outerStart = maxR;
+
+        g.append('circle').attr('r', Math.max(10, outerStart - n * (ringWidth + gap) - 4)).attr('fill', COLOR.primary).attr('opacity', 0.05);
+        g.append('text').attr('text-anchor', 'middle').attr('dy', '0.35em').attr('font-size', 28).attr('font-weight', 700).attr('fill', COLOR.primary).text('100%');
+
+        radialArcs = [];
+        RADIAL_ORDER.forEach(function (key, i) {
+            var f = FUNCIONES[key];
+            var outerR = outerStart - i * (ringWidth + gap);
+            var innerR = outerR - ringWidth;
+
+            var trackArc = d3.arc().innerRadius(innerR).outerRadius(outerR).startAngle(0).endAngle(2 * Math.PI);
+            g.append('path').attr('d', trackArc).attr('fill', '#000').attr('opacity', 0.08);
+
+            var endAngle = (f.pct / 100) * 2 * Math.PI;
+            var arcGen = d3.arc().innerRadius(innerR).outerRadius(outerR).startAngle(0).endAngle(endAngle).cornerRadius(3);
+            var path = g.append('path')
+                .attr('class', 'radial-arc')
+                .attr('data-key', key)
+                .attr('d', arcGen)
+                .attr('fill', f.color);
+
+            radialArcs.push(path);
+        });
+
+        renderRadialLegend();
+    }
+
+    function renderRadialLegend() {
+        var legend = $('#radial-legend');
+        if (!legend) return;
+        legend.innerHTML = RADIAL_ORDER.map(function (key) {
+            var f = FUNCIONES[key];
+            return '<div class="flex items-start gap-2">' +
+                '<span class="shrink-0 rounded-sm mt-2" style="width:22px;height:22px;background:' + f.color + ';"></span>' +
+                '<span class="flex-1 leading-snug" style="font-size:28px; font-weight:700; color:#434750;">' + f.name + '<br><span style="font-weight:400; color:#737781;">' + f.pct + '%</span></span>' +
+                '</div>';
+        }).join('');
+    }
+    function updateRadial(activeKeys) {
+        if (!radialArcs) return;
+        radialArcs.forEach(function (path) {
+            var key = path.attr('data-key');
+            if (!activeKeys) {
+                path.attr('opacity', 1).attr('stroke', 'none');
+            } else if (activeKeys.indexOf(key) !== -1) {
+                path.attr('opacity', 1).attr('stroke', '#fff').attr('stroke-width', 2);
+            } else {
+                path.attr('opacity', 0.2).attr('stroke', 'none');
+            }
+        });
+    }
+
+    // ---------------- Init ----------------
+    function init() {
+        buildTreemap();
+        buildWaterfall();
+        buildRadial();
+        applyFilter('todas');
+    }
+
+    window.addEventListener('load', init);
+    window.addEventListener('resize', function () {
+        buildTreemap();
+        buildRadial();
+        buildWaterfall();
+        var key = funcionFilter ? funcionFilter.value : 'todas';
+        var activeKeys = (key === 'todas') ? null : FN_META[key].treemapKeys;
+        updateTreemap(activeKeys);
+        updateRadial(activeKeys);
+    });
+})();
+</script>
+</body>
+</html>
