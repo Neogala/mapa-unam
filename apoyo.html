@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Apoyo a la Actividad Institucional · 2025</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style id="page-style">
+    /* Base canvas: 3840×2160 (4K display) */
+    html { font-size: 41.6px; }
+    body {
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+    #sidebar { width: 664px; transition: width 0.2s ease; overflow-x: hidden; }
+    #sidebar.collapsed { width: 210px; }
+    #sidebar.collapsed #sidebar-inner { padding-left: 24px; padding-right: 24px; }
+    #sidebar.collapsed .sidebar-label { display: none; }
+    #sidebar.collapsed #sidebar-indicators a { justify-content: center; }
+    #sidebar.collapsed #sidebar-toggle { display: block; margin: auto; }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213,159,15,0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    .level-bar-fill { transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .filter-chip { transition: all 0.15s ease; }
+    .filter-chip[aria-pressed="true"] { background: #003D79; color: #fff; }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute; top: 22px; right: 22px;
+        display: flex; align-items: center; gap: 10px;
+        background: #D59F0F; color: #ffffff;
+        font-size: 32px; font-weight: 800; letter-spacing: 0.02em;
+        padding: 12px 26px; border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213,159,15,0.45);
+        border: 2px solid #ffffff;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        pointer-events: none; z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .btn-pulse { animation: kpi-hint-pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse-flash {
+        0%   { background-color: rgba(213,159,15,0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+    /* Modal */
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+        z-index: 200; display: flex; align-items: center;
+        justify-content: center; padding: 60px;
+        opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: #ffffff; border-radius: 24px;
+        width: 100%; max-width: 2100px; max-height: 85vh;
+        overflow-y: auto; padding: 64px;
+        transform: scale(0.95); opacity: 0;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); opacity: 1; }
+    .modal-table { width: 100%; border-collapse: collapse; font-size: 30px; }
+    .modal-table th {
+        background: #003D79; color: #fff; text-align: left;
+        padding: 14px 16px; position: sticky; top: 0;
+        font-weight: 700; white-space: nowrap;
+    }
+    .modal-table td {
+        padding: 12px 16px; border-bottom: 1px solid #e1e4e8; white-space: nowrap;
+    }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr:hover { background: #EEF4FA; }
+    .modal-table tr.row-total td {
+        background: #003D79 !important; color: #fff; font-weight: 700;
+    }
+    .modal-table tr.row-subtotal td {
+        background: #D5E3FF !important; color: #003D79; font-weight: 700;
+    }
+    .modal-tab-btn { transition: all 0.15s ease; }
+    .modal-tab-btn.active { background: #003D79; color: #fff; }
+    .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
+    .modal-close-btn:hover { color: #D59F0F; }
+
+    .chart-wrap { position: relative; }
+    .badge-context {
+        display: inline-flex; align-items: center; gap: 10px;
+        font-size: 26px; font-weight: 700; border-radius: 999px;
+        padding: 10px 22px;
+    }
+    .badge-primary { background: rgba(0,61,121,0.08); color: #003D79; }
+    .badge-secondary { background: rgba(213,159,15,0.14); color: #7a5900; }
+    .badge-gray { background: #F4F5F7; color: #434750; }
+</style>
+<script src="js/spa-nav.js"></script>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="bibliotecas.html">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo institucional" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="apoyo.html">
+<span class="material-symbols-outlined text-[50px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Apoyo institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="internacionalizacion.html">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="infraestructura.html">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main -->
+<div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<!-- Header de sección -->
+<header class="mb-5 shrink-0">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Apoyo a la Actividad Institucional · 2025</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Concentrado estadístico de deporte universitario, salud, orientación educativa y atención a la comunidad.</p>
+</header>
+
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-6 shrink-0">
+<div id="kpi-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">sports</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Participantes cultura física</span>
+</div>
+<span id="kpi-1-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
+<span class="text-[28px] text-on-surface-variant font-semibold">Actividades presenciales · 2025</span>
+</div>
+<div id="kpi-2" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-secondary text-[54px]">local_hospital</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Acciones de atención médica</span>
+</div>
+<span id="kpi-2-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
+<span class="text-[28px] text-on-surface-variant font-semibold">Consultas + EMA + Vacunas · 2025</span>
+</div>
+<div id="kpi-3" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">school</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Eventos y visitas de orientación</span>
+</div>
+<span id="kpi-3-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
+<span class="text-[28px] text-on-surface-variant font-semibold">Sitio web + eventos DGOAE · 2025</span>
+</div>
+<div id="kpi-4" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-secondary text-[54px]">groups</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Personas beneficiadas</span>
+</div>
+<span id="kpi-4-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
+<span class="text-[28px] text-on-surface-variant font-semibold">Comunidad universitaria · 2025</span>
+</div>
+</div>
+
+<!-- Filas de gráficas -->
+<div class="flex-1 min-h-0 flex flex-col gap-6">
+
+<!-- Fila A -->
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 53%;">
+
+<!-- Gráfica 1: Deporte universitario -->
+<div id="card-deporte" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-deporte">
+<div class="flex items-start justify-between gap-4 mb-1 shrink-0">
+<h3 class="text-[50px] font-bold text-primary">Actividades deportivas y recreativas</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-deporte"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+</div>
+<div class="chart-wrap flex-1 min-h-0"><canvas id="chart-deporte"></canvas></div>
+<div class="flex flex-wrap items-center gap-3 mt-3 shrink-0">
+<span class="badge-context badge-secondary"><span class="material-symbols-outlined text-[26px]">wifi</span>Visualizaciones en línea (redes sociales): 1,054,302</span>
+<span class="badge-context badge-gray">98 disciplinas deportivas disponibles</span>
+</div>
+</div>
+
+<!-- Gráfica 2: Atención a la salud -->
+<div id="card-salud" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-salud">
+<div class="flex items-start justify-between gap-4 mb-1 shrink-0">
+<h3 class="text-[50px] font-bold text-primary">Acciones de atención a la salud</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-salud"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+</div>
+<div class="chart-wrap flex-1 min-h-0 flex items-center justify-center">
+<div style="position:relative; width:100%; height:100%; max-width:420px; margin:0 auto;">
+<canvas id="chart-salud"></canvas>
+<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none;">
+<span class="text-primary font-bold text-[46px] block leading-none">300,444</span>
+<span class="text-outline text-[26px]">acciones totales</span>
+</div>
+</div>
+</div>
+<div id="salud-legend" class="flex flex-col gap-1 mt-2 shrink-0 text-[26px]"></div>
+</div>
+
+</div>
+
+<!-- Fila B -->
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 47%;">
+
+<!-- Gráfica 3: Orientación educativa -->
+<div class="card-institutional p-6 flex flex-col min-h-0">
+<h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Servicios de orientación y atención educativa</h3>
+<div class="chart-wrap flex-1 min-h-0"><canvas id="chart-orientacion"></canvas></div>
+</div>
+
+<!-- Gráfica 4: Atención a la comunidad -->
+<div class="card-institutional p-6 flex flex-col justify-center min-h-0 gap-3">
+<h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Atención a la comunidad universitaria</h3>
+<div class="flex items-center gap-6 p-3 rounded-lg bg-primary/10">
+<span class="material-symbols-outlined text-primary text-[64px]">diversity_3</span>
+<div class="flex items-baseline gap-4 flex-wrap">
+<span id="counter-comunidad-1" class="text-[52px] font-bold text-primary leading-none">0</span>
+<span class="text-outline text-[32px]">personas beneficiadas</span>
+</div>
+</div>
+<div class="flex items-center gap-6 p-3 rounded-lg bg-primary/5">
+<span class="material-symbols-outlined text-secondary text-[56px]">event</span>
+<div class="flex items-baseline gap-4 flex-wrap">
+<span id="counter-comunidad-2" class="text-[44px] font-bold text-primary leading-none">0</span>
+<span class="text-outline text-[30px]">jornadas, acciones y eventos</span>
+</div>
+</div>
+<div class="flex items-center gap-6 p-3 rounded-lg bg-primary/5">
+<span class="material-symbols-outlined text-tertiary text-[56px]">build_circle</span>
+<div class="flex items-baseline gap-4 flex-wrap">
+<span id="counter-comunidad-3" class="text-[44px] font-bold text-primary leading-none">0</span>
+<span class="text-outline text-[30px]">proyectos de accesibilidad, seguridad y sustentabilidad</span>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+</main>
+
+<footer class="bg-primary-container border-t border-outline-variant py-[32px] px-margin-desktop flex justify-between items-center shrink-0">
+    <p class="text-on-primary text-[24px] leading-none">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
+    </div>
+</footer>
+</div>
+</div>
+
+<!-- ============ MODAL A: Deporte universitario ============ -->
+<div id="modal-deporte" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-2">
+<div>
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Actividades deportivas y recreativas · UNAM 2025</h3>
+<p class="text-[30px] text-outline">Dirección General de Deporte Universitario, UNAM</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-deporte">close</span>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Indicadores</h4>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+<tbody>
+<tr><td>Disciplinas deportivas disponibles</td><td>98</td></tr>
+<tr><td>Participantes en competencias deportivas</td><td>1,904</td></tr>
+<tr><td>Participantes en Juegos Universitarios</td><td>7,815</td></tr>
+<tr><td>Actividades presenciales de cultura física</td><td>214,212</td></tr>
+<tr><td>Visualizaciones en redes sociales (en línea)</td><td>1,054,302</td></tr>
+<tr><td>Servicios médicos deportivos</td><td>31,556</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Distribución presencial vs en línea</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+<div class="bg-surface-container-low rounded-lg p-6 text-center">
+<span class="text-[54px] font-bold text-primary block">214,212</span>
+<span class="text-[28px] text-outline">participantes · cultura física presencial</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 text-center">
+<span class="text-[54px] font-bold text-secondary block">1,054,302</span>
+<span class="text-[28px] text-outline">visualizaciones · redes sociales</span>
+</div>
+</div>
+<span class="badge-context badge-gray">Las visualizaciones en línea corresponden a contenido de cultura física difundido en redes sociales; no son participantes directos de actividades.</span>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Contexto</h4>
+<div class="flex flex-col gap-3">
+<span class="badge-context badge-primary">Los Juegos Universitarios son la principal competencia deportiva interna de la UNAM</span>
+<span class="badge-context badge-secondary">Los servicios médicos deportivos atienden a participantes en actividades físicas y competencias</span>
+</div>
+
+<p class="text-[24px] text-outline mt-6">Fuente: Dirección General de Deporte Universitario, UNAM.</p>
+</div>
+</div>
+
+<!-- ============ MODAL B: Atención a la salud ============ -->
+<div id="modal-salud" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-2">
+<div>
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Atención a la salud · UNAM 2025</h3>
+<p class="text-[30px] text-outline">Dirección General de Atención a la Salud, UNAM</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-salud">close</span>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Servicios</h4>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Servicio</th><th>Descripción breve</th><th>Cantidad</th><th>% del total</th></tr></thead>
+<tbody>
+<tr><td>Consultas de atención médica</td><td>Atención clínica general y especializada</td><td>146,010</td><td>48.6%</td></tr>
+<tr><td>EMA — Examen Médico Activo</td><td>Evaluación preventiva de salud</td><td>57,634</td><td>19.2%</td></tr>
+<tr><td>Vacunas aplicadas</td><td>Enfermedades prevenibles por vacunación</td><td>96,800</td><td>32.2%</td></tr>
+<tr class="row-total"><td>TOTAL ACCIONES DE SALUD</td><td></td><td>300,444</td><td>100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Peso de cada servicio</h4>
+<div class="flex flex-col gap-3 mb-4" id="modal-salud-bars"></div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Contexto e insights</h4>
+<div class="flex flex-col gap-3">
+<span class="badge-context badge-primary">Por cada 2 consultas médicas, se aplicó casi 1 vacuna — la prevención es un pilar central</span>
+<span class="badge-context badge-secondary">El EMA (Examen Médico Activo) detecta condiciones de salud de forma preventiva en la comunidad</span>
+</div>
+
+<p class="text-[24px] text-outline mt-6">Fuente: Dirección General de Atención a la Salud, UNAM.</p>
+</div>
+</div>
+
+<script id="page-script">
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+    function fmt(n) { return Math.round(n).toLocaleString('es-MX'); }
+
+    Chart.defaults.font.size = 30;
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    var PRIMARY = '#003D79', SECONDARY = '#D59F0F', TERTIARY = '#8C7146';
+
+    // ============================================================
+    // DATOS (fuente: PDF Apoyo a la Actividad Institucional 2025)
+    // ============================================================
+    var DATA = {
+        deporte: {
+            competencias: 1904,
+            juegos: 7815,
+            serviciosMedicos: 31556,
+            culturaFisica: 214212,
+            visualizaciones: 1054302,
+            disciplinas: 98
+        },
+        salud: {
+            consultas: 146010,
+            ema: 57634,
+            vacunas: 96800,
+            total: 300444
+        },
+        orientacion: {
+            guiaCarreras: 7793,
+            vocacionales: 42176,
+            atencion: 108912,
+            sitioWeb: 6601271
+        },
+        comunidad: {
+            personas: 604000,
+            jornadas: 344,
+            proyectos: 77
+        }
+    };
+
+    // ============================================================
+    // Counter animation — lineal, 400ms, formato es-MX
+    // ============================================================
+    function animateNumber(el, from, to, duration) {
+        duration = duration || 400;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var t = Math.min((ts - start) / duration, 1);
+            var val = from + (to - from) * t;
+            el.textContent = Math.round(val).toLocaleString('es-MX');
+            if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    animateNumber($('#kpi-1-value'), 0, 214212);
+    animateNumber($('#kpi-2-value'), 0, 300444);
+    animateNumber($('#kpi-3-value'), 0, 6601271);
+    animateNumber($('#kpi-4-value'), 0, 604000);
+    animateNumber($('#counter-comunidad-1'), 0, DATA.comunidad.personas);
+    animateNumber($('#counter-comunidad-2'), 0, DATA.comunidad.jornadas);
+    animateNumber($('#counter-comunidad-3'), 0, DATA.comunidad.proyectos);
+
+    // ============================================================
+    // Value-label plugin para barras horizontales
+    // ============================================================
+    var barValueLabels = {
+        id: 'barValueLabels',
+        afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(0);
+            ctx.save();
+            ctx.font = "bold 28px 'Libre Franklin'";
+            ctx.fillStyle = '#191c1e';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            meta.data.forEach(function (bar, i) {
+                var value = chart.data.datasets[0].data[i];
+                var props = bar.getProps(['x', 'y'], true);
+                ctx.fillText(fmt(value), props.x + 12, props.y);
+            });
+            ctx.restore();
+        }
+    };
+
+    // ============================================================
+    // GRÁFICA 1 — Deporte universitario (barras horizontales, lineal)
+    // ============================================================
+    var chartDeporte = new Chart($('#chart-deporte'), {
+        type: 'bar',
+        data: {
+            labels: ['Competencias deportivas', 'Juegos Universitarios', 'Servicios médicos deportivos', 'Cultura física presencial'],
+            datasets: [{
+                data: [DATA.deporte.competencias, DATA.deporte.juegos, DATA.deporte.serviciosMedicos, DATA.deporte.culturaFisica],
+                backgroundColor: ['#4A7CB5', SECONDARY, TERTIARY, PRIMARY],
+                borderRadius: 4,
+                barThickness: 46
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { right: 140, top: 8, bottom: 8 } },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' participantes'; } }
+                }
+            },
+            scales: {
+                x: {
+                    min: 0, max: 230000,
+                    grid: { color: '#E5E7EB' },
+                    ticks: { font: { size: 26, family: "'Libre Franklin'" }, callback: function (v) { return v.toLocaleString('es-MX'); } }
+                },
+                y: {
+                    grid: { display: false },
+                    afterFit: function (scale) { scale.width = 440; },
+                    ticks: { font: { size: 26, family: "'Libre Franklin'", weight: '600' }, color: '#191c1e' }
+                }
+            }
+        },
+        plugins: [barValueLabels]
+    });
+
+    // ============================================================
+    // GRÁFICA 2 — Salud (donut)
+    // ============================================================
+    var saludData = [
+        { label: 'Consultas médicas', value: DATA.salud.consultas, pct: 48.6, color: PRIMARY },
+        { label: 'Vacunas aplicadas', value: DATA.salud.vacunas, pct: 32.2, color: SECONDARY },
+        { label: 'EMA Examen Médico', value: DATA.salud.ema, pct: 19.2, color: '#4A7CB5' }
+    ];
+    var chartSalud = new Chart($('#chart-salud'), {
+        type: 'doughnut',
+        data: {
+            labels: saludData.map(function (d) { return d.label; }),
+            datasets: [{
+                data: saludData.map(function (d) { return d.value; }),
+                backgroundColor: saludData.map(function (d) { return d.color; }),
+                borderColor: '#ffffff',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: {
+                        label: function (ctx) {
+                            var d = saludData[ctx.dataIndex];
+                            return d.label + ': ' + fmt(d.value) + ' (' + d.pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    (function buildSaludLegend() {
+        var el = $('#salud-legend');
+        el.innerHTML = saludData.map(function (d) {
+            return '<div class="flex items-center gap-3">' +
+                '<span style="display:inline-block;width:22px;height:22px;border-radius:4px;background:' + d.color + '"></span>' +
+                '<span class="font-bold" style="min-width:340px">' + d.label + '</span>' +
+                '<span class="text-outline">' + d.pct + '% · ' + fmt(d.value) + '</span>' +
+                '</div>';
+        }).join('');
+    })();
+    (function buildSaludModalBars() {
+        var el = $('#modal-salud-bars');
+        el.innerHTML = saludData.map(function (d) {
+            return '<div>' +
+                '<div class="flex justify-between text-[28px] font-bold mb-1"><span>' + d.label + '</span><span>' + d.pct + '%</span></div>' +
+                '<div style="background:#e5e7eb;border-radius:6px;height:22px;overflow:hidden;">' +
+                '<div style="width:' + d.pct + '%;height:100%;background:' + d.color + '"></div></div>' +
+                '</div>';
+        }).join('');
+    })();
+
+    // ============================================================
+    // GRÁFICA 3 — Orientación educativa (barras horizontales, log)
+    // ============================================================
+    var chartOrientacion = new Chart($('#chart-orientacion'), {
+        type: 'bar',
+        data: {
+            labels: ['Guía de Carreras (usuarios reg.)', 'Programas vocacionales', 'Atención ind./grupal', 'Visitas/eventos sitio web'],
+            datasets: [{
+                data: [DATA.orientacion.guiaCarreras, DATA.orientacion.vocacionales, DATA.orientacion.atencion, DATA.orientacion.sitioWeb],
+                backgroundColor: ['#8B9DB5', TERTIARY, SECONDARY, PRIMARY],
+                borderRadius: 4,
+                barThickness: 40
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { right: 170 } },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: { label: function (ctx) { return fmt(ctx.parsed.x); } }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'logarithmic',
+                    min: 1000,
+                    grid: { color: '#E5E7EB' },
+                    ticks: { font: { size: 24, family: "'Libre Franklin'" }, callback: function (v) {
+                        if ([1000, 10000, 100000, 1000000, 10000000].indexOf(v) >= 0) return v.toLocaleString('es-MX');
+                        return '';
+                    } }
+                },
+                y: {
+                    grid: { display: false },
+                    afterFit: function (scale) { scale.width = 480; },
+                    ticks: { font: { size: 26, family: "'Libre Franklin'" } }
+                }
+            }
+        },
+        plugins: [barValueLabels]
+    });
+
+    // ============================================================
+    // Modales
+    // ============================================================
+    function openModal(id) {
+        var overlay = $('#' + id);
+        if (!overlay) return;
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal(overlay) {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+    }
+    $$('[data-open-modal]').forEach(function (card) {
+        card.addEventListener('click', function () { openModal(card.getAttribute('data-open-modal')); });
+    });
+    $$('.modal-overlay').forEach(function (overlay) {
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(overlay); });
+    });
+    $$('.modal-close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { closeModal($('#' + btn.getAttribute('data-close'))); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') $$('.modal-overlay.open').forEach(closeModal);
+    });
+
+    // ============================================================
+    // Sidebar indicator selection
+    // ============================================================
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (name !== 'Población Escolar' && name !== 'Personal Académico' && name !== 'Investigación' && name !== 'Cultura' && name !== 'Presupuesto' && name !== 'Bibliotecas' && name !== 'Apoyo institucional' && name !== 'Internacionalización' && name !== 'Infraestructura') {
+                e.preventDefault();
+                alert('El indicador "' + name + '" estará disponible próximamente.');
+                return;
+            }
+            $$('#sidebar-indicators a').forEach(function (l) { l.classList.remove('sidebar-active-item'); l.classList.add('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium'); });
+            link.classList.add('sidebar-active-item');
+            link.classList.remove('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium');
+        });
+    });
+
+    // ============================================================
+    // Sidebar collapse toggle
+    // ============================================================
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+})();
+</script>
+</body>
+</html>

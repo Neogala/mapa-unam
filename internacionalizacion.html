@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Actividad Internacional · 2025–2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900",
+                    "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff",
+                    "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e2e4"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+                },
+                "spacing": {
+                    "margin-desktop": "156px",
+                    "gutter": "62px",
+                    "container-max": "5325px",
+                    "margin-mobile": "42px",
+                    "baseline": "10px"
+                },
+                "fontFamily": {
+                    "headline-lg": ["Libre Franklin"],
+                    "headline-lg-mobile": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                "fontSize": {
+                    "display-lg": ["125px", {"lineHeight": "146px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["52px", {"lineHeight": "73px", "fontWeight": "600"}],
+                    "label-md": ["36px", {"lineHeight": "52px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["47px", {"lineHeight": "73px", "fontWeight": "400"}],
+                    "headline-lg": ["83px", {"lineHeight": "104px", "fontWeight": "700"}],
+                    "headline-md": ["62px", {"lineHeight": "83px", "fontWeight": "600"}],
+                    "body-md": ["42px", {"lineHeight": "62px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["73px", {"lineHeight": "94px", "fontWeight": "700"}]
+                }
+            }
+        }
+    }
+</script>
+<style id="page-style">
+    /* Base canvas: 3840×2160 (4K display) */
+    html { font-size: 41.6px; }
+    body {
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0, 61, 121, 0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+    #sidebar { width: 664px; transition: width 0.2s ease; overflow-x: hidden; }
+    #sidebar.collapsed { width: 210px; }
+    #sidebar.collapsed #sidebar-inner { padding-left: 24px; padding-right: 24px; }
+    #sidebar.collapsed .sidebar-label { display: none; }
+    #sidebar.collapsed #sidebar-indicators a { justify-content: center; }
+    #sidebar.collapsed #sidebar-toggle { display: block; margin: auto; }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213,159,15,0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    @keyframes kpi-gold-flash {
+        0%   { background-color: #FFF8E1; }
+        100% { background-color: #ffffff; }
+    }
+    .kpi-flash { animation: kpi-gold-flash 0.3s ease-out; }
+    .kpi-clickable { cursor: pointer; position: relative; }
+    @keyframes kpi-hint-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+    .kpi-click-hint {
+        position: absolute; top: 22px; right: 22px;
+        display: flex; align-items: center; gap: 10px;
+        background: #D59F0F; color: #ffffff;
+        font-size: 32px; font-weight: 800; letter-spacing: 0.02em;
+        padding: 12px 26px; border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(213,159,15,0.45);
+        border: 2px solid #ffffff;
+        animation: kpi-hint-pulse 2.2s ease-in-out infinite;
+        pointer-events: none; z-index: 5;
+    }
+    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .btn-pulse { animation: kpi-hint-pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse-flash {
+        0%   { background-color: rgba(213,159,15,0.18); }
+        100% { background-color: transparent; }
+    }
+    .flash { animation: pulse-flash 0.8s ease-out; }
+    .card-dimmed {
+        opacity: 0.3;
+        transition: opacity 0.3s ease;
+    }
+    .card-highlighted {
+        opacity: 1;
+        box-shadow: 0 0 0 3px #D59F0F;
+        transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Filter select */
+    #ambito-filter {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 32px;
+    }
+    /* Modal */
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+        z-index: 200; display: flex; align-items: center;
+        justify-content: center; padding: 60px;
+        opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: #ffffff; border-radius: 24px;
+        width: 100%; max-width: 2100px; max-height: 85vh;
+        overflow-y: auto; padding: 64px;
+        transform: scale(0.95); opacity: 0;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); opacity: 1; }
+    .modal-table { width: 100%; border-collapse: collapse; font-size: 30px; }
+    .modal-table th {
+        background: #003D79; color: #fff; text-align: left;
+        padding: 14px 16px; position: sticky; top: 0;
+        font-weight: 700; white-space: nowrap;
+    }
+    .modal-table td {
+        padding: 12px 16px; border-bottom: 1px solid #e1e4e8; white-space: nowrap;
+    }
+    .modal-table tbody tr:nth-child(even) { background: #F4F5F7; }
+    .modal-table tbody tr:hover { background: #EEF4FA; }
+    .modal-table tr.row-total td {
+        background: #003D79 !important; color: #fff; font-weight: 700;
+    }
+    .modal-table tr.row-subtotal td {
+        background: #D5E3FF !important; color: #003D79; font-weight: 700;
+    }
+    .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
+    .modal-close-btn:hover { color: #D59F0F; }
+
+    .chart-wrap { position: relative; }
+    .badge-context {
+        display: inline-flex; align-items: center; gap: 10px;
+        font-size: 26px; font-weight: 700; border-radius: 999px;
+        padding: 10px 22px;
+    }
+    .badge-primary { background: rgba(0,61,121,0.08); color: #003D79; }
+    .badge-secondary { background: rgba(213,159,15,0.14); color: #7a5900; }
+    .badge-gray { background: #F4F5F7; color: #434750; }
+    .progress-track { background: #EEF0F3; border-radius: 8px; overflow: hidden; height: 34px; }
+    .progress-fill { height: 100%; border-radius: 8px; transition: width 0.6s ease; }
+</style>
+<script src="js/spa-nav.js"></script>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="bibliotecas.html">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Apoyo institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="apoyo.html">
+<span class="material-symbols-outlined text-[57px]">support</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo institucional</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="internacionalizacion.html">
+<span class="material-symbols-outlined text-[50px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="infraestructura.html">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main -->
+<div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<!-- Header de sección -->
+<header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Actividad Internacional · 2025–2026</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Movilidad académica y estudiantil, convenios y cooperación nacional e internacional.</p>
+</div>
+<div class="flex flex-col gap-1">
+<label for="ambito-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Filtrar por ámbito:</label>
+<select id="ambito-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<option value="todos">Todos los ámbitos</option>
+<option value="internacional">Internacional</option>
+<option value="nacional">Nacional</option>
+</select>
+</div>
+</header>
+
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-6 shrink-0">
+<div id="kpi-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">flight_takeoff</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Académicos movilidad internacional</span>
+</div>
+<span id="kpi-1-value" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">0</span>
+<span class="text-[33px] text-on-surface-variant font-semibold">1,582 UNAM al exterior · 1,747 extranjeros en UNAM · 2025</span>
+</div>
+<div id="kpi-2" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-secondary text-[54px]">travel_explore</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Estudiantes movilidad internacional</span>
+</div>
+<span id="kpi-2-value" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">0</span>
+<span class="text-[33px] text-on-surface-variant font-semibold">1,368 UNAM al exterior · 5,190 extranjeros en UNAM · 2025–2026</span>
+</div>
+<div id="kpi-3" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary text-[54px]">handshake</span>
+<span id="kpi-3-label" class="text-[38px] font-label-md text-outline uppercase tracking-wider">Convenios firmados 2025</span>
+</div>
+<span id="kpi-3-value" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">0</span>
+<span id="kpi-3-sub" class="text-[33px] text-on-surface-variant font-semibold">41 internacionales · 102 nacionales</span>
+</div>
+<div id="kpi-4" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-secondary text-[54px]">connecting_airports</span>
+<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Personas en movilidad nacional</span>
+</div>
+<span id="kpi-4-value" class="text-[62px] font-bold text-primary leading-none block mb-[34px]">0</span>
+<span class="text-[33px] text-on-surface-variant font-semibold">1,998 académicos · 433 estudiantes · 2025–2026</span>
+</div>
+</div>
+
+<!-- Filas de gráficas -->
+<div class="flex-1 min-h-0 flex flex-col gap-6">
+
+<!-- Fila A -->
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 56fr 44fr; flex-basis: 53%;">
+
+<!-- Gráfica 1: Flujo académico internacional -->
+<div id="card-1" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-academicos">
+<div class="flex items-start justify-between gap-4 mb-1 shrink-0">
+<h3 class="text-[50px] font-bold text-primary">Movilidad académica internacional</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-academicos"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+</div>
+<div class="chart-wrap flex-1 min-h-0"><canvas id="chart-academicos"></canvas></div>
+</div>
+
+<!-- Gráfica 2: Movilidad estudiantil internacional -->
+<div id="card-2" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-estudiantes">
+<div class="flex items-start justify-between gap-4 mb-1 shrink-0">
+<h3 class="text-[50px] font-bold text-primary">Movilidad estudiantil internacional</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-estudiantes"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+</div>
+<div class="chart-wrap flex-1 min-h-0 flex items-center justify-center gap-6">
+<div style="position:relative; width:100%; max-width:340px; aspect-ratio:1/1; flex-shrink:0;">
+<canvas id="chart-estudiantes"></canvas>
+<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none;">
+<span style="font-size:52px; font-weight:700; color:#002752; font-family:'Libre Franklin'; display:block; line-height:1;">6,558</span>
+<span style="font-size:26px; color:#737781; font-family:'Libre Franklin';">en movilidad</span>
+</div>
+</div>
+<div id="estudiantes-legend" class="grid grid-cols-1 gap-1 text-[26px]"></div>
+</div>
+<div class="flex flex-wrap items-center gap-3 mt-2 shrink-0">
+<span class="badge-context badge-secondary"><span class="material-symbols-outlined text-[26px]">lightbulb</span>El 79.1% son extranjeros que llegan a la UNAM (5,190 de 6,558 personas en movilidad)</span>
+</div>
+</div>
+
+</div>
+
+<!-- Fila B -->
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 54fr 46fr; flex-basis: 47%;">
+
+<!-- Gráfica 3: Movilidad nacional -->
+<div class="card-institutional p-6 flex flex-col min-h-0">
+<h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Movilidad nacional · académicos y estudiantes</h3>
+<div class="chart-wrap flex-1 min-h-0"><canvas id="chart-nacional"></canvas></div>
+<div class="flex flex-wrap items-center gap-3 mt-3 shrink-0">
+<span class="badge-context badge-gray">Académicos: 1,162 salen · 836 llegan · Total 1,998</span>
+<span class="badge-context badge-gray">Estudiantes: 94 salen · 339 llegan · Total 433</span>
+</div>
+</div>
+
+<!-- Gráfica 4: Resumen comparativo -->
+<div class="card-institutional p-6 flex flex-col min-h-0">
+<h3 class="text-[50px] font-bold text-primary mb-2 shrink-0">Internacional vs Nacional</h3>
+<div class="grid grid-cols-2 gap-4 flex-1 min-h-0">
+<div class="bg-primary text-white rounded flex flex-col justify-center p-5 gap-3 min-w-0">
+<div class="flex items-center gap-2 text-[24px] font-bold uppercase tracking-wider mb-1 pb-2 border-b border-white/20"><span class="material-symbols-outlined text-[28px]">public</span>Internacional</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Convenios 2025</span>
+<span id="resumen-intl-convenios" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Movilidad académica</span>
+<span id="resumen-intl-academicos" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Movilidad estudiantil</span>
+<span id="resumen-intl-estudiantes" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+</div>
+<div class="text-white rounded flex flex-col justify-center p-5 gap-3 min-w-0" style="background:#8C7146;">
+<div class="flex items-center gap-2 text-[24px] font-bold uppercase tracking-wider mb-1 pb-2 border-b border-white/20"><span class="material-symbols-outlined text-[28px]">account_balance</span>Nacional</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Convenios 2025</span>
+<span id="resumen-nac-convenios" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Movilidad académica</span>
+<span id="resumen-nac-academicos" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+<div class="flex items-baseline justify-between gap-2 min-w-0">
+<span class="text-[30px] leading-tight" style="opacity:0.85;">Movilidad estudiantil</span>
+<span id="resumen-nac-estudiantes" class="font-bold leading-none shrink-0" style="font-size:34px;">0</span>
+</div>
+</div>
+</div>
+<div class="mt-3 bg-surface-container rounded p-4 flex items-center justify-between shrink-0">
+<span class="text-[32px] font-bold text-on-surface">Total personas en movilidad</span>
+<span id="resumen-total" class="text-primary font-bold" style="font-size:40px;">0</span>
+</div>
+</div>
+
+</div>
+
+</div>
+</main>
+
+<footer class="bg-primary-container border-t border-outline-variant py-[32px] px-margin-desktop flex justify-between items-center shrink-0">
+    <p class="text-on-primary text-[24px] leading-none">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
+    </div>
+</footer>
+</div>
+</div>
+
+<!-- ============ MODAL A: Movilidad académica internacional ============ -->
+<div id="modal-academicos" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-2">
+<div>
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Movilidad académica internacional · UNAM 2025</h3>
+<p class="text-[30px] text-outline">Dirección General de Cooperación e Internacionalización, UNAM</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-academicos">close</span>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Tabla completa de movilidad</h4>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Concepto</th><th>UNAM al exterior</th><th>Extranjeros en UNAM</th><th>Subtotal</th></tr></thead>
+<tbody>
+<tr><td>Movilidad en facultades y escuelas</td><td>61</td><td>32</td><td>93</td></tr>
+<tr><td>&nbsp;&nbsp;Académicos UNAM en IES extranjero</td><td>61</td><td>—</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Académicos IES extranjero en UNAM</td><td>—</td><td>32</td><td></td></tr>
+<tr><td>Movilidad en institutos y centros</td><td>1,370</td><td>1,540</td><td>2,910</td></tr>
+<tr><td>&nbsp;&nbsp;Académicos UNAM en IES extranjero</td><td>1,370</td><td>—</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Académicos IES extranjero en UNAM</td><td>—</td><td>1,540</td><td></td></tr>
+<tr><td>Formación del personal académico</td><td>151</td><td>—</td><td>151</td></tr>
+<tr><td>&nbsp;&nbsp;Académicos UNAM en IES extranjero</td><td>151</td><td>—</td><td></td></tr>
+<tr><td>Profesores visitantes (posgrado)</td><td>—</td><td>175</td><td>175</td></tr>
+<tr><td>&nbsp;&nbsp;Profesores IES extranjero en UNAM</td><td>—</td><td>175</td><td></td></tr>
+<tr class="row-total"><td>TOTAL</td><td>1,582</td><td>1,747</td><td>3,329</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Composición · UNAM al exterior (1,582)</h4>
+<div class="flex flex-col gap-3">
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Institutos/Centros</span><span>86.6% · 1,370</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:86.6%; background:#002752;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Formación académica</span><span>9.5% · 151</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:9.5%; background:#D59F0F;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Facultades/Escuelas</span><span>3.9% · 61</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:3.9%; background:#8C7146;"></div></div>
+</div>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Composición · Extranjeros en UNAM (1,747)</h4>
+<div class="flex flex-col gap-3">
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Institutos/Centros</span><span>88.2% · 1,540</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:88.2%; background:#002752;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Profesores visitantes</span><span>10.0% · 175</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:10.0%; background:#D59F0F;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Facultades/Escuelas</span><span>1.8% · 32</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:1.8%; background:#8C7146;"></div></div>
+</div>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Contexto e insights</h4>
+<div class="flex flex-col gap-3">
+<span class="badge-context badge-primary">Convenios internacionales firmados en 2025: 41 con organismos e Instituciones de Educación Superior del extranjero</span>
+<span class="badge-context badge-secondary">Los institutos y centros de investigación concentran el 87.8% de toda la movilidad académica internacional de la UNAM</span>
+<span class="badge-context badge-gray">IES = Institución de Educación Superior</span>
+</div>
+<p class="text-[26px] text-outline mt-4">Fuente: Dirección General de Cooperación e Internacionalización · Coordinación de la Investigación Científica · UNAM.</p>
+</div>
+</div>
+
+<!-- ============ MODAL B: Movilidad estudiantil internacional ============ -->
+<div id="modal-estudiantes" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-2">
+<div>
+<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Movilidad estudiantil internacional · UNAM 2025–2026</h3>
+<p class="text-[30px] text-outline">Dirección General de Cooperación e Internacionalización, UNAM</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-estudiantes">close</span>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Tabla completa</h4>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Concepto</th><th>UNAM al exterior</th><th>Extranjeros en UNAM</th><th>Subtotal</th></tr></thead>
+<tbody>
+<tr><td>Movilidad de licenciatura</td><td>1,078</td><td>495</td><td>1,573</td></tr>
+<tr><td>&nbsp;&nbsp;Alumnos UNAM en IES extranjero</td><td>1,078</td><td>—</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Estudiantes IES extranjero en UNAM</td><td>—</td><td>495</td><td></td></tr>
+<tr><td>Movilidad de posgrado</td><td>290</td><td>101</td><td>391</td></tr>
+<tr><td>&nbsp;&nbsp;Alumnos UNAM en IES extranjero</td><td>290</td><td>—</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Estudiantes IES extranjero en UNAM</td><td>—</td><td>101</td><td></td></tr>
+<tr><td>Cursos extracurriculares (extranjeros)</td><td>—</td><td>4,594</td><td>4,594</td></tr>
+<tr><td>&nbsp;&nbsp;Estudiantes en cursos UNAM</td><td>—</td><td>4,594</td><td></td></tr>
+<tr class="row-total"><td>TOTAL</td><td>1,368</td><td>5,190</td><td>6,558</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Composición · Extranjeros en la UNAM (5,190)</h4>
+<div class="flex flex-col gap-3">
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Cursos extracurriculares</span><span>88.5% · 4,594</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:88.5%; background:#002752;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Licenciatura en UNAM</span><span>9.5% · 495</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:9.5%; background:#D59F0F;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Posgrado en UNAM</span><span>1.9% · 101</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:1.9%; background:#8C7146;"></div></div>
+</div>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Composición · Alumnos UNAM en el exterior (1,368)</h4>
+<div class="flex flex-col gap-3">
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Licenciatura abroad</span><span>78.8% · 1,078</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:78.8%; background:#002752;"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-[26px] text-on-surface-variant mb-1"><span>Posgrado abroad</span><span>21.2% · 290</span></div>
+<div class="progress-track"><div class="progress-fill" style="width:21.2%; background:#D59F0F;"></div></div>
+</div>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Insights</h4>
+<div class="flex flex-col gap-3">
+<span class="badge-context badge-primary">Por cada alumno UNAM que estudia en el extranjero (1,368), casi 4 extranjeros estudian en la UNAM (5,190)</span>
+<span class="badge-context badge-secondary">Los cursos extracurriculares son el principal canal de atracción de estudiantes internacionales (4,594 personas, 88.5% del total de extranjeros en la UNAM)</span>
+</div>
+<p class="text-[26px] text-outline mt-4">Fuente: Dirección General de Cooperación e Internacionalización · Dirección General de Administración Escolar · Centro de Enseñanza para Extranjeros, UNAM.</p>
+</div>
+</div>
+
+<script id="page-script">
+(function () {
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+    function fmt(n) { return Math.round(n).toLocaleString('es-MX'); }
+
+    Chart.defaults.font.size = 30;
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    var PRIMARY = '#002752', SECONDARY = '#D59F0F', TERTIARY = '#8C7146';
+
+    // ============================================================
+    // DATOS (fuente: Dirección General de Cooperación e Internacionalización, UNAM — prompt del usuario)
+    // ============================================================
+    var academicosData = {
+        labels: ['Facultades y Escuelas', 'Institutos y Centros', 'Formación / Visitantes'],
+        exterior: [61, 1370, 151],
+        extranjeros: [32, 1540, 175]
+    };
+
+    var estudiantesData = [
+        { label: 'Extranjer. cursos', value: 4594, pct: 70.1, color: PRIMARY },
+        { label: 'UNAM lic. abroad', value: 1078, pct: 16.4, color: SECONDARY },
+        { label: 'Extranjer. lic.', value: 495, pct: 7.5, color: '#4A7CB5' },
+        { label: 'UNAM posgrado', value: 290, pct: 4.4, color: TERTIARY },
+        { label: 'Extranjer. pos.', value: 101, pct: 1.5, color: '#8B9DB5' }
+    ];
+
+    var nacionalData = {
+        labels: ['Acad. Institutos/Centros', 'Acad. Facultades/Escuelas', 'Profesores visitantes', 'Estudiantes'],
+        exterior: [1119, 43, 0, 94],
+        llegan: [803, 5, 28, 339]
+    };
+
+    // ============================================================
+    // Counter animation — lineal, 400ms, formato es-MX
+    // ============================================================
+    function animateNumber(el, from, to, duration) {
+        duration = duration || 400;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var t = Math.min((ts - start) / duration, 1);
+            var val = from + (to - from) * t;
+            el.textContent = Math.round(val).toLocaleString('es-MX');
+            if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    animateNumber($('#kpi-1-value'), 0, 3329);
+    animateNumber($('#kpi-2-value'), 0, 6558);
+    animateNumber($('#kpi-3-value'), 0, 143);
+    animateNumber($('#kpi-4-value'), 0, 2431);
+    animateNumber($('#resumen-intl-convenios'), 0, 41);
+    animateNumber($('#resumen-intl-academicos'), 0, 3329);
+    animateNumber($('#resumen-intl-estudiantes'), 0, 6558);
+    animateNumber($('#resumen-nac-convenios'), 0, 102);
+    animateNumber($('#resumen-nac-academicos'), 0, 1998);
+    animateNumber($('#resumen-nac-estudiantes'), 0, 433);
+    animateNumber($('#resumen-total'), 0, 12318);
+
+    // ============================================================
+    // Value-label plugin para barras (vertical y horizontal)
+    // ============================================================
+    var barValueLabels = {
+        id: 'barValueLabels',
+        afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx;
+            ctx.save();
+            ctx.font = "bold 26px 'Libre Franklin'";
+            ctx.fillStyle = '#191c1e';
+            chart.data.datasets.forEach(function (dataset, di) {
+                var meta = chart.getDatasetMeta(di);
+                meta.data.forEach(function (bar, i) {
+                    var value = dataset.data[i];
+                    if (!value) return;
+                    var props = bar.getProps(['x', 'y'], true);
+                    if (chart.options.indexAxis === 'y') {
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(fmt(value), props.x + 10, props.y);
+                    } else {
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(fmt(value), props.x, props.y - 8);
+                    }
+                });
+            });
+            ctx.restore();
+        }
+    };
+
+    // ============================================================
+    // GRÁFICA 1 — Flujo académico internacional (barras agrupadas verticales)
+    // ============================================================
+    var chartAcademicos = new Chart($('#chart-academicos'), {
+        type: 'bar',
+        data: {
+            labels: academicosData.labels,
+            datasets: [
+                { label: 'UNAM al exterior', data: academicosData.exterior, backgroundColor: PRIMARY, borderRadius: 4, barPercentage: 0.7 },
+                { label: 'Extranjeros en UNAM', data: academicosData.extranjeros, backgroundColor: SECONDARY, borderRadius: 4, barPercentage: 0.7 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 40 } },
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 28 }, padding: 24 } },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + fmt(ctx.parsed.y); } }
+                }
+            },
+            scales: {
+                x: { ticks: { font: { size: 28, family: "'Libre Franklin'" } }, grid: { display: false } },
+                y: { min: 0, max: 1650, ticks: { font: { size: 28, family: "'Libre Franklin'" }, callback: function (v) { return v.toLocaleString('es-MX'); } }, grid: { color: '#E5E7EB' } }
+            }
+        },
+        plugins: [barValueLabels]
+    });
+
+    // ============================================================
+    // GRÁFICA 2 — Movilidad estudiantil internacional (donut)
+    // ============================================================
+    var chartEstudiantes = new Chart($('#chart-estudiantes'), {
+        type: 'doughnut',
+        data: {
+            labels: estudiantesData.map(function (d) { return d.label; }),
+            datasets: [{
+                data: estudiantesData.map(function (d) { return d.value; }),
+                backgroundColor: estudiantesData.map(function (d) { return d.color; }),
+                borderColor: '#ffffff',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '62%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: {
+                        label: function (ctx) {
+                            var d = estudiantesData[ctx.dataIndex];
+                            return d.label + ': ' + fmt(d.value) + ' (' + d.pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    (function buildEstudiantesLegend() {
+        var el = $('#estudiantes-legend');
+        el.innerHTML = estudiantesData.map(function (d) {
+            return '<div class="flex items-center gap-2">' +
+                '<span style="display:inline-block;width:20px;height:20px;border-radius:4px;background:' + d.color + '"></span>' +
+                '<span class="font-bold">' + d.label + '</span>' +
+                '<span class="text-outline">' + d.pct + '% · ' + fmt(d.value) + '</span>' +
+                '</div>';
+        }).join('');
+    })();
+
+    // ============================================================
+    // GRÁFICA 3 — Movilidad nacional (barras agrupadas horizontales)
+    // ============================================================
+    var chartNacional = new Chart($('#chart-nacional'), {
+        type: 'bar',
+        data: {
+            labels: nacionalData.labels,
+            datasets: [
+                { label: 'UNAM en otras IES', data: nacionalData.exterior, backgroundColor: PRIMARY, borderRadius: 4, barPercentage: 0.7 },
+                { label: 'Otras IES en UNAM', data: nacionalData.llegan, backgroundColor: SECONDARY, borderRadius: 4, barPercentage: 0.7 }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { right: 120 } },
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 28 }, padding: 24 } },
+                tooltip: {
+                    bodyFont: { size: 26 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + fmt(ctx.parsed.x); } }
+                }
+            },
+            scales: {
+                x: { min: 0, max: 1250, ticks: { font: { size: 28, family: "'Libre Franklin'" }, callback: function (v) { return v.toLocaleString('es-MX'); } }, grid: { color: '#E5E7EB' } },
+                y: { grid: { display: false }, afterFit: function (scale) { scale.width = 480; }, ticks: { font: { size: 27, family: "'Libre Franklin'", weight: '600' }, color: '#191c1e' } }
+            }
+        },
+        plugins: [barValueLabels]
+    });
+
+    // ============================================================
+    // Filtro por ámbito
+    // ============================================================
+    var filterSelect = $('#ambito-filter');
+    var kpi1 = $('#kpi-1'), kpi2 = $('#kpi-2'), kpi3 = $('#kpi-3'), kpi4 = $('#kpi-4');
+    var card1 = $('#card-1'), card2 = $('#card-2');
+
+    function flash(el) { el.classList.remove('kpi-flash'); void el.offsetWidth; el.classList.add('kpi-flash'); }
+    function clearStates() {
+        [kpi1, kpi2, kpi3, kpi4, card1, card2].forEach(function (el) {
+            el.classList.remove('card-dimmed', 'card-highlighted');
+        });
+    }
+
+    filterSelect.addEventListener('change', function () {
+        var key = filterSelect.value;
+        clearStates();
+        var oldValue = parseInt(($('#kpi-3-value').textContent || '0').replace(/\D/g, ''), 10) || 0;
+
+        if (key === 'internacional') {
+            flash(kpi1); flash(kpi2);
+            kpi4.classList.add('card-dimmed');
+            card1.classList.add('card-highlighted');
+            card2.classList.add('card-highlighted');
+            $('#kpi-3-label').textContent = 'Convenios internacionales 2025';
+            $('#kpi-3-sub').textContent = 'Con organismos e IES del extranjero';
+            animateNumber($('#kpi-3-value'), oldValue, 41, 400);
+        } else if (key === 'nacional') {
+            kpi1.classList.add('card-dimmed');
+            kpi2.classList.add('card-dimmed');
+            card1.classList.add('card-dimmed');
+            card2.classList.add('card-dimmed');
+            flash(kpi4);
+            $('#kpi-3-label').textContent = 'Convenios nacionales 2025';
+            $('#kpi-3-sub').textContent = 'Con organismos e IES nacionales';
+            animateNumber($('#kpi-3-value'), oldValue, 102, 400);
+        } else {
+            $('#kpi-3-label').textContent = 'Convenios firmados 2025';
+            $('#kpi-3-sub').textContent = '41 internacionales · 102 nacionales';
+            animateNumber($('#kpi-3-value'), oldValue, 143, 400);
+        }
+    });
+
+    // ============================================================
+    // Modales
+    // ============================================================
+    function openModal(id) {
+        var overlay = $('#' + id);
+        if (!overlay) return;
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal(overlay) {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+    }
+    $$('[data-open-modal]').forEach(function (card) {
+        card.addEventListener('click', function () { openModal(card.getAttribute('data-open-modal')); });
+    });
+    $$('.modal-overlay').forEach(function (overlay) {
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(overlay); });
+    });
+    $$('.modal-close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { closeModal($('#' + btn.getAttribute('data-close'))); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') $$('.modal-overlay.open').forEach(closeModal);
+    });
+
+    // ============================================================
+    // Sidebar indicator selection
+    // ============================================================
+    var ENABLED_INDICATORS = ['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura'];
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (ENABLED_INDICATORS.indexOf(name) === -1) {
+                e.preventDefault();
+                alert('El indicador "' + name + '" estará disponible próximamente.');
+                return;
+            }
+            $$('#sidebar-indicators a').forEach(function (l) { l.classList.remove('sidebar-active-item'); l.classList.add('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium'); });
+            link.classList.add('sidebar-active-item');
+            link.classList.remove('text-on-surface-variant', 'hover:bg-surface-container', 'font-medium');
+        });
+    });
+
+    // ============================================================
+    // Sidebar collapse toggle
+    // ============================================================
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+})();
+</script>
+</body>
+</html>

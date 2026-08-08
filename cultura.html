@@ -99,7 +99,7 @@
         }
     }
 </script>
-<style>
+<style id="page-style">
     /* Base canvas tuned for a 3840x2160 (4K) display, matching the other pages in this project */
     html {
         font-size: 41.6px;
@@ -234,7 +234,8 @@
     .chip-alert { background: rgba(186,26,26,0.10); color: #ba1a1a; }
 
     .stat-card {
-        background: #F4F5F7;
+        background: #ffffff;
+        border: 1px solid #e1e4e8;
         border-radius: 10px;
         padding: 24px 26px;
         flex: 1;
@@ -300,6 +301,7 @@
     #modal-b .modal-container { max-width: 1800px; }
     #modal-d .modal-container { max-width: 2160px; }
 </style>
+<script src="js/spa-nav.js"></script>
 </head>
 <body class="text-on-surface h-screen overflow-hidden flex flex-col">
 <!-- TopNavBar -->
@@ -362,19 +364,19 @@
 <span class="material-symbols-outlined text-[57px]">payments</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
 </a>
-<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="bibliotecas.html">
 <span class="material-symbols-outlined text-[57px]">library_books</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
 </a>
-<a data-indicator="Apoyo a la actividad institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<a data-indicator="Apoyo institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="apoyo.html">
 <span class="material-symbols-outlined text-[57px]">support</span>
-<span class="sidebar-label text-[40px] leading-[64px]">Apoyo a la actividad institucional</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo institucional</span>
 </a>
-<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="internacionalizacion.html">
 <span class="material-symbols-outlined text-[57px]">public</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
 </a>
-<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="#">
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="infraestructura.html">
 <span class="material-symbols-outlined text-[57px]">architecture</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
 </a>
@@ -382,7 +384,7 @@
 </div>
 </aside>
 <!-- Main Content Container -->
-<div class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-4 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
 <!-- ================= FILTRO GENERAL (primer elemento visible) ================= -->
@@ -456,13 +458,13 @@
   <div class="grid grid-cols-2 gap-4 flex-1 min-h-0" style="flex-basis: 60%;">
 
     <!-- Gráfica 1 -->
-    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+    <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
       <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Actividades por disciplina</h3>
       <div id="chart1-treemap" class="flex-1 min-h-0 relative"></div>
     </div>
 
     <!-- Gráfica 2 -->
-    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+    <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
       <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Asistencia por disciplina</h3>
       <div class="chart-canvas"><canvas id="chart2"></canvas></div>
     </div>
@@ -473,13 +475,13 @@
   <div class="grid gap-4 flex-1 min-h-0" style="flex-basis: 40%; grid-template-columns: 2fr 3fr;">
 
     <!-- Gráfica 3 -->
-    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+    <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
       <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Producción artística 2025 · obras creadas</h3>
       <div class="chart-canvas"><canvas id="chart3"></canvas></div>
     </div>
 
     <!-- Gráfica 5 -->
-    <div class="card-institutional bg-[#F4F5F7] p-3 flex flex-col min-h-0">
+    <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
       <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Serie histórica · libros producidos 2021–2025</h3>
       <div class="chart-canvas"><canvas id="chart5"></canvas></div>
       <span class="badge-info shrink-0 text-[24px]">Promedio 4.5 libros publicados por día</span>
@@ -490,16 +492,12 @@
 </div>
 
 </main>
-<footer class="border-t border-outline-variant bg-surface-container-lowest py-2 px-4 md:px-8 shrink-0">
-  <div class="max-w-[4992px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-    <div class="text-outline text-[18px] font-semibold">
-      © 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.
+<footer class="bg-primary-container border-t border-outline-variant py-[32px] px-margin-desktop flex justify-between items-center shrink-0">
+    <p class="text-on-primary text-[24px] leading-none">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
     </div>
-    <div class="flex flex-wrap gap-6">
-      <a href="#" class="text-outline text-[18px] font-semibold hover:text-primary transition-colors">Créditos</a>
-      <a href="#" class="text-outline text-[18px] font-semibold hover:text-primary transition-colors">Contacto</a>
-    </div>
-  </div>
 </footer>
 </div>
 </div>
@@ -624,7 +622,7 @@
   </div>
 </div>
 
-<script>
+<script id="page-script">
 (function () {
     var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
     var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
@@ -1143,7 +1141,7 @@
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto'].indexOf(name) >= 0) return;
+            if (['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura'].indexOf(name) >= 0) return;
             e.preventDefault();
             alert('El indicador "' + name + '" estará disponible próximamente.');
         });
