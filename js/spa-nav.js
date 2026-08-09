@@ -32,6 +32,46 @@
 
     var isNavigating = false;
 
+    // Different pages load different external libraries (Chart.js, D3,
+    // three.js) via <script src> tags in <head>. navigateTo() only
+    // re-executes each page's own inline <script id="page-script">, so if a
+    // page whose library isn't loaded yet navigates to one that needs it
+    // (e.g. poblacion-escolar.html, which loads no chart library, to any
+    // other page), that page's script throws "X is not defined" on its
+    // first line and the rest of the script — including "Ver detalle" modal
+    // bindings — never runs. Track already-loaded scripts by filename (so
+    // the same library served from two different CDNs, as Chart.js is,
+    // isn't reloaded) and inject/await any missing ones before the new
+    // page's script runs.
+    var loadedScriptKeys = {};
+    Array.prototype.forEach.call(document.querySelectorAll('script[src]'), function (s) {
+        loadedScriptKeys[scriptKey(s.src)] = true;
+    });
+
+    function scriptKey(src) {
+        try {
+            return new URL(src, window.location.href).pathname.split('/').pop();
+        } catch (e) {
+            return src;
+        }
+    }
+
+    function ensureHeadScripts(doc) {
+        var needed = Array.prototype.filter.call(doc.querySelectorAll('script[src]'), function (s) {
+            return !loadedScriptKeys[scriptKey(s.src)];
+        });
+        if (!needed.length) return Promise.resolve();
+        return Promise.all(needed.map(function (s) {
+            return new Promise(function (resolve) {
+                var el = document.createElement('script');
+                el.src = s.src;
+                el.onload = function () { loadedScriptKeys[scriptKey(s.src)] = true; resolve(); };
+                el.onerror = function () { resolve(); };
+                document.head.appendChild(el);
+            });
+        }));
+    }
+
     function pageFileName(href) {
         try {
             var url = new URL(href, window.location.href);
@@ -56,6 +96,26 @@
             if (chart) {
                 try { chart.destroy(); } catch (e) { /* ignore */ }
             }
+        });
+    }
+
+    // Each page defines its own "Ver detalle" modals (.modal-overlay) as
+    // direct children of <body>, living OUTSIDE #main-content-container so
+    // they can use position:fixed to cover the whole viewport. Because
+    // navigateTo() only swaps #main-content-container's innerHTML, those
+    // modals were never being replaced on AJAX navigation: after navigating
+    // to a new page, its "Ver detalle" buttons pointed at modal IDs that
+    // simply weren't in the live DOM (the old page's modals, if any, were
+    // still there instead), so clicking them silently did nothing. Swap
+    // these page-level modals explicitly, the same way page-style and
+    // sidebar-indicators are swapped.
+    function swapPageLevelModals(doc) {
+        document.querySelectorAll('body > .modal-overlay').forEach(function (el) {
+            el.parentNode.removeChild(el);
+        });
+        var pageScript = document.getElementById('page-script');
+        Array.prototype.forEach.call(doc.querySelectorAll('body > .modal-overlay'), function (el) {
+            document.body.insertBefore(document.importNode(el, true), pageScript);
         });
     }
 
@@ -114,6 +174,10 @@
             if (currentMcc && newMcc) {
                 currentMcc.innerHTML = newMcc.innerHTML;
             }
+
+            swapPageLevelModals(doc);
+
+            await ensureHeadScripts(doc);
 
             var oldPageScript = document.getElementById('page-script');
             var newPageScriptSrc = doc.getElementById('page-script');
