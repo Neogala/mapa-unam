@@ -456,6 +456,10 @@
 <span class="material-symbols-outlined text-[57px]">architecture</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
 </a>
+<a data-indicator="Serie Histórica" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="serie-historica.html">
+<span class="material-symbols-outlined text-[57px]">timeline</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Serie Histórica</span>
+</a>
 </nav>
 </div>
 </aside>
@@ -1436,7 +1440,7 @@
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura') return;
+            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura' || name === 'Serie Histórica') return;
             e.preventDefault();
             alert('El indicador "' + name + '" estará disponible próximamente.');
         });
