@@ -447,6 +447,8 @@
 <!-- Main Content Container -->
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- Header -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
@@ -806,6 +808,8 @@
 </div>
 </div>
 </div>
+</div>
+
 </div>
 
 </main>
@@ -1278,7 +1282,7 @@
     var resizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () { redraws.forEach(function (fn) { fn(); }); }, 100);
+        resizeTimer = setTimeout(fitDashboardScale, 120);
     });
 
     // ---------- Interacción 1: filtros en tiempo real ----------
@@ -1610,6 +1614,41 @@
 
     // ---------- Init ----------
     animateBars(document);
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the isometric-pie canvases' wrap elements collapse to 0 height (their
+    // draw() bails out on clientWidth/clientHeight being 0), so nothing
+    // renders. Scaling the whole dashboard down keeps every wrap at its
+    // natural (non-zero) size while still fitting the viewport. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top left';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+            scaleWrap.style.width = (100 / scale) + '%';
+        }
+        redraws.forEach(function (fn) { fn(); });
+    }
+    window.addEventListener('load', function () {
+        requestAnimationFrame(function () {
+            requestAnimationFrame(fitDashboardScale);
+        });
+    });
 })();
 </script>
 </body>

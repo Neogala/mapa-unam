@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script id="tailwind-config">
     tailwind.config = {
         darkMode: "class",
@@ -169,13 +168,30 @@
     .chart-fill {
         position: relative;
         flex: 1 1 auto;
-        min-height: 0;
+        min-height: 280px;
+        max-height: 640px;
         width: 100%;
     }
     .chart-fill canvas {
         display: block;
         width: 100% !important;
         height: 100% !important;
+    }
+    #fig-bar-fill {
+        max-height: 900px;
+    }
+    /* Bounded (but generous) so the aspect-square donut boxes can grow to
+       fill available space without spiraling — a truly unbounded height
+       creates a circular canvas/parent sizing loop while the dashboard is
+       laid out at natural size for auto-fit scaling (see
+       #dashboard-scale-wrap in the page script). */
+    #esc-donut-wrap {
+        width: 760px;
+        max-height: 760px;
+    }
+    #appt-donut-wrap {
+        width: 760px;
+        max-height: 760px;
     }
     .chart-tooltip {
         position: absolute;
@@ -207,17 +223,16 @@
     }
     .reveal-card.revealed { opacity: 1; transform: translateY(0); }
 
-    /* Section 7: gender grid of 100 person icons, staggered fill-in.
-       Sized in vh (not px) so the 10x10 grid always fits the height the
-       flex layout hands it, instead of forcing a fixed footprint. */
+    /* Section 7: gender grid of 100 person icons, staggered fill-in. */
     #gender-grid {
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        gap: clamp(1px, 0.4vh, 9px);
+        grid-template-columns: repeat(20, 1fr);
+        gap: 10px;
+        max-width: 100%;
         align-content: center;
     }
     .gender-icon {
-        font-size: clamp(11px, 2.4vh, 30px);
+        font-size: 48px;
         line-height: 1;
         font-variation-settings: 'FILL' 1, 'wght' 500;
         opacity: 0;
@@ -253,7 +268,7 @@
         gap: 10px;
         background: #D59F0F;
         color: #ffffff;
-        font-size: 32px;
+        font-size: 46px;
         font-weight: 800;
         letter-spacing: 0.02em;
         padding: 12px 26px;
@@ -266,7 +281,7 @@
         animation: kpi-hint-pulse 2.2s ease-in-out infinite;
         z-index: 5;
     }
-    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-click-hint .material-symbols-outlined { font-size: 50px; }
     .kpi-clickable:hover .kpi-click-hint {
         transform: scale(1.1);
         box-shadow: 0 8px 24px rgba(213, 159, 15, 0.6);
@@ -281,18 +296,8 @@
     }
 
     /* Interacción 2: toggle personas / nombramientos */
-    .toggle-pill-group { display: inline-flex; border-radius: 9999px; overflow: hidden; border: 2px solid #003D79; }
-    .toggle-pill {
-        background: #fff;
-        color: #003D79;
-        font-weight: 700;
-        font-size: 24px;
-        padding: 8px 26px;
-        cursor: pointer;
-        border: none;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-    .toggle-pill.active-toggle { background: #003D79; color: #fff; }
+    .toggle-pill-group { display: inline-flex; gap: 12px; }
+    .toggle-pill { cursor: pointer; }
 
     /* Interacción 4: modal */
     .modal-overlay {
@@ -428,15 +433,16 @@
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- ================= SECTION 1 — HEADER + FILTERS ================= -->
 <header class="mb-2 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
-<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Personal Académico</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl mb-1">Concentrado estadístico del personal académico universitario por figura, subsistema y escolaridad.</p>
+<h1 class="font-headline-lg text-[115px] font-bold text-primary mb-2 leading-tight">Personal Académico</h1>
+<p class="font-body-lg text-[61px] text-on-surface-variant max-w-none whitespace-nowrap mb-1">Concentrado estadístico del personal académico universitario por figura, subsistema y escolaridad.</p>
 </div>
 <div class="flex flex-col gap-1">
-<label for="figura-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Figura Académica</label>
-<select id="figura-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<label for="figura-filter" class="text-[40px] font-bold text-outline uppercase tracking-wider">Figura Académica</label>
+<select id="figura-filter" class="bg-primary text-white font-bold text-[48px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
 <option value="todas">Todas</option>
 <option value="investigador">Investigador</option>
 <option value="profCarrera">Prof. de Carrera</option>
@@ -447,86 +453,91 @@
 </select>
 </div>
 </header>
-<p id="figura-badge" class="mb-5 shrink-0 text-[24px] text-outline font-medium"></p>
+<p id="figura-badge" class="mb-5 shrink-0 text-[26px] text-outline font-medium"></p>
 
 <!-- ================= SECTION 2 — KPI CARDS ================= -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
-<div id="kpi-total-card" class="kpi-card kpi-clickable card-institutional p-[44px] border-t-4 border-t-primary flex flex-col justify-start gap-4" title="Ver desglose por subsistema">
+<div id="kpi-total-card" class="kpi-card kpi-clickable card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-start gap-4" title="Ver desglose por subsistema">
 <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[46px]">groups</span>
-<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Total Académicos</span>
+<span class="material-symbols-outlined text-primary text-[54px]">groups</span>
+<span class="text-[44px] font-label-md text-outline uppercase tracking-wider">Total Académicos</span>
 </div>
-<span id="kpi-total-number" class="text-[58px] font-bold text-primary leading-none">43,032</span>
-<div class="flex flex-nowrap gap-2">
-<span id="kpi-total-h-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[26px] font-bold text-white whitespace-nowrap" style="background:#D59F0F">Hombres 23,004 (53.5%)</span>
-<span id="kpi-total-m-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[26px] font-bold text-white bg-primary whitespace-nowrap">Mujeres 20,028 (46.5%)</span>
+<span id="kpi-total-number" class="text-[72px] font-bold text-primary leading-none block">43,032</span>
+<div class="flex flex-wrap items-baseline gap-x-[24px] gap-y-[12px] text-[37px]">
+<span id="kpi-total-h-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[44px] font-semibold text-white whitespace-nowrap" style="background:#D59F0F">Hombres 23,004 (53.5%)</span>
+<span id="kpi-total-m-pill" class="inline-flex items-center rounded-full px-4 py-1 text-[44px] font-semibold text-white bg-primary whitespace-nowrap">Mujeres 20,028 (46.5%)</span>
 </div>
 </div>
-<div id="kpi-nombramientos-card" class="kpi-card card-institutional p-[44px] border-t-4 border-t-tertiary flex flex-col justify-start gap-4">
+<div id="kpi-nombramientos-card" class="kpi-card card-institutional p-[64px] border-t-4 border-t-tertiary flex flex-col justify-start gap-4">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary text-[46px]">badge</span>
-<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Nombramientos Totales</span>
+<span class="material-symbols-outlined text-tertiary text-[54px]">badge</span>
+<span class="text-[44px] font-label-md text-outline uppercase tracking-wider">Nombramientos Totales</span>
 </div>
-<span class="text-[58px] font-bold text-primary leading-none">52,533</span><span class="inline-flex w-fit items-center rounded-full px-3 py-1 text-[26px] font-bold bg-tertiary/10 text-tertiary" style="margin-top:-2px">+1.22 nombramientos por persona</span>
+<span class="text-[72px] font-bold text-primary leading-none block">52,533</span><span class="inline-flex w-fit items-center rounded-full px-3 py-1 text-[44px] font-semibold bg-tertiary/10 text-tertiary" style="margin-top:-2px">+1.22 nombramientos por persona</span>
 </div>
-<div class="kpi-card card-institutional p-[44px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3">
+<div class="kpi-card card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[46px]">star</span>
-<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Figura Principal</span>
+<span class="material-symbols-outlined text-secondary text-[54px]">star</span>
+<span class="text-[44px] font-label-md text-outline uppercase tracking-wider">Figura Principal</span>
 </div>
-<span id="kpi-figura-label" class="text-[30px] font-bold text-secondary">Profesor de Asignatura</span>
-<span><span id="kpi-figura-number" class="text-[58px] font-bold text-primary leading-none">27,956</span> <span class="text-[24px] font-normal text-outline">personas</span></span></div>
-<div class="kpi-card card-institutional p-[44px] border-t-4 border-t-primary flex flex-col justify-start gap-3">
+<span id="kpi-figura-label" class="text-[37px] font-bold text-secondary">Profesor de Asignatura</span>
+<span><span id="kpi-figura-number" class="text-[72px] font-bold text-primary leading-none">27,956</span> <span class="text-[32px] font-normal text-outline">personas</span></span></div>
+<div class="kpi-card card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-start gap-3">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[46px]">balance</span>
-<span class="text-[34px] font-label-md text-outline uppercase tracking-wider">Paridad de Género</span>
+<span class="material-symbols-outlined text-primary text-[54px]">balance</span>
+<span class="text-[44px] font-label-md text-outline uppercase tracking-wider">Paridad de Género</span>
 </div>
-<span class="text-[30px] font-bold text-on-surface-variant">Brecha de género</span>
-<div class="h-3 rounded-full overflow-hidden flex">
-<div id="kpi-paridad-bar-h" style="width:53.5%;background:#D59F0F" class="h-full"></div>
-<div id="kpi-paridad-bar-m" style="width:46.5%;background:#003D79" class="h-full"></div>
+<span class="text-[37px] text-outline mb-3 block">Brecha de género</span>
+<div class="h-[28px] rounded-full overflow-hidden w-full flex">
+<div id="kpi-paridad-bar-h" class="h-full bg-secondary-container" style="width:53.5%"></div>
+<div id="kpi-paridad-bar-m" class="h-full bg-primary" style="width:46.5%"></div>
 </div>
-<span id="kpi-paridad-text" class="text-[27px] font-bold">H 23,004 · M 20,028</span></div>
+<span id="kpi-paridad-text" class="text-[41px] font-bold mt-2 block">H 23,004 · M 20,028</span></div>
 </div>
 
 <!-- ================= SECTIONS 3+4 — fill all remaining vertical space so every card fits on a single 2160px-tall screen ================= -->
-<div class="flex-1 min-h-0 flex flex-col gap-6">
+<div class="flex-1 flex flex-col gap-6">
 
 <!-- SECTION 3 — FIGURA ACADÉMICA, ESCOLARIDAD Y NOMBRAMIENTOS -->
-<div class="grid grid-cols-1 lg:grid-cols-4 items-stretch gap-6 flex-1 min-h-0">
-<div class="card-institutional p-6 lg:col-span-2 min-w-0 flex flex-col min-h-0">
+<div class="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 flex-1">
+<div class="card-institutional p-[48px] lg:col-span-6 min-h-[433px] min-w-0 flex flex-col">
 <div class="flex items-center justify-between gap-4 mb-4 shrink-0">
-<h3 id="fig-bar-title" class="font-headline-sm text-headline-sm text-primary">Personas por figura académica 2026</h3>
+<h3 id="fig-bar-title" class="text-[62px] font-bold text-primary">Personas por figura académica 2026</h3>
 <div class="toggle-pill-group shrink-0">
-<button type="button" id="toggle-personas" class="toggle-pill active-toggle">PERSONAS</button>
-<button type="button" id="toggle-nombramientos" class="toggle-pill">NOMBRAMIENTOS</button>
+<button type="button" id="toggle-personas" class="toggle-pill bg-primary text-white font-bold px-8 py-3 rounded-full text-[36px]">PERSONAS</button>
+<button type="button" id="toggle-nombramientos" class="toggle-pill bg-transparent text-outline border border-outline-variant font-medium px-8 py-3 rounded-full text-[36px] hover:bg-surface-container transition-colors">NOMBRAMIENTOS</button>
 </div>
 </div>
-<div class="chart-fill"><canvas id="fig-bar-canvas"></canvas></div>
-<p id="fig-bar-note" class="text-[22px] text-on-surface-variant mt-3 shrink-0">Se refiere al número de académicos sin duplicidad. Una persona con dos plazas cuenta una sola vez.</p>
-</div>
-
-<div class="reveal-card card-institutional p-6 flex flex-col min-w-0 min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Escolaridad del personal</h3>
-<div class="flex flex-wrap items-stretch gap-6 flex-1 min-h-0">
-<div class="relative flex-1 min-w-0" id="escolaridad-3d-container">
-<div id="escolaridad-3d-tooltip" class="chart-tooltip"></div>
-</div>
-<div id="escolaridad-3d-legend" class="space-y-2 flex-1 min-w-0 self-center"></div>
-</div>
+<div class="chart-fill" id="fig-bar-fill"><canvas id="fig-bar-canvas"></canvas></div>
+<p id="fig-bar-note" class="text-[36px] text-outline mt-3 shrink-0">Se refiere al número de académicos sin duplicidad. Una persona con dos plazas cuenta una sola vez.</p>
 </div>
 
-<div class="card-institutional p-6 flex flex-col min-w-0 min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Nombramientos por figura</h3>
-<div class="flex items-stretch justify-center gap-6 flex-1 min-h-0">
-<div class="relative shrink-0 aspect-square max-w-full">
+<div class="reveal-card card-institutional p-[48px] lg:col-span-3 min-h-[433px] flex flex-col min-w-0">
+<h3 class="text-[62px] font-bold text-primary mb-4 shrink-0">Escolaridad del personal</h3>
+<div class="flex flex-col items-center justify-center gap-6 flex-1">
+<div id="esc-donut-wrap" class="relative shrink-0 aspect-square max-w-full mx-auto">
+<canvas id="esc-donut-canvas"></canvas>
+<div id="esc-donut-tooltip" class="chart-tooltip"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="text-[52px] font-bold text-primary leading-none">43,032</span>
+<span class="text-[26px] text-outline">personas</span>
+</div>
+</div>
+<div id="esc-legend" class="flex flex-col gap-2 justify-center min-w-0 w-full"></div>
+</div>
+</div>
+
+<div class="card-institutional p-[48px] lg:col-span-3 min-h-[433px] flex flex-col min-w-0">
+<h3 class="text-[62px] font-bold text-primary mb-4 shrink-0">Nombramientos por figura</h3>
+<div class="flex items-center justify-center gap-6 flex-1">
+<div id="appt-donut-wrap" class="relative shrink-0 aspect-square max-w-full mx-auto">
 <canvas id="appt-donut-canvas"></canvas>
 <div id="appt-donut-tooltip" class="chart-tooltip"></div>
-</div>
-<div class="text-center self-center">
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
 <span class="block text-[52px] font-bold text-primary leading-none">52,533</span>
 <span class="text-[26px] text-on-surface-variant">nombramientos</span>
+</div>
 </div>
 </div>
 <div id="appt-legend" class="flex flex-wrap justify-center gap-3 mt-4 shrink-0"></div>
@@ -534,27 +545,29 @@
 </div>
 
 <!-- SECTION 4 — SUBSISTEMAS -->
-<div class="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-6 flex-1 min-h-0">
-<div class="card-institutional p-6 min-w-0 flex flex-col min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-4 shrink-0">Personal académico por subsistema</h3>
+<div class="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-6 flex-1">
+<div class="card-institutional p-[48px] lg:col-span-7 min-h-[480px] min-w-0 flex flex-col">
+<h3 class="text-[62px] font-bold text-primary mb-4 shrink-0">Personal académico por subsistema</h3>
 <div class="chart-fill"><canvas id="subsistema-bar-canvas"></canvas></div>
 </div>
-<div class="card-institutional p-8 flex flex-col min-w-0 min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-6 shrink-0">Distribución de género</h3>
-<div class="flex flex-wrap items-center justify-center gap-6 flex-1 min-h-0 overflow-hidden">
-<div id="gender-grid" class="w-full max-w-[470px] shrink"></div>
-<div class="flex flex-col gap-5 shrink-0">
-<div class="text-center">
-<span id="gender-h-number" class="block text-[56px] font-bold leading-none" style="color:#D59F0F">23,004</span>
-<span id="gender-h-label" class="text-[27px] text-on-surface-variant">Hombres (53.5%)</span>
+<div class="card-institutional p-[48px] lg:col-span-5 min-h-[480px] flex flex-col min-w-0">
+<h3 class="text-[62px] font-bold text-primary mb-6 shrink-0">Distribución de género</h3>
+<div class="flex flex-wrap items-center justify-center gap-6 flex-1 overflow-hidden">
+<div id="gender-grid" class="w-full shrink"></div>
+<div class="flex flex-row gap-10 shrink-0">
+<div class="text-center whitespace-nowrap">
+<span id="gender-h-number" class="text-[54px] font-bold leading-none" style="color:#D59F0F">23,004</span>
+<span id="gender-h-label" class="text-[54px] text-outline">Hombres (53.5%)</span>
 </div>
-<div class="text-center">
-<span id="gender-m-number" class="block text-[56px] font-bold leading-none" style="color:#003D79">20,028</span>
-<span id="gender-m-label" class="text-[27px] text-on-surface-variant">Mujeres (46.5%)</span>
-</div>
-</div>
+<div class="text-center whitespace-nowrap">
+<span id="gender-m-number" class="text-[54px] font-bold leading-none" style="color:#002752">20,028</span>
+<span id="gender-m-label" class="text-[54px] text-outline">Mujeres (46.5%)</span>
 </div>
 </div>
+</div>
+</div>
+</div>
+
 </div>
 
 </div>
@@ -700,6 +713,7 @@
         requestAnimationFrame(step);
     }
 
+    Chart.defaults.font.size = 30;
     Chart.defaults.font.family = "'Libre Franklin', sans-serif";
     Chart.defaults.color = '#434750';
 
@@ -743,8 +757,8 @@
         data: {
             labels: figuraLabels,
             datasets: [
-                { label: 'Hombres', data: [], backgroundColor: [], barPercentage: 0.9, categoryPercentage: 0.85 },
-                { label: 'Mujeres', data: [], backgroundColor: [], barPercentage: 0.9, categoryPercentage: 0.85 }
+                { label: 'Hombres', data: [], backgroundColor: [], barPercentage: 0.95, categoryPercentage: 0.94 },
+                { label: 'Mujeres', data: [], backgroundColor: [], barPercentage: 0.95, categoryPercentage: 0.94 }
             ]
         },
         options: {
@@ -753,13 +767,13 @@
             layout: { padding: { top: 24, right: 24 } },
             animation: { duration: 0 },
             scales: {
-                x: { grid: { display: false }, ticks: { font: { size: 28 } } },
-                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 22 } } }
+                x: { grid: { display: false }, ticks: { font: { size: 36, family: "'Libre Franklin'" } } },
+                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 36, family: "'Libre Franklin'" } } }
             },
             plugins: {
-                legend: { display: false },
+                legend: { display: false, labels: { font: { size: 28 }, padding: 24 } },
                 tooltip: {
-                    titleFont: { size: 28 },
+                    titleFont: { size: 28, weight: 'bold' },
                     bodyFont: { size: 26 },
                     padding: 16,
                     callbacks: {
@@ -809,10 +823,10 @@
             maintainAspectRatio: false,
             animation: { duration: 350 },
             plugins: {
-                legend: { display: false },
+                legend: { display: false, labels: { font: { size: 28 }, padding: 24 } },
                 tooltip: {
-                    titleFont: { size: 27 },
-                    bodyFont: { size: 25 },
+                    titleFont: { size: 28, weight: 'bold' },
+                    bodyFont: { size: 26 },
                     padding: 14,
                     callbacks: { label: function (ctx) { return ctx.label + ': ' + fmt(ctx.parsed) + ' (' + apptPct[ctx.dataIndex] + '%)'; } }
                 }
@@ -831,7 +845,7 @@
     var apptLegend = $('#appt-legend');
     apptLabels.forEach(function (label, i) {
         var chip = document.createElement('span');
-        chip.className = 'inline-flex items-center gap-2 text-[23px] font-bold text-on-surface-variant';
+        chip.className = 'inline-flex items-center gap-2 text-[44px] font-bold text-outline';
         chip.innerHTML = '<span class="w-3 h-3 rounded-full inline-block" style="background:' + apptColors[i] + '"></span>' + label + ' · ' + apptPct[i] + '%';
         apptLegend.appendChild(chip);
     });
@@ -867,7 +881,7 @@
             meta.data.forEach(function (bar, i) {
                 var props = bar.getProps(['x', 'y'], true);
                 ctx.save();
-                ctx.font = "bold 29px 'Libre Franklin'";
+                ctx.font = "bold 42px 'Libre Franklin'";
                 ctx.fillStyle = '#191c1e';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(fmt(subTotal[i]), props.x + 10, props.y);
@@ -891,14 +905,19 @@
             maintainAspectRatio: false,
             layout: { padding: { right: 80 } },
             scales: {
-                x: { stacked: true, grid: { color: '#edeef0' }, ticks: { font: { size: 27 } } },
-                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 28 } } }
+                x: { stacked: true, grid: { color: '#edeef0' }, ticks: { font: { size: 42, family: "'Libre Franklin'" } } },
+                y: {
+                    stacked: true,
+                    grid: { display: false },
+                    afterFit: function (scale) { scale.width = 620; },
+                    ticks: { font: { size: 42, family: "'Libre Franklin'" } }
+                }
             },
             plugins: {
-                legend: { display: false },
+                legend: { display: false, labels: { font: { size: 36 }, padding: 24 } },
                 tooltip: {
-                    titleFont: { size: 27 },
-                    bodyFont: { size: 25 },
+                    titleFont: { size: 36, weight: 'bold' },
+                    bodyFont: { size: 34 },
                     padding: 16,
                     callbacks: {
                         afterBody: function (items) {
@@ -912,100 +931,44 @@
         plugins: [rowBgPlugin, totalLabelPlugin]
     });
 
-    // ---------- Section 5: escolaridad · 3D pie (total, sin desglose) ----------
+    // ---------- Section 5: escolaridad · donut plano (total, sin desglose) ----------
     var escLabels = ['Doctorado', 'Maestría', 'Licenciatura', 'Especialización'];
     var escData = [71.3, 18.7, 9.5, 0.5];
-    var escColorsHex = ['#003D79', '#D59F0F', '#8C7146', '#C8C8C8'];
-    var escColors = [0x003D79, 0xD59F0F, 0x8C7146, 0xC8C8C8];
-    var escTotal = escData.reduce(function (a, b) { return a + b; }, 0);
+    var escColors = ['#002752', '#D59F0F', '#8C7146', '#8B9DB5'];
 
-    (function () {
-        var container = document.getElementById('escolaridad-3d-container');
-        var tooltip = document.getElementById('escolaridad-3d-tooltip');
-        if (!container || !window.THREE) return;
-        var w = container.clientWidth, h = container.clientHeight;
-        if (!w || !h) return;
-        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(w, h);
-        renderer.setPixelRatio(window.devicePixelRatio || 1);
-        container.appendChild(renderer.domElement);
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
-        camera.position.set(0, 3.3, 5.1);
-        camera.lookAt(0, 0, 0);
-        scene.add(new THREE.AmbientLight(0xffffff, 0.75));
-        var dir = new THREE.DirectionalLight(0xffffff, 0.55);
-        dir.position.set(3, 5, 4);
-        scene.add(dir);
-
-        var group = new THREE.Group();
-        scene.add(group);
-        var startAngle = 0;
-        var meshes = [];
-        var height = 0.7;
-        escData.forEach(function (val, i) {
-            var frac = val / escTotal;
-            var angle = frac * Math.PI * 2 * 0.985;
-            var geo = new THREE.CylinderGeometry(1.35, 1.35, height, 32, 1, false, startAngle, angle);
-            var mat = new THREE.MeshStandardMaterial({ color: escColors[i] });
-            var mesh = new THREE.Mesh(geo, mat);
-            mesh.position.y = height / 2;
-            mesh.userData = { index: i, baseColor: escColors[i] };
-            group.add(mesh);
-            meshes.push(mesh);
-            startAngle += angle + 0.015;
-        });
-
-        var raycaster = new THREE.Raycaster();
-        var mouse = new THREE.Vector2();
-        var hovered = null;
-
-        renderer.domElement.addEventListener('mousemove', function (e) {
-            var rect = renderer.domElement.getBoundingClientRect();
-            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
-            var hits = raycaster.intersectObjects(meshes);
-            if (hovered) { hovered.material.color.setHex(hovered.userData.baseColor); hovered.material.emissive.setHex(0x000000); hovered = null; }
-            if (hits.length) {
-                hovered = hits[0].object;
-                hovered.material.emissive.setHex(0x333333);
-                if (tooltip) {
-                    tooltip.style.left = (e.clientX - rect.left) + 'px';
-                    tooltip.style.top = (e.clientY - rect.top) + 'px';
-                    tooltip.textContent = escLabels[hovered.userData.index] + ': ' + escData[hovered.userData.index] + '%';
-                    tooltip.classList.add('visible');
+    var escCanvas = document.getElementById('esc-donut-canvas');
+    if (escCanvas) {
+        new Chart(escCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: escLabels,
+                datasets: [{ data: escData, backgroundColor: escColors, borderWidth: 2, borderColor: '#fff', cutout: '62%' }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 350 },
+                plugins: {
+                    legend: { display: false, labels: { font: { size: 28 }, padding: 24 } },
+                    tooltip: {
+                        titleFont: { size: 28, weight: 'bold' },
+                        bodyFont: { size: 26 },
+                        padding: 14,
+                        callbacks: { label: function (ctx) { return ctx.label + ': ' + ctx.parsed + '%'; } }
+                    }
                 }
-            } else if (tooltip) {
-                tooltip.classList.remove('visible');
             }
-            renderer.render(scene, camera);
         });
-        renderer.domElement.addEventListener('mouseleave', function () {
-            if (hovered) { hovered.material.color.setHex(hovered.userData.baseColor); hovered.material.emissive.setHex(0x000000); hovered = null; }
-            if (tooltip) tooltip.classList.remove('visible');
-            renderer.render(scene, camera);
-        });
+    }
 
-        renderer.render(scene, camera);
-
-        window.addEventListener('resize', function () {
-            var w2 = container.clientWidth, h2 = container.clientHeight;
-            if (!w2 || !h2) return;
-            renderer.setSize(w2, h2);
-            camera.aspect = w2 / h2;
-            camera.updateProjectionMatrix();
-            renderer.render(scene, camera);
-        });
-    })();
-
-    var escLegend = document.getElementById('escolaridad-3d-legend');
+    var escLegend = document.getElementById('esc-legend');
     if (escLegend) {
         escLabels.forEach(function (label, i) {
             var row = document.createElement('div');
-            row.className = 'flex items-center gap-4 text-[27px]';
-            row.innerHTML = '<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:' + escColorsHex[i] + '"></span>' + label + '</span>' +
-                '<span class="font-bold">' + escData[i] + '%</span>';
+            row.className = 'flex items-center gap-3 text-[44px] text-outline';
+            row.innerHTML = '<span class="w-4 h-4 rounded-full inline-block shrink-0" style="background:' + escColors[i] + '"></span>' +
+                '<span class="flex-1 font-bold">' + label + '</span>' +
+                '<span class="font-bold text-on-surface">' + escData[i] + '%</span>';
             escLegend.appendChild(row);
         });
     }
@@ -1036,7 +999,7 @@
             var icon = document.createElement('span');
             icon.className = 'material-symbols-outlined gender-icon';
             icon.textContent = 'person';
-            icon.style.color = i < filled ? '#D59F0F' : '#003D79';
+            icon.style.color = i < filled ? '#D59F0F' : '#002752';
             icon.style.animationDelay = (i * 6) + 'ms';
             genderGrid.appendChild(icon);
         }
@@ -1103,10 +1066,13 @@
     var NOTE_PERSONAS = 'Se refiere al número de académicos sin duplicidad. Una persona con dos plazas cuenta una sola vez.';
     var NOTE_NOMBRAMIENTOS = 'Incluye todos los nombramientos activos. Una persona puede tener más de un nombramiento (1.22 promedio).';
 
+    var TOGGLE_ACTIVE = 'toggle-pill bg-primary text-white font-bold px-8 py-3 rounded-full text-[36px]';
+    var TOGGLE_INACTIVE = 'toggle-pill bg-transparent text-outline border border-outline-variant font-medium px-8 py-3 rounded-full text-[36px] hover:bg-surface-container transition-colors';
+
     function setMode(mode) {
         currentMode = mode;
-        toggleBtnPersonas.classList.toggle('active-toggle', mode === 'personas');
-        toggleBtnNombramientos.classList.toggle('active-toggle', mode === 'nombramientos');
+        toggleBtnPersonas.className = mode === 'personas' ? TOGGLE_ACTIVE : TOGGLE_INACTIVE;
+        toggleBtnNombramientos.className = mode === 'nombramientos' ? TOGGLE_ACTIVE : TOGGLE_INACTIVE;
         figBarTitle.textContent = mode === 'personas' ? 'Personas por figura académica 2026' : 'Nombramientos por figura académica 2026';
         figBarNote.textContent = mode === 'personas' ? NOTE_PERSONAS : NOTE_NOMBRAMIENTOS;
         renderFigChart(400);
@@ -1159,6 +1125,50 @@
     toggle.addEventListener('click', function () {
         sidebar.classList.toggle('collapsed');
         updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale sections 3+4 down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.zoom = '';
+        // scaleWrap lays out at its natural (unshrunk) size — its own
+        // clientHeight isn't a usable "available space" figure. Compute the
+        // real remaining room inside <main> instead: main's box minus
+        // whatever the fixed-height elements above scaleWrap (header, filter,
+        // KPI row) already used.
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            // Uses CSS `zoom` instead of `transform: scale()` + a
+            // compensating width. `zoom` is a real (non-visual-only) layout
+            // scale: the browser relayouts the subtree as if it were
+            // actually that size, so flex/grid children (including the
+            // Chart.js canvases, still full width of their card) resolve to
+            // correct final pixel sizes in a single pass — no separate
+            // "grow the width back" step, which is what caused Chart.js's
+            // ResizeObserver to enter an infinite resize/redraw loop with
+            // transform+width. This keeps cards/KPIs filling the full
+            // width, matching the other Numeralia pages.
+            scaleWrap.style.zoom = scale;
+        }
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
     });
 })();
 </script>

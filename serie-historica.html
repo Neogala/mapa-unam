@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNAM en Cifras · Serie Histórica 2000–2025</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface-dim": "#d9dadc",
+                    "on-error": "#ffffff", "error": "#ba1a1a",
+                    "primary-container": "#003d79",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#59431c",
+                    "secondary": "#7a5900", "tertiary": "#372402",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "surface-tint": "#335f9c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#80aaec",
+                    "surface-container": "#edeef0",
+                    "surface": "#f8f9fb",
+                    "on-primary": "#ffffff", "primary": "#002752",
+                    "on-primary-fixed": "#001b3c",
+                    "on-surface-variant": "#434750",
+                    "tertiary-fixed-dim": "#e3c290",
+                    "tertiary-container": "#4f3a14",
+                    "outline-variant": "#c3c6d1",
+                    "tertiary-fixed": "#ffdead",
+                    "on-tertiary-container": "#c3a475",
+                    "on-primary-fixed-variant": "#134783",
+                    "outline": "#737781",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fb",
+                    "on-tertiary-fixed": "#281900",
+                    "on-secondary-container": "#6f5100",
+                    "surface-container-highest": "#e1e2e4",
+                    "inverse-primary": "#a8c8ff",
+                    "secondary-fixed": "#ffdea1",
+                    "on-secondary-fixed": "#261900",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#fec33b",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "inverse-surface": "#2e3132",
+                    "on-background": "#191c1e",
+                    "surface-container-high": "#e7e8ea",
+                    "secondary-fixed-dim": "#f7bd35",
+                    "inverse-on-surface": "#f0f1f3",
+                    "surface-variant": "#e1e4e8"
+                },
+                borderRadius: {
+                    DEFAULT: "0.125rem", lg: "0.25rem",
+                    xl: "0.5rem", full: "0.75rem"
+                },
+                fontFamily: {
+                    "headline-lg": ["Libre Franklin"],
+                    "body-md": ["Libre Franklin"],
+                    "headline-sm": ["Libre Franklin"],
+                    "body-lg": ["Libre Franklin"],
+                    "headline-md": ["Libre Franklin"],
+                    "label-md": ["Libre Franklin"],
+                    "display-lg": ["Libre Franklin"]
+                },
+                fontSize: {
+                    "display-lg":  ["125px", {lineHeight:"146px", letterSpacing:"-0.02em", fontWeight:"700"}],
+                    "headline-sm": ["52px",  {lineHeight:"73px",  fontWeight:"600"}],
+                    "label-md":    ["36px",  {lineHeight:"52px",  letterSpacing:"0.05em", fontWeight:"500"}],
+                    "body-lg":     ["47px",  {lineHeight:"73px",  fontWeight:"400"}],
+                    "headline-lg": ["83px",  {lineHeight:"104px", fontWeight:"700"}],
+                    "headline-md": ["62px",  {lineHeight:"83px",  fontWeight:"600"}],
+                    "body-md":     ["42px",  {lineHeight:"62px",  fontWeight:"400"}]
+                }
+            }
+        }
+    }
+</script>
+<style id="page-style">
+    html { font-size: 41.6px; }
+    body {
+        font-family: 'Libre Franklin', sans-serif;
+        background-color: #f4f5f7;
+        scroll-behavior: smooth;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+    .card-institutional {
+        background: white;
+        border: 1px solid #e1e4e8;
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card-institutional:hover {
+        box-shadow: 0 4px 12px rgba(0,61,121,0.08);
+        transform: translateY(-2px);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #003D79; border-radius: 10px; }
+    #sidebar { width: 664px; transition: width 0.2s ease; overflow-x: hidden; }
+    #sidebar.collapsed { width: 210px; }
+    #sidebar.collapsed #sidebar-inner { padding-left: 24px; padding-right: 24px; }
+    #sidebar.collapsed .sidebar-label { display: none; }
+    #sidebar.collapsed #sidebar-indicators a { justify-content: center; }
+    #sidebar.collapsed #sidebar-toggle { display: block; margin: auto; }
+    .sidebar-active-item {
+        color: #D59F0F !important;
+        background: rgba(213,159,15,0.05);
+        border-right: 4px solid #D59F0F;
+    }
+    .sidebar-active-item .material-symbols-outlined {
+        color: #D59F0F !important;
+        font-variation-settings: 'FILL' 1;
+    }
+    /* Filtro de rango */
+    .year-btn {
+        background: transparent;
+        border: 1.5px solid #C3C6D1;
+        color: #737781;
+        font-family: 'Libre Franklin', sans-serif;
+        font-size: 28px; font-weight: 600;
+        padding: 10px 28px; border-radius: 999px;
+        cursor: pointer; transition: all 0.15s ease;
+    }
+    .year-btn:hover { border-color: #003D79; color: #003D79; }
+    .year-btn.active {
+        background: #002752; border-color: #002752;
+        color: #ffffff;
+    }
+    .year-select {
+        background: #002752; color: #ffffff;
+        font-family: 'Libre Franklin', sans-serif;
+        font-size: 32px; font-weight: 700;
+        border: 2px solid #002752; border-radius: 999px;
+        padding: 10px 40px 10px 20px;
+        cursor: pointer; appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 32px;
+    }
+    .chart-wrap {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    .chart-wrap canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .chart-footnote {
+        font-size: 22px;
+        color: #737781;
+        margin-top: 14px;
+    }
+</style>
+<script src="js/spa-nav.js"></script>
+</head>
+<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
+<div class="flex items-center gap-[40px]">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7LuHjDtrPP5d-P5JJp0oe4xAOizCspETBqWFl1k5evwb2b3-yCP4N_VlsQloGUm_v36KErEmZbU5Fo9jm9ZEPuIA66G_zmARVQdrm7dwDQg5eQY1P5TIvjVZKQMSsbVO8m7RL4z42sOqr8Odx8q3XifNQghP3CHOzh9D6_fR9zu3W4xfaE1_MACwMZ8yjxcg8juItr2Kv2PWaWoGFk_WB607uTmFAN4SobbT5VwI4hXT6jND52Dl88K45jSJ4WXVM0TI2DaK89TO" alt="Escudo UNAM Blanco" class="object-contain shrink-0" style="height: 180px; width: 180px;">
+<div class="hidden sm:flex flex-col leading-none">
+<h1 class="font-display-lg text-[80px] text-on-primary tracking-tight m-0 p-0 leading-none font-bold">UNAM</h1>
+<span class="font-label-md text-[32px] text-on-primary/80">Mapa interactivo</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-[96px]">
+<a class="flex items-center gap-[16px] text-on-primary/80 hover:text-on-primary hover:bg-white/10 transition-colors p-[16px] rounded-[16px] scale-100 active:scale-95 duration-200" href="mapa.html">
+<span class="material-symbols-outlined text-[56px]">map</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Mapa</span>
+</a>
+<a class="flex items-center gap-[16px] text-secondary-fixed font-bold border-b-4 border-secondary-fixed pb-[8px] scale-100 active:scale-95 duration-200" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[56px]">bar_chart</span>
+<span class="font-label-md text-[36px] uppercase tracking-widest">Numeralia</span>
+</a>
+</nav>
+<div class="flex items-center gap-[32px]">
+<div class="relative hidden lg:block w-[1035px]">
+<span class="material-symbols-outlined absolute left-[32px] top-1/2 -translate-y-1/2 text-on-primary/60 text-[40px]">search</span>
+<input id="top-search" autocomplete="off" class="bg-white/10 border-2 border-on-primary/20 text-on-primary placeholder:text-on-primary/60 rounded-full py-[24px] pl-[96px] pr-[48px] focus:outline-none focus:ring-4 focus:ring-secondary-fixed text-[32px] transition-all font-body-md w-full" placeholder="Buscar en la UNAM" type="text">
+</div>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden">
+<!-- Sidebar -->
+<aside id="sidebar" class="bg-white border-r border-outline-variant overflow-y-auto shrink-0">
+<div id="sidebar-inner" class="p-6">
+<button id="sidebar-toggle" class="text-primary mb-4" aria-label="Cerrar menú">
+<span id="sidebar-toggle-icon" class="material-symbols-outlined text-[57px]">close</span>
+</button>
+<div class="mb-4">
+<span class="sidebar-label text-[33px] font-bold text-outline uppercase tracking-widest px-3">Indicadores Clave</span>
+</div>
+<nav class="space-y-1" id="sidebar-indicators">
+<a data-indicator="Población Escolar" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="poblacion-escolar.html">
+<span class="material-symbols-outlined text-[57px]">groups</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Población Escolar</span>
+</a>
+<a data-indicator="Personal Académico" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-academico.html">
+<span class="material-symbols-outlined text-[57px]">school</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
+</a>
+<a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
+<span class="material-symbols-outlined text-[57px]">biotech</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
+</a>
+<a data-indicator="Cultura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="cultura.html">
+<span class="material-symbols-outlined text-[57px]">theater_comedy</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Cultura</span>
+</a>
+<a data-indicator="Presupuesto" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="presupuesto.html">
+<span class="material-symbols-outlined text-[57px]">payments</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Presupuesto</span>
+</a>
+<a data-indicator="Apoyo institucional" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="apoyo.html">
+<span class="material-symbols-outlined text-[57px]">volunteer_activism</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Apoyo institucional</span>
+</a>
+<a data-indicator="Bibliotecas" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="bibliotecas.html">
+<span class="material-symbols-outlined text-[57px]">library_books</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Bibliotecas</span>
+</a>
+<a data-indicator="Internacionalización" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="internacionalizacion.html">
+<span class="material-symbols-outlined text-[57px]">public</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Internacionalización</span>
+</a>
+<a data-indicator="Infraestructura" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="infraestructura.html">
+<span class="material-symbols-outlined text-[57px]">architecture</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Infraestructura</span>
+</a>
+<a data-indicator="Serie Histórica" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="serie-historica.html">
+<span class="material-symbols-outlined text-[50px]">timeline</span>
+<span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Serie Histórica</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Container -->
+<div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
+<main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
+
+<div id="dashboard-scale-wrap" class="flex-1 min-h-0 flex flex-col">
+<!-- Título de sección -->
+<header id="serie-header" class="mb-5">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">UNAM en Cifras · Serie Histórica 2000–2025</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl">Evolución histórica de los principales indicadores institucionales de la UNAM.</p>
+</header>
+
+<!-- Filtro global de rango de años -->
+<div id="serie-filter" class="card-institutional p-[32px] mb-6 flex items-center gap-6 flex-wrap">
+<span class="text-[30px] font-semibold text-outline">Período:</span>
+<select id="year-from" class="year-select"></select>
+<span class="text-[30px] text-outline font-medium">—</span>
+<select id="year-to" class="year-select"></select>
+<button type="button" class="year-btn active" data-from="2000" data-to="2025">Todo</button>
+<button type="button" class="year-btn" data-from="2000" data-to="2010">2000–2010</button>
+<button type="button" class="year-btn" data-from="2010" data-to="2020">2010–2020</button>
+<button type="button" class="year-btn" data-from="2015" data-to="2025">2015–2025</button>
+</div>
+
+<!-- 2 filas x 2 columnas de gráficas, ocupando toda la altura disponible -->
+<div id="serie-grid" class="grid grid-cols-2 gap-6">
+
+<!-- G1: Población Escolar -->
+<div class="card-institutional p-[48px] flex flex-col">
+<h3 class="text-[40px] font-bold text-primary mb-[12px]">Población Escolar</h3>
+<p class="text-[26px] text-outline mb-[20px]">Alumnos por nivel educativo · ciclos 1999–2000 a 2024–2025</p>
+<div class="chart-wrap"><canvas id="chart-g1"></canvas></div>
+<p class="chart-footnote">Fuente: Dir. General de Administración Escolar, UNAM</p>
+</div>
+
+<!-- G2: Personal Académico -->
+<div class="card-institutional p-[48px] flex flex-col">
+<h3 class="text-[40px] font-bold text-primary mb-[12px]">Personal Académico</h3>
+<p class="text-[26px] text-outline mb-[8px]">Nombramientos por figura · 2000–2025</p>
+<span style="font-size:26px; color:#737781; font-family:'Libre Franklin'; display:block; margin-bottom:12px;">⚠ Prof. de Asignatura (~34K) usa eje derecho (dorado) por escala diferente</span>
+<div class="chart-wrap"><canvas id="chart-g2"></canvas></div>
+<p class="chart-footnote">Fuente: Dir. General de Personal, UNAM</p>
+</div>
+
+<!-- G4: Productos de Investigación -->
+<div class="card-institutional p-[48px] flex flex-col">
+<h3 class="text-[40px] font-bold text-primary mb-[12px]">Productos de Investigación</h3>
+<p class="text-[26px] text-outline mb-[20px]">Publicaciones y obras por tipo · 2000–2025</p>
+<div class="chart-wrap"><canvas id="chart-g4"></canvas></div>
+<p class="chart-footnote">Fuente: Coordinación de la Investigación Científica / Humanidades, UNAM</p>
+</div>
+
+<!-- G5: Presupuesto de Egresos -->
+<div class="card-institutional p-[48px] flex flex-col">
+<h3 class="text-[40px] font-bold text-primary mb-[12px]">Presupuesto de Egresos</h3>
+<p class="text-[26px] text-outline mb-[20px]">Millones de pesos corrientes por función · 2000–2025</p>
+<div class="chart-wrap"><canvas id="chart-g5"></canvas></div>
+<p class="chart-footnote">Presupuesto total 2025: $58,084 MDP · cifras en pesos corrientes (no ajustadas por inflación)<br>Fuente: Presupuestos 2000–2025, UNAM</p>
+</div>
+
+</div>
+
+</div>
+
+</main>
+<footer class="bg-primary-container border-t border-outline-variant py-[32px] px-margin-desktop flex justify-between items-center shrink-0">
+    <p class="text-on-primary text-[24px] leading-none">© 2026 Universidad Nacional Autónoma de México. Todos los derechos reservados.</p>
+    <div class="flex gap-12">
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Privacidad</a>
+        <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
+    </div>
+</footer>
+</div>
+</div>
+
+<script id="page-script">
+(function () {
+    'use strict';
+    var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+    Chart.defaults.font.size = 30;
+    Chart.defaults.font.family = "'Libre Franklin', sans-serif";
+    Chart.defaults.color = '#434750';
+
+    var COLORS = {
+        azul:     '#002752',
+        azul2:    '#003D79',
+        azul3:    '#4A7CB5',
+        dorado:   '#D59F0F',
+        amarillo: '#FEC33B',
+        cafe:     '#8C7146',
+        gris:     '#8B9DB5',
+        verde:    '#2E7D5A',
+        rojo:     '#BA3A2C'
+    };
+
+    var TICK_FONT = { size: 26, family: "'Libre Franklin'" };
+    var LEGEND_LABELS = { font: { size: 26 }, padding: 20, boxWidth: 24, boxHeight: 24 };
+    var TOOLTIP_FONT = { bodyFont: { size: 24 }, titleFont: { size: 26, weight: 'bold' } };
+
+    // ============================================================
+    // DATOS
+    // ============================================================
+    var g1Labels = [
+        '99–00','00–01','01–02','02–03','03–04','04–05','05–06','06–07',
+        '07–08','08–09','09–10','10–11','11–12','12–13','13–14','14–15',
+        '15–16','16–17','17–18','18–19','19–20','20–21','21–22','22–23',
+        '23–24','24–25'
+    ];
+    var g1Years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+                   2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+                   2020,2021,2022,2023,2024,2025];
+    var g1Data = {
+        bachillerato: [100926,95372,96798,100111,104554,105972,106913,106298,
+                       107447,107848,108699,109530,110119,111982,113179,112576,
+                       112229,112624,114116,112588,111569,108802,106574,106863,
+                       107061,106087],
+        licenciatura: [134172,130778,133933,138023,143405,150253,156434,163368,
+                       167891,172444,179052,180763,187195,190707,196565,201206,
+                       204940,205648,204191,213004,217808,226575,229268,233260,
+                       233346,232106],
+        posgrado:     [17270,16547,17910,18530,18987,19765,20747,21230,22527,
+                       23875,25036,25167,26169,26878,27210,28018,28638,30363,
+                       30310,30089,30634,30792,33076,32550,32578,33851]
+    };
+
+    var g2Years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+                   2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+                   2020,2021,2022,2023,2024,2025];
+    var g2Data = {
+        investigadores:    [2074,2142,2165,2172,2231,2267,2300,2337,2360,2391,
+                            2419,2438,2447,2458,2449,2551,2592,2615,2659,2645,
+                            2690,2727,2716,2730,2717,2702],
+        profCarrera:       [5022,5086,5271,5283,5319,5358,5392,5417,5391,5407,
+                            5429,5405,5454,5478,5378,5421,5462,5487,5503,5461,
+                            5524,5783,5755,5724,5598,5635],
+        tecnicos:          [3151,3360,3436,3469,3589,3717,3836,3950,4003,4062,
+                            4129,4154,4192,4233,4250,4281,4387,4451,4496,4537,
+                            4571,4603,4597,4574,4604,4631],
+        profAsignatura:    [23009,24472,24157,24678,24958,25381,25777,26291,
+                            26739,26778,27733,28177,28351,29363,30021,30511,
+                            31101,31558,31792,32556,32709,32736,33336,33419,
+                            34150,34737],
+        ayudantes:         [2850,2987,3383,3451,3689,3667,3676,4011,4333,4305,
+                            4340,4408,4538,4655,4736,4820,5006,4982,4642,4985,
+                            4801,4782,5389,4908,4852,4961]
+    };
+
+    var g4Years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+                   2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+                   2020,2021,2022,2023,2024,2025];
+    var g4Data = {
+        artNacionales:      [1612,1485,1914,1790,1968,2148,1972,1667,1692,1802,
+                             1696,1608,1616,1619,1717,1602,1570,1697,1594,1639,
+                             1623,1628,1606,1575,1646,1603],
+        artInternacionales: [2827,3006,3066,3195,3255,3627,3494,3797,3894,3579,
+                             3970,3950,4193,4421,4406,4524,5059,4896,5384,5533,
+                             5570,5839,5406,5191,5632,5717],
+        capitulos:          [1077,1207,1627,1498,1602,1957,2218,2320,2637,2515,
+                             2944,2789,2893,2580,2891,2723,2815,2874,2899,2774,
+                             2895,3020,3186,3007,3118,3109],
+        libros:             [822,634,1062,1159,963,1188,1170,1157,1129,1171,
+                             1169,1118,1327,1211,1170,1273,1139,1282,1224,1241,
+                             1198,1244,1221,931,968,956]
+    };
+
+    var g5Years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+                   2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+                   2020,2021,2022,2023,2024,2025];
+    var g5Data = {
+        docencia:    [6435,7725,8468,9225,9836,10891,11670,12160,13706,14785,
+                      16168,17680,19221,20974,21965,23007,23980,24950,26343,27490,
+                      28573,28314,29775,32438,34532,36059],
+        investigacion:[2568,3153,3605,3888,4155,4648,4853,5064,5626,6183,
+                       7257,7642,8233,8478,9062,9682,10185,10655,11365,11797,
+                       12242,12593,13105,13907,14641,15034],
+        extension:   [928,1079,1073,1214,1304,1424,1607,1652,1737,2122,
+                      2280,2423,2602,2573,2763,3049,3145,3309,3506,3621,
+                      3729,3599,3667,3978,4243,4310],
+        gestion:     [756,870,960,1047,1161,1070,1060,1086,1155,1247,
+                      1361,1478,1597,1695,1795,2018,2072,2016,1983,2034,
+                      2086,2139,2256,2404,2544,2681]
+    };
+
+    function alpha(hex, a) { return hex + a; }
+
+    // ============================================================
+    // G1 · Población Escolar
+    // ============================================================
+    var chartG1 = new Chart($('#chart-g1'), {
+        type: 'line',
+        data: {
+            labels: g1Labels.slice(),
+            datasets: [
+                { label: 'Bachillerato', data: g1Data.bachillerato.slice(), _fullData: g1Data.bachillerato, borderColor: COLORS.azul, backgroundColor: alpha(COLORS.azul, '1A'), fill: true, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Licenciatura', data: g1Data.licenciatura.slice(), _fullData: g1Data.licenciatura, borderColor: COLORS.amarillo, backgroundColor: alpha(COLORS.amarillo, '1A'), fill: true, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Posgrado', data: g1Data.posgrado.slice(), _fullData: g1Data.posgrado, borderColor: COLORS.cafe, backgroundColor: alpha(COLORS.cafe, '1A'), fill: true, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                y: { beginAtZero: true, afterFit: function (scale) { scale.width = 130; }, ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } } }
+            },
+            plugins: {
+                legend: { labels: LEGEND_LABELS },
+                tooltip: TOOLTIP_FONT
+            }
+        }
+    });
+
+    // ============================================================
+    // G2 · Personal Académico (eje Y doble)
+    // ============================================================
+    var chartG2 = new Chart($('#chart-g2'), {
+        type: 'line',
+        data: {
+            labels: g2Years.map(String),
+            datasets: [
+                { label: 'Investigadores', data: g2Data.investigadores.slice(), _fullData: g2Data.investigadores, yAxisID: 'y', borderColor: COLORS.azul, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Prof. de Carrera', data: g2Data.profCarrera.slice(), _fullData: g2Data.profCarrera, yAxisID: 'y', borderColor: COLORS.azul3, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Técnicos Académicos', data: g2Data.tecnicos.slice(), _fullData: g2Data.tecnicos, yAxisID: 'y', borderColor: COLORS.cafe, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Ayudantes', data: g2Data.ayudantes.slice(), _fullData: g2Data.ayudantes, yAxisID: 'y', borderColor: COLORS.gris, borderDash: [5, 3], fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Prof. de Asignatura', data: g2Data.profAsignatura.slice(), _fullData: g2Data.profAsignatura, yAxisID: 'y1', borderColor: COLORS.amarillo, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 3 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                y: {
+                    min: 0, max: 10000,
+                    afterFit: function (scale) { scale.width = 130; },
+                    ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } }
+                },
+                y1: {
+                    position: 'right',
+                    min: 0, max: 40000,
+                    grid: { drawOnChartArea: false },
+                    afterFit: function (scale) { scale.width = 130; },
+                    ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } }
+                }
+            },
+            plugins: {
+                legend: { labels: LEGEND_LABELS },
+                tooltip: TOOLTIP_FONT
+            }
+        }
+    });
+
+    // ============================================================
+    // G4 · Productos de Investigación
+    // ============================================================
+    var chartG4 = new Chart($('#chart-g4'), {
+        type: 'line',
+        data: {
+            labels: g4Years.map(String),
+            datasets: [
+                { label: 'Art. revistas internacionales', data: g4Data.artInternacionales.slice(), _fullData: g4Data.artInternacionales, borderColor: COLORS.azul, backgroundColor: alpha(COLORS.azul, '1A'), fill: true, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Art. revistas nacionales', data: g4Data.artNacionales.slice(), _fullData: g4Data.artNacionales, borderColor: COLORS.amarillo, backgroundColor: alpha(COLORS.amarillo, '1A'), fill: true, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Capítulos en libros', data: g4Data.capitulos.slice(), _fullData: g4Data.capitulos, borderColor: COLORS.azul3, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'Libros', data: g4Data.libros.slice(), _fullData: g4Data.libros, borderColor: COLORS.cafe, borderDash: [5, 3], fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                y: { beginAtZero: true, afterFit: function (scale) { scale.width = 110; }, ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } } }
+            },
+            plugins: {
+                legend: { labels: LEGEND_LABELS },
+                tooltip: TOOLTIP_FONT
+            }
+        }
+    });
+
+    // ============================================================
+    // G5 · Presupuesto de Egresos (área apilada)
+    // ============================================================
+    var chartG5 = new Chart($('#chart-g5'), {
+        type: 'line',
+        data: {
+            labels: g5Years.map(String),
+            datasets: [
+                { label: 'Docencia', data: g5Data.docencia.slice(), _fullData: g5Data.docencia, borderColor: COLORS.azul, backgroundColor: alpha(COLORS.azul, '4D'), fill: true, tension: 0.2, pointRadius: 2, borderWidth: 2 },
+                { label: 'Investigación', data: g5Data.investigacion.slice(), _fullData: g5Data.investigacion, borderColor: COLORS.azul3, backgroundColor: alpha(COLORS.azul3, '4D'), fill: true, tension: 0.2, pointRadius: 2, borderWidth: 2 },
+                { label: 'Extensión Universitaria', data: g5Data.extension.slice(), _fullData: g5Data.extension, borderColor: COLORS.amarillo, backgroundColor: alpha(COLORS.amarillo, '4D'), fill: true, tension: 0.2, pointRadius: 2, borderWidth: 2 },
+                { label: 'Gestión Institucional', data: g5Data.gestion.slice(), _fullData: g5Data.gestion, borderColor: COLORS.cafe, backgroundColor: alpha(COLORS.cafe, '4D'), fill: true, tension: 0.2, pointRadius: 2, borderWidth: 2 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                y: {
+                    stacked: true,
+                    afterFit: function (scale) { scale.width = 140; },
+                    ticks: { font: TICK_FONT, callback: function (v) { return (v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v) + ' MDP'; } }
+                }
+            },
+            plugins: {
+                legend: { labels: LEGEND_LABELS },
+                tooltip: TOOLTIP_FONT
+            }
+        }
+    });
+
+    var charts = { g1: chartG1, g2: chartG2, g4: chartG4, g5: chartG5 };
+
+    // ============================================================
+    // Filtro global de rango de años
+    // ============================================================
+    var CHART_SOURCES = [
+        { chart: charts.g1, years: g1Years, labels: g1Labels },
+        { chart: charts.g2, years: g2Years, labels: g2Years.map(String) },
+        { chart: charts.g4, years: g4Years, labels: g4Years.map(String) },
+        { chart: charts.g5, years: g5Years, labels: g5Years.map(String) }
+    ];
+
+    function applyFilter(fromYear, toYear) {
+        $('#year-from').value = fromYear;
+        $('#year-to').value = toYear;
+
+        $$('.year-btn').forEach(function (btn) {
+            var isActive = (+btn.dataset.from === fromYear && +btn.dataset.to === toYear);
+            btn.classList.toggle('active', isActive);
+        });
+
+        CHART_SOURCES.forEach(function (src) {
+            var indices = [];
+            src.years.forEach(function (y, i) {
+                if (y >= fromYear && y <= toYear) indices.push(i);
+            });
+            src.chart.data.labels = indices.map(function (i) { return src.labels[i]; });
+            src.chart.data.datasets.forEach(function (ds) {
+                ds.data = indices.map(function (i) { return ds._fullData[i]; });
+            });
+            src.chart.update();
+        });
+    }
+
+    // ============================================================
+    // Inicializar selects de año (2000–2025)
+    // ============================================================
+    var yearFromSelect = $('#year-from');
+    var yearToSelect = $('#year-to');
+    for (var y = 2000; y <= 2025; y++) {
+        var optFrom = document.createElement('option');
+        optFrom.value = y; optFrom.textContent = y;
+        yearFromSelect.appendChild(optFrom);
+
+        var optTo = document.createElement('option');
+        optTo.value = y; optTo.textContent = y;
+        yearToSelect.appendChild(optTo);
+    }
+    yearFromSelect.value = 2000;
+    yearToSelect.value = 2025;
+
+    yearFromSelect.addEventListener('change', function () {
+        var from = +yearFromSelect.value, to = +yearToSelect.value;
+        applyFilter(Math.min(from, to), Math.max(from, to));
+    });
+    yearToSelect.addEventListener('change', function () {
+        var from = +yearFromSelect.value, to = +yearToSelect.value;
+        applyFilter(Math.min(from, to), Math.max(from, to));
+    });
+    $$('.year-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            applyFilter(+btn.dataset.from, +btn.dataset.to);
+        });
+    });
+
+    applyFilter(2000, 2025);
+
+    // ============================================================
+    // Sidebar indicator selection
+    // ============================================================
+    var ENABLED_INDICATORS = ['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto', 'Apoyo institucional', 'Bibliotecas', 'Internacionalización', 'Infraestructura', 'Serie Histórica'];
+    $$('#sidebar-indicators a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            var name = link.getAttribute('data-indicator');
+            if (ENABLED_INDICATORS.indexOf(name) === -1) {
+                e.preventDefault();
+                alert('El indicador "' + name + '" estará disponible próximamente.');
+            }
+        });
+    });
+
+    // ============================================================
+    // Sidebar collapse toggle
+    // ============================================================
+    var sidebar = $('#sidebar');
+    var toggle = $('#sidebar-toggle');
+    var toggleIcon = $('#sidebar-toggle-icon');
+    function updateSidebarToggle() {
+        var collapsed = sidebar.classList.contains('collapsed');
+        toggleIcon.textContent = collapsed ? 'menu' : 'close';
+        toggle.setAttribute('aria-label', collapsed ? 'Abrir menú' : 'Cerrar menú');
+    }
+    toggle.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the Chart.js canvases collapse to 0 height (their responsive sizing
+    // bails out on clientWidth/clientHeight being 0), so nothing renders.
+    // Scaling the whole dashboard down keeps every wrap at its natural
+    // (non-zero) size while still fitting the viewport.
+    //
+    // Note: this page does NOT compensate width with
+    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
+    // wrap's layout width, which cascades into Chart.js canvases with
+    // responsive:true and repeatedly retriggers Chart.js's built-in
+    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
+    // (confirmed on personal-academico.html). A CSS `zoom`-based variant
+    // was also tried here, but with 6 charts its offsetHeight/scrollHeight
+    // reporting became unreliable once zoom was applied, producing a scale
+    // far too large for the content to actually fit. `transform: scale()`
+    // keeps the box-model measurements (offsetWidth/Height,
+    // getBoundingClientRect) consistently unscaled, so it's used here for
+    // predictability — cards are centered but may leave empty space at the
+    // sides at non-4K aspect ratios. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    var gridEl = document.getElementById('serie-grid');
+    var headerEl = document.getElementById('serie-header');
+    var filterEl = document.getElementById('serie-filter');
+    var gridCards = gridEl ? gridEl.children : [];
+    var MIN_ROW_HEIGHT = 420;
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        for (var i = 0; i < gridCards.length; i++) { gridCards[i].style.height = ''; }
+
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+
+        // Distribute whatever vertical space is left after the header and
+        // filter card into the 2 chart rows, so the grid fills the full
+        // available height at natural (unscaled) size instead of leaving
+        // blank space below it. Only kicks in when there's room to spare;
+        // on small screens rowHeight is clamped to MIN_ROW_HEIGHT and the
+        // whole block (header+filter+grid) is shrunk uniformly below via
+        // the transform-scale fallback, same as before.
+        if (gridEl && headerEl && filterEl) {
+            var headerStyle = getComputedStyle(headerEl);
+            var filterStyle = getComputedStyle(filterEl);
+            var gridStyle = getComputedStyle(gridEl);
+            var usedHeight = headerEl.offsetHeight + parseFloat(headerStyle.marginBottom || 0) +
+                filterEl.offsetHeight + parseFloat(filterStyle.marginBottom || 0);
+            var rowGap = parseFloat(gridStyle.rowGap || 0);
+            var rowsAvailable = availableHeight - usedHeight - rowGap;
+            var rowHeight = Math.max(MIN_ROW_HEIGHT, rowsAvailable / 2);
+            for (var j = 0; j < gridCards.length; j++) { gridCards[j].style.height = rowHeight + 'px'; }
+        }
+
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top center';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+        }
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
+    });
+})();
+</script>
+</body>
+</html>

@@ -203,7 +203,7 @@
     .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
     .modal-close-btn:hover { color: #D59F0F; }
 
-    .chart-wrap { position: relative; }
+    .chart-wrap { position: relative; min-height: 260px; }
     .badge-context {
         display: inline-flex; align-items: center; gap: 10px;
         font-size: 26px; font-weight: 700; border-radius: 999px;
@@ -296,6 +296,7 @@
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- Header de sección -->
 <header class="mb-5 shrink-0">
 <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Apoyo a la Actividad Institucional · 2025</h1>
@@ -310,7 +311,7 @@
 <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Participantes cultura física</span>
 </div>
 <span id="kpi-1-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[28px] text-on-surface-variant font-semibold">Actividades presenciales · 2025</span>
+<span class="text-[36px] text-on-surface-variant font-semibold">Actividades presenciales</span>
 </div>
 <div id="kpi-2" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
@@ -318,7 +319,7 @@
 <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Acciones de atención médica</span>
 </div>
 <span id="kpi-2-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[28px] text-on-surface-variant font-semibold">Consultas + EMA + Vacunas · 2025</span>
+<span class="text-[36px] text-on-surface-variant font-semibold">Consultas + EMA + Vacunas</span>
 </div>
 <div id="kpi-3" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
@@ -326,7 +327,7 @@
 <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Eventos y visitas de orientación</span>
 </div>
 <span id="kpi-3-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[28px] text-on-surface-variant font-semibold">Sitio web + eventos DGOAE · 2025</span>
+<span class="text-[36px] text-on-surface-variant font-semibold">Sitio web + eventos DGOAE</span>
 </div>
 <div id="kpi-4" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
@@ -334,7 +335,7 @@
 <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Personas beneficiadas</span>
 </div>
 <span id="kpi-4-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[28px] text-on-surface-variant font-semibold">Comunidad universitaria · 2025</span>
+<span class="text-[36px] text-on-surface-variant font-semibold">Comunidad universitaria</span>
 </div>
 </div>
 
@@ -342,13 +343,13 @@
 <div class="flex-1 min-h-0 flex flex-col gap-6">
 
 <!-- Fila A -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 53%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 53%; min-height:480px;">
 
 <!-- Gráfica 1: Deporte universitario -->
 <div id="card-deporte" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-deporte">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
 <h3 class="text-[50px] font-bold text-primary">Actividades deportivas y recreativas</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-deporte"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[40px] rounded-full px-6 py-2" data-open-modal="modal-deporte"><span class="material-symbols-outlined text-[44px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0"><canvas id="chart-deporte"></canvas></div>
 <div class="flex flex-wrap items-center gap-3 mt-3 shrink-0">
@@ -361,7 +362,7 @@
 <div id="card-salud" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-salud">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
 <h3 class="text-[50px] font-bold text-primary">Acciones de atención a la salud</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[32px] rounded-full px-6 py-2" data-open-modal="modal-salud"><span class="material-symbols-outlined text-[38px]">touch_app</span>Ver detalle</button>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[40px] rounded-full px-6 py-2" data-open-modal="modal-salud"><span class="material-symbols-outlined text-[44px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0 flex items-center justify-center">
 <div style="position:relative; width:100%; height:100%; max-width:420px; margin:0 auto;">
@@ -378,7 +379,7 @@
 </div>
 
 <!-- Fila B -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 47%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 47%; min-height:420px;">
 
 <!-- Gráfica 3: Orientación educativa -->
 <div class="card-institutional p-6 flex flex-col min-h-0">
@@ -393,23 +394,25 @@
 <span class="material-symbols-outlined text-primary text-[64px]">diversity_3</span>
 <div class="flex items-baseline gap-4 flex-wrap">
 <span id="counter-comunidad-1" class="text-[52px] font-bold text-primary leading-none">0</span>
-<span class="text-outline text-[32px]">personas beneficiadas</span>
+<span class="text-outline text-[40px]">personas beneficiadas</span>
 </div>
 </div>
 <div class="flex items-center gap-6 p-3 rounded-lg bg-primary/5">
 <span class="material-symbols-outlined text-secondary text-[56px]">event</span>
 <div class="flex items-baseline gap-4 flex-wrap">
 <span id="counter-comunidad-2" class="text-[44px] font-bold text-primary leading-none">0</span>
-<span class="text-outline text-[30px]">jornadas, acciones y eventos</span>
+<span class="text-outline text-[38px]">jornadas, acciones y eventos</span>
 </div>
 </div>
 <div class="flex items-center gap-6 p-3 rounded-lg bg-primary/5">
 <span class="material-symbols-outlined text-tertiary text-[56px]">build_circle</span>
 <div class="flex items-baseline gap-4 flex-wrap">
 <span id="counter-comunidad-3" class="text-[44px] font-bold text-primary leading-none">0</span>
-<span class="text-outline text-[30px]">proyectos de accesibilidad, seguridad y sustentabilidad</span>
+<span class="text-outline text-[38px]">proyectos de accesibilidad, seguridad y sustentabilidad</span>
 </div>
 </div>
+</div>
+
 </div>
 
 </div>
@@ -589,7 +592,7 @@
             var ctx = chart.ctx;
             var meta = chart.getDatasetMeta(0);
             ctx.save();
-            ctx.font = "bold 28px 'Libre Franklin'";
+            ctx.font = "bold 34px 'Libre Franklin'";
             ctx.fillStyle = '#191c1e';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
@@ -624,8 +627,8 @@
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    bodyFont: { size: 26 },
-                    titleFont: { size: 28, weight: 'bold' },
+                    bodyFont: { size: 32 },
+                    titleFont: { size: 34, weight: 'bold' },
                     callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' participantes'; } }
                 }
             },
@@ -633,12 +636,12 @@
                 x: {
                     min: 0, max: 230000,
                     grid: { color: '#E5E7EB' },
-                    ticks: { font: { size: 26, family: "'Libre Franklin'" }, callback: function (v) { return v.toLocaleString('es-MX'); } }
+                    ticks: { font: { size: 30, family: "'Libre Franklin'" }, callback: function (v) { return v.toLocaleString('es-MX'); } }
                 },
                 y: {
                     grid: { display: false },
-                    afterFit: function (scale) { scale.width = 440; },
-                    ticks: { font: { size: 26, family: "'Libre Franklin'", weight: '600' }, color: '#191c1e' }
+                    afterFit: function (scale) { scale.width = 520; },
+                    ticks: { font: { size: 30, family: "'Libre Franklin'", weight: '600' }, color: '#191c1e' }
                 }
             }
         },
@@ -671,8 +674,8 @@
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    bodyFont: { size: 26 },
-                    titleFont: { size: 28, weight: 'bold' },
+                    bodyFont: { size: 32 },
+                    titleFont: { size: 34, weight: 'bold' },
                     callbacks: {
                         label: function (ctx) {
                             var d = saludData[ctx.dataIndex];
@@ -686,7 +689,7 @@
     (function buildSaludLegend() {
         var el = $('#salud-legend');
         el.innerHTML = saludData.map(function (d) {
-            return '<div class="flex items-center gap-3">' +
+            return '<div class="flex items-center gap-3 text-[32px]">' +
                 '<span style="display:inline-block;width:22px;height:22px;border-radius:4px;background:' + d.color + '"></span>' +
                 '<span class="font-bold" style="min-width:340px">' + d.label + '</span>' +
                 '<span class="text-outline">' + d.pct + '% · ' + fmt(d.value) + '</span>' +
@@ -726,8 +729,8 @@
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    bodyFont: { size: 26 },
-                    titleFont: { size: 28, weight: 'bold' },
+                    bodyFont: { size: 32 },
+                    titleFont: { size: 34, weight: 'bold' },
                     callbacks: { label: function (ctx) { return fmt(ctx.parsed.x); } }
                 }
             },
@@ -736,15 +739,15 @@
                     type: 'logarithmic',
                     min: 1000,
                     grid: { color: '#E5E7EB' },
-                    ticks: { font: { size: 24, family: "'Libre Franklin'" }, callback: function (v) {
+                    ticks: { font: { size: 28, family: "'Libre Franklin'" }, callback: function (v) {
                         if ([1000, 10000, 100000, 1000000, 10000000].indexOf(v) >= 0) return v.toLocaleString('es-MX');
                         return '';
                     } }
                 },
                 y: {
                     grid: { display: false },
-                    afterFit: function (scale) { scale.width = 480; },
-                    ticks: { font: { size: 26, family: "'Libre Franklin'" } }
+                    afterFit: function (scale) { scale.width = 560; },
+                    ticks: { font: { size: 30, family: "'Libre Franklin'" } }
                 }
             }
         },
@@ -808,6 +811,51 @@
     toggle.addEventListener('click', function () {
         sidebar.classList.toggle('collapsed');
         updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the Chart.js canvases collapse to 0 height (their responsive sizing
+    // bails out on clientWidth/clientHeight being 0), so nothing renders.
+    // Scaling the whole dashboard down keeps every wrap at its natural
+    // (non-zero) size while still fitting the viewport.
+    //
+    // Note: this page does NOT compensate width with
+    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
+    // wrap's layout width, which cascades into Chart.js canvases with
+    // responsive:true and repeatedly retriggers Chart.js's built-in
+    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
+    // (confirmed on personal-academico.html). Scaling without width
+    // compensation leaves some empty space to the sides at non-4K aspect
+    // ratios, but is stable. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top center';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+        }
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
     });
 })();
 </script>

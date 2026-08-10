@@ -163,7 +163,8 @@
     .chart-canvas {
         position: relative;
         flex: 1 1 auto;
-        min-height: 0;
+        min-height: 220px;
+        max-height: 640px;
         width: 100%;
     }
     .chart-canvas canvas {
@@ -387,6 +388,7 @@
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-4 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- ================= FILTRO GENERAL (primer elemento visible) ================= -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
   <div>
@@ -455,12 +457,12 @@
 <div class="flex-1 min-h-0 flex flex-col gap-4">
 
   <!-- Fila 1 -->
-  <div class="grid grid-cols-2 gap-4 flex-1 min-h-0" style="flex-basis: 60%;">
+  <div class="grid grid-cols-2 gap-4 flex-1 min-h-0" style="flex-basis: 60%; min-height:480px;">
 
     <!-- Gráfica 1 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
       <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Actividades por disciplina</h3>
-      <div id="chart1-treemap" class="flex-1 min-h-0 relative"></div>
+      <div id="chart1-treemap" class="flex-1 min-h-0 relative" style="min-height:220px;"></div>
     </div>
 
     <!-- Gráfica 2 -->
@@ -472,7 +474,7 @@
   </div>
 
   <!-- Fila 2 -->
-  <div class="grid gap-4 flex-1 min-h-0" style="flex-basis: 40%; grid-template-columns: 2fr 3fr;">
+  <div class="grid gap-4 flex-1 min-h-0" style="flex-basis: 40%; grid-template-columns: 2fr 3fr; min-height:360px;">
 
     <!-- Gráfica 3 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
@@ -488,6 +490,8 @@
     </div>
 
   </div>
+
+</div>
 
 </div>
 
@@ -1159,6 +1163,52 @@
     toggle.addEventListener('click', function () {
         sidebar.classList.toggle('collapsed');
         updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the Chart.js canvases and the treemap collapse to 0 height (their
+    // sizing code bails out on clientWidth/clientHeight being 0), so
+    // nothing renders. Scaling the whole dashboard down keeps every wrap at
+    // its natural (non-zero) size while still fitting the viewport.
+    //
+    // Note: this page does NOT compensate width with
+    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
+    // wrap's layout width, which cascades into Chart.js canvases with
+    // responsive:true and repeatedly retriggers Chart.js's built-in
+    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
+    // (confirmed on personal-academico.html). Scaling without width
+    // compensation leaves some empty space to the sides at non-4K aspect
+    // ratios, but is stable. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top center';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+        }
+        buildTreemap();
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
     });
 })();
 </script>

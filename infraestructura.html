@@ -221,7 +221,7 @@
     .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
     .modal-close-btn:hover { color: #D59F0F; }
 
-    .chart-wrap { position: relative; }
+    .chart-wrap { position: relative; min-height: 260px; }
     .badge-context {
         display: inline-flex; align-items: center; gap: 10px;
         font-size: 26px; font-weight: 700; border-radius: 999px;
@@ -326,6 +326,7 @@
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- Header de sección -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
@@ -384,7 +385,7 @@
 <div class="flex-1 min-h-0 flex flex-col gap-6">
 
 <!-- Fila A -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 58fr 42fr; flex-basis: 54%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 58fr 42fr; flex-basis: 54%; min-height:480px;">
 
 <!-- Gráfica 1: Superficie por función -->
 <div id="card-1" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-planta">
@@ -437,7 +438,7 @@
 </div>
 
 <!-- Fila B -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 48fr 52fr; flex-basis: 46%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 48fr 52fr; flex-basis: 46%; min-height:420px;">
 
 <!-- Gráfica 3: Espacios académicos -->
 <div class="card-institutional p-6 flex flex-col min-h-0">
@@ -474,6 +475,8 @@
 </div>
 </div>
 </div>
+</div>
+
 </div>
 
 </div>
@@ -863,6 +866,51 @@
     toggle.addEventListener('click', function () {
         sidebar.classList.toggle('collapsed');
         updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the Chart.js canvases collapse to 0 height (their responsive sizing
+    // bails out on clientWidth/clientHeight being 0), so nothing renders.
+    // Scaling the whole dashboard down keeps every wrap at its natural
+    // (non-zero) size while still fitting the viewport.
+    //
+    // Note: unlike some other Numeralia pages, this page does NOT compensate
+    // width with `style.width = (100/scale)+'%'` after scaling. That trick
+    // grows the wrap's layout width, which cascades into Chart.js canvases
+    // with responsive:true and repeatedly retriggers Chart.js's built-in
+    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
+    // (confirmed on personal-academico.html). Scaling without width
+    // compensation leaves some empty space to the sides at non-4K aspect
+    // ratios, but is stable. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top center';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+        }
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
     });
 })();
 </script>

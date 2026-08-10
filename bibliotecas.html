@@ -225,7 +225,7 @@
     .modal-close-btn { cursor: pointer; transition: color 0.15s ease; }
     .modal-close-btn:hover { color: #D59F0F; }
 
-    .chart-wrap { position: relative; }
+    .chart-wrap { position: relative; min-height: 260px; }
     .badge-context {
         display: inline-flex; align-items: center; gap: 10px;
         font-size: 26px; font-weight: 700; border-radius: 999px;
@@ -318,6 +318,7 @@
 <div id="main-content-container" class="flex-1 h-full flex flex-col min-w-0 overflow-hidden">
 <main id="top" class="flex-1 min-h-0 flex flex-col py-6 px-4 md:px-8 max-w-[4992px] mx-auto w-full overflow-hidden">
 
+<div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- Header de sección -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
@@ -342,7 +343,6 @@
 <!-- KPIs -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-6 shrink-0">
 <div id="kpi-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
-<span class="kpi-lock-badge"><span class="material-symbols-outlined">lock</span>Dato global · no varía por subsistema</span>
 <div class="flex items-center gap-3 mb-[20px]">
 <span class="material-symbols-outlined text-primary text-[54px]">local_library</span>
 <span class="text-[42px] font-label-md text-outline uppercase tracking-wider">Asistencia a bibliotecas</span>
@@ -359,7 +359,6 @@
 <span id="kpi-2-sub" class="text-[28px] text-on-surface-variant font-semibold">Colección total · impresos + electrónicos</span>
 </div>
 <div id="kpi-3" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
-<span class="kpi-lock-badge"><span class="material-symbols-outlined">lock</span>Dato global · no varía por subsistema</span>
 <div class="flex items-center gap-3 mb-[20px]">
 <span class="material-symbols-outlined text-primary text-[54px]">wifi</span>
 <span class="text-[42px] font-label-md text-outline uppercase tracking-wider">Usuarios atendidos en línea</span>
@@ -368,7 +367,6 @@
 <span class="text-[28px] text-on-surface-variant font-semibold">Servicios digitales 2025 · DGBSDI, UNAM</span>
 </div>
 <div id="kpi-4" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
-<span class="kpi-lock-badge"><span class="material-symbols-outlined">lock</span>Dato global · no varía por subsistema</span>
 <div class="flex items-center gap-3 mb-[20px]">
 <span class="material-symbols-outlined text-secondary text-[54px]">import_contacts</span>
 <span class="text-[42px] font-label-md text-outline uppercase tracking-wider">Préstamos a domicilio</span>
@@ -382,7 +380,7 @@
 <div class="flex-1 min-h-0 flex flex-col gap-6">
 
 <!-- Fila A -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 58fr 42fr; flex-basis: 53%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 58fr 42fr; flex-basis: 53%; min-height:480px;">
 
 <!-- Gráfica 1: Acervo por subsistema -->
 <div id="card-acervo" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-acervo">
@@ -420,7 +418,7 @@
 </div>
 
 <!-- Fila B -->
-<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 47%;">
+<div class="grid gap-6 flex-1 min-h-0" style="grid-template-columns: 55fr 45fr; flex-basis: 47%; min-height:420px;">
 
 <!-- Gráfica 3: Top servicios en línea -->
 <div class="card-institutional p-6 flex flex-col min-h-0">
@@ -435,6 +433,8 @@
 <div class="card-institutional p-6 flex flex-col min-h-0">
 <h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Catálogos y bases de datos referenciales UNAM</h3>
 <div class="chart-wrap flex-1 min-h-0"><canvas id="chart-catalogos"></canvas></div>
+</div>
+
 </div>
 
 </div>
@@ -1001,6 +1001,51 @@
     toggle.addEventListener('click', function () {
         sidebar.classList.toggle('collapsed');
         updateSidebarToggle();
+    });
+
+    // ---------- Auto-fit: scale the dashboard down (never up) so every card
+    // fits within the visible height without scrolling, on any screen size.
+    // This section was designed at a fixed 3840x2160 (4K) size; below that,
+    // the Chart.js canvases collapse to 0 height (their responsive sizing
+    // bails out on clientWidth/clientHeight being 0), so nothing renders.
+    // Scaling the whole dashboard down keeps every wrap at its natural
+    // (non-zero) size while still fitting the viewport.
+    //
+    // Note: this page does NOT compensate width with
+    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
+    // wrap's layout width, which cascades into Chart.js canvases with
+    // responsive:true and repeatedly retriggers Chart.js's built-in
+    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
+    // (confirmed on personal-academico.html). Scaling without width
+    // compensation leaves some empty space to the sides at non-4K aspect
+    // ratios, but is stable. ----------
+    var scaleWrap = document.getElementById('dashboard-scale-wrap');
+    function fitDashboardScale() {
+        if (!scaleWrap) return;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var mainEl = document.getElementById('top');
+        var mainStyle = getComputedStyle(mainEl);
+        var mainRect = mainEl.getBoundingClientRect();
+        var wrapRect = scaleWrap.getBoundingClientRect();
+        var availableHeight = Math.max(
+            40,
+            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+        );
+        var neededHeight = scaleWrap.scrollHeight;
+        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        if (scale < 0.999 && scale > 0) {
+            scaleWrap.style.transformOrigin = 'top center';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+        }
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(fitDashboardScale);
+    });
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
     });
 })();
 </script>
