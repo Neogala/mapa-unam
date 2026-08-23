@@ -104,13 +104,10 @@
         .video-hero__frame-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
         .video-hero__frame {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 177.78vh;
-            height: 56.25vw;
-            min-height: 100%;
-            min-width: 100%;
-            transform: translate(-50%, -50%);
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border: 0;
         }
 
@@ -129,6 +126,51 @@
             opacity: 0;
             transform: translateY(100%);
             pointer-events: none;
+        }
+
+        /* Botón "Entrar" con efecto glass (vidrio esmerilado) */
+        .glass-button-wrap {
+            position: relative;
+            display: inline-block;
+            isolation: isolate;
+        }
+        .glass-button {
+            position: relative;
+            display: inline-block;
+            padding: 38.4px 115.2px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            backdrop-filter: blur(16px) saturate(160%);
+            color: #002752;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 48px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.5),
+                inset 0 -1px 8px rgba(255, 255, 255, 0.08),
+                0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: scale(1.05);
+        }
+        .glass-button:active {
+            transform: scale(0.95);
+        }
+        .glass-button-shadow {
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            z-index: -1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            filter: blur(6px);
         }
     </style>
 </head>
@@ -149,23 +191,17 @@
 <!-- Main Content Area: Video de bienvenida -->
 <main class="video-hero flex-grow w-full">
     <div class="video-hero__frame-wrap">
-        <iframe class="video-hero__frame"
-            src="https://www.youtube.com/embed/8VGgHcOO8TM?autoplay=1&mute=1&loop=1&playlist=8VGgHcOO8TM&start=124&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&playsinline=1"
-            title="Video de bienvenida UNAM"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-        </iframe>
+        <video id="hero-video" class="video-hero__frame" autoplay muted loop playsinline>
+            <source src="video/MAPA UNAM 4K v2.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <!-- Capa degradada para oscurecer el video -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/80 pointer-events-none"></div>
-
-    <!-- Logo y botón sobre el video, ubicados a 3/4 de la altura de la pantalla -->
-    <div class="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-12">
-        <img src="Logo-home.svg" alt="UNAM Mapa interactivo" class="w-[43vw] h-auto drop-shadow-lg relative left-[600px]">
-        <a href="mapa.html" class="px-24 py-8 rounded-full font-label-md text-[40px] uppercase tracking-widest bg-transparent border-4 border-white text-white font-bold shadow-[0_16px_48px_rgba(0,0,0,0.4)] hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all duration-200">
-            Entrar
-        </a>
+    <!-- Botón en la parte inferior sobre el video -->
+    <div class="absolute left-1/2 -translate-x-1/2 z-10" style="bottom: 296px;">
+        <div class="glass-button-wrap">
+            <a href="mapa.html" class="glass-button">Entrar</a>
+            <div class="glass-button-shadow"></div>
+        </div>
     </div>
 </main>
 
@@ -187,6 +223,20 @@
     }
     document.addEventListener('mousemove', showUI);
     showUI();
+
+    // Activa el audio del video tras la primera interacción del usuario
+    // (los navegadores bloquean el autoplay con sonido sin un gesto explícito).
+    function unmuteVideo() {
+        const video = document.getElementById('hero-video');
+        if (video) {
+            video.muted = false;
+            video.play().catch(() => {});
+        }
+        document.removeEventListener('click', unmuteVideo);
+        document.removeEventListener('keydown', unmuteVideo);
+    }
+    document.addEventListener('click', unmuteVideo);
+    document.addEventListener('keydown', unmuteVideo);
 </script>
 
 </body></html>
