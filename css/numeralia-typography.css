@@ -1,0 +1,151 @@
+/* =============================================================================
+   Numeralia — Shared Typography Scale
+   =============================================================================
+   Canonical font sizes for every Numeralia dashboard page (población escolar,
+   personal académico, investigación, cultura, presupuesto, ...), extracted
+   from poblacion-escolar.html — the reference implementation.
+
+   WHY THIS FILE EXISTS
+   Every Numeralia page authors its dashboard against a fixed 3840x2160
+   design canvas (see the "#page-stage" block in each page's own <style>),
+   then auto-fit-scales that canvas down to whatever the real screen turns
+   out to be (transform or zoom, depending on the page). Two pages can end
+   up at very different auto-fit scales (e.g. 0.69 vs 0.45) simply because
+   one has more content to fit into the same vertical budget. If each page
+   also picks its own one-off `text-[Npx]` values, the on-screen result
+   drifts out of sync page to page even when the declared sizes look
+   similar — that's exactly what happened between poblacion-escolar.html
+   and personal-academico.html. Pulling the scale into one shared file (and
+   using it everywhere) keeps every page's typography visually consistent,
+   because they're all built from the same source of truth.
+
+   UNITS
+   All values are design-space pixels — i.e. pixels on the fixed 3840x2160
+   canvas, the same unit as the page's own `text-[Npx]` arbitrary values and
+   `html { font-size: 41.6px }` base. They are NOT real on-screen pixels;
+   the page's auto-fit scale (transform/zoom) converts them at render time.
+   Do not use `rem` here — the 41.6px root font-size is itself tuned for
+   this design canvas, so px keeps the numbers directly comparable to the
+   rest of each page's markup.
+
+   HOW TO USE
+   - New page or new section: reach for one of the roles below via the
+     `.num-*` class instead of inventing a new `text-[Npx]` value.
+   - Combine with `font-bold`, `uppercase`, `tracking-wider`, text color
+     utilities etc. as usual — these classes only set size/line-height/weight
+     for the *role*, not color or spacing.
+   - Chart.js configs take raw JS numbers, not CSS — when a chart's axis/
+     legend/tooltip font needs to match one of these roles, hand-copy the
+     px number (see the "Chart.js reference numbers" section at the bottom)
+     into the chart's `font: { size: N }` config, and add a comment noting
+     which role it mirrors so it doesn't drift on the next edit.
+   - If poblacion-escolar.html's own sizes ever change, update the variables
+     below to match — this file should always describe what that page
+     actually does, not the other way around.
+   ============================================================================= */
+
+:root {
+    /* ---- Page chrome (header area of the dashboard, not the shared nav) ---- */
+    --num-fs-page-title: 70px;       /* h1 — font-headline-lg token */
+    --num-fs-page-subtitle: 30px;    /* intro paragraph — font-body-lg token */
+    --num-fs-filter-label: 30px;     /* "NIVEL DE ESTUDIOS" / "FIGURA ACADÉMICA" label above a filter */
+    --num-fs-filter-value: 30px;     /* the filter <select> button itself (closed state) */
+    --num-fs-filter-option: 20px;    /* the <option> rows inside the open dropdown — kept independent of filter-value */
+
+    /* ---- Card / section titles ---- */
+    --num-fs-card-title: 40px;       /* h3 card title — font-headline-sm token */
+    --num-fs-card-title-sm: 42px;    /* h4 in a denser card (e.g. Egreso columns) */
+
+    /* ---- KPI cards ---- */
+    --num-fs-kpi-icon: 30px;         /* material-symbols icon next to the KPI label */
+    --num-fs-kpi-label: 25px;        /* "POBLACIÓN TOTAL" uppercase eyebrow label */
+    --num-fs-kpi-number: 40px;       /* the big KPI figure, e.g. 371,594 */
+    --num-fs-kpi-stat: 30px;         /* secondary inline stats under the KPI number (Mujeres/Hombres, etc.) */
+
+    /* ---- Body copy inside cards ---- */
+    --num-fs-legend: 30px;           /* donut/chart legend rows, axis captions */
+    --num-fs-body: 37px;             /* general in-card body text (list rows, table-like rows) */
+    --num-fs-caption: 30px;          /* small supporting caption under a chart/number */
+    --num-fs-footnote: 26px;         /* source/footnote line at the bottom of a card or modal */
+
+    /* ---- Modals ---- */
+    --num-fs-modal-title: 46px;
+    --num-fs-modal-table: 30px;
+
+    /* ---- Chart.js (JS-config reference only — see note at the bottom) ---- */
+    --num-fs-chart-axis: 36px;
+    --num-fs-chart-legend: 28px;
+    --num-fs-chart-tooltip-title: 28px;
+    --num-fs-chart-tooltip-body: 26px;
+}
+
+.num-page-title {
+    font-size: var(--num-fs-page-title);
+    line-height: 1.25;
+    font-weight: 700;
+}
+.num-page-subtitle {
+    font-size: var(--num-fs-page-subtitle);
+    line-height: 1.55;
+    font-weight: 400;
+}
+.num-filter-label {
+    font-size: var(--num-fs-filter-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.num-filter-value {
+    font-size: var(--num-fs-filter-value);
+    font-weight: 700;
+}
+.num-filter-value option {
+    /* Explicit override: <option> would otherwise inherit the select's own
+       (larger) font-size. Desktop browsers respect this; iOS/Safari renders
+       the open list with its own native picker UI that ignores it. */
+    font-size: var(--num-fs-filter-option);
+}
+
+.num-card-title {
+    font-size: var(--num-fs-card-title);
+    line-height: 1.4;
+    font-weight: 600;
+}
+.num-card-title-sm {
+    font-size: var(--num-fs-card-title-sm);
+    font-weight: 700;
+}
+
+.num-kpi-icon { font-size: var(--num-fs-kpi-icon); }
+.num-kpi-label {
+    font-size: var(--num-fs-kpi-label);
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.num-kpi-number {
+    font-size: var(--num-fs-kpi-number);
+    font-weight: 700;
+    line-height: 1;
+}
+.num-kpi-stat { font-size: var(--num-fs-kpi-stat); }
+
+.num-legend { font-size: var(--num-fs-legend); }
+.num-body { font-size: var(--num-fs-body); }
+.num-caption { font-size: var(--num-fs-caption); }
+.num-footnote { font-size: var(--num-fs-footnote); }
+
+.num-modal-title {
+    font-size: var(--num-fs-modal-title);
+    font-weight: 700;
+}
+.num-modal-table { font-size: var(--num-fs-modal-table); }
+
+/* -----------------------------------------------------------------------
+   Chart.js reference numbers (copy into JS config, keep in sync by hand):
+     Chart.defaults.font.size / axis ticks  -> 36  (--num-fs-chart-axis)
+     legend labels.font.size                -> 28  (--num-fs-chart-legend)
+     tooltip.titleFont.size                 -> 28  (--num-fs-chart-tooltip-title)
+     tooltip.bodyFont.size                  -> 26  (--num-fs-chart-tooltip-body)
+   ----------------------------------------------------------------------- */

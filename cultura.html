@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="css/numeralia-typography.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -164,11 +165,17 @@
         position: relative;
         flex: 1 1 auto;
         min-height: 220px;
-        max-height: 640px;
         width: 100%;
     }
     .chart-canvas canvas {
+        /* Absolutely positioned so the canvas's own size can never feed
+           back into the layout size of .chart-canvas — that circular
+           dependency (harmless at scale 1, but real) is what a fixed
+           max-height used to work around, leaving blank space under a
+           chart whenever a card actually had more room than that cap. */
         display: block;
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
     }
@@ -196,7 +203,7 @@
         gap: 10px;
         background: #D59F0F;
         color: #ffffff;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 800;
         letter-spacing: 0.02em;
         padding: 12px 26px;
@@ -209,13 +216,13 @@
         animation: kpi-hint-pulse 2.2s ease-in-out infinite;
         z-index: 5;
     }
-    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-click-hint .material-symbols-outlined { font-size: 28px; }
     .kpi-clickable:hover .kpi-click-hint {
         transform: scale(1.1);
         box-shadow: 0 8px 24px rgba(213, 159, 15, 0.6);
     }
     .badge-info {
-        font-size: 22px;
+        font-size: var(--num-fs-footnote);
         color: #6b7280;
         font-weight: 600;
     }
@@ -243,7 +250,7 @@
         text-align: center;
     }
 
-    table.data-table { width: 100%; border-collapse: collapse; font-size: 32px; }
+    table.data-table { width: 100%; border-collapse: collapse; font-size: var(--num-fs-modal-table); }
     table.data-table thead th {
         background: #003D79; color: #fff; font-weight: 700;
         padding: 16px 22px; text-align: left; position: sticky; top: 0; white-space: nowrap;
@@ -293,18 +300,39 @@
     }
     .modal-overlay.open .modal-container { transform: scale(1); opacity: 1; }
     .modal-header { display:flex; align-items:center; justify-content: space-between; margin-bottom: 24px; }
-    .modal-title { font-size: 46px; font-weight: 800; color: #003D79; line-height: 1.15; }
+    .modal-title { font-size: var(--num-fs-modal-title); font-weight: 800; color: #003D79; line-height: 1.15; }
     .modal-close { cursor: pointer; font-size: 40px; color: #737781; line-height: 1; padding: 4px 8px; }
     .modal-close:hover { color: #003D79; }
     .modal-subtitle { font-size: 29px; color: #6b7280; font-weight: 600; margin-bottom: 26px; }
     .modal-section-title { font-size: 33px; font-weight: 800; color: #003D79; margin: 32px 0 16px; }
-    .modal-source { font-size: 24px; color: #9ca3af; font-style: italic; margin-top: 28px; }
+    .modal-source { font-size: var(--num-fs-footnote); color: #9ca3af; font-style: italic; margin-top: 28px; }
     #modal-b .modal-container { max-width: 1800px; }
     #modal-d .modal-container { max-width: 2160px; }
+
+    /* ---------- Fixed 3840x2160 stage, scaled to fill the real viewport ----------
+       Width is the priority dimension: the stage is always scaled so its
+       3840px design-width maps exactly to the real viewport width (no side
+       bands, no side cropping, ever). Height is elastic — the stage's own
+       height is set in JS to whatever real viewport height maps to at that
+       same scale, so it always fills the screen exactly too. The vertical
+       "3840x2160 design" budget this leaves for the dashboard (more or less
+       than 2160px depending on the screen's aspect ratio) is absorbed by the
+       existing adaptive fitDashboardScale below. */
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #page-stage {
+        width: 3840px;
+        transform-origin: top left;
+        overflow: hidden;
+    }
 </style>
 <script src="js/spa-nav.js"></script>
 </head>
-<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<body class="text-on-surface">
+<div id="page-stage" class="flex flex-col">
 <!-- TopNavBar -->
 <header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
 <!-- Brand -->
@@ -396,12 +424,12 @@
 <!-- ================= FILTRO GENERAL (primer elemento visible) ================= -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
   <div>
-    <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Difusión Cultural UNAM</h1>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Concentrado estadístico de actividades y producción cultural 2025.</p>
+    <h1 class="num-page-title text-primary mb-2">Difusión Cultural UNAM</h1>
+    <p class="num-page-subtitle text-on-surface-variant max-w-3xl">Concentrado estadístico de actividades y producción cultural 2025.</p>
   </div>
   <div class="flex flex-col gap-1">
-    <label for="discipline-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Disciplina artística</label>
-    <select id="discipline-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+    <label for="discipline-filter" class="num-filter-label text-outline">Disciplina artística</label>
+    <select id="discipline-filter" class="num-filter-value bg-primary text-white rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
       <option value="all" selected>Todas las disciplinas</option>
       <option value="musica">Música y conciertos</option>
       <option value="teatro">Teatro</option>
@@ -420,40 +448,40 @@
 
 <!-- ================= FILA DE 4 KPIs ================= -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-5 shrink-0">
-  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-1" tabindex="0">
+  <div class="kpi-card card-institutional kpi-clickable pt-[32px] px-[40px] pb-[76px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-1" tabindex="0">
     <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
-    <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-primary text-[54px]">theater_comedy</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Actividades artísticas y culturales</span>
+    <div class="flex items-center gap-3 mb-[12px]">
+      <span class="material-symbols-outlined text-primary num-kpi-icon">theater_comedy</span>
+      <span class="num-kpi-label text-outline">Actividades artísticas y culturales</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]" id="kpi-1-value">11,236</span>
-    <span class="text-[30px] text-on-surface-variant font-semibold" id="kpi-1-sub">actividades presenciales y virtuales</span>
+    <span class="num-kpi-number text-primary block mb-[10px]" id="kpi-1-value">11,236</span>
+    <span class="num-caption text-on-surface-variant font-semibold" id="kpi-1-sub">actividades presenciales y virtuales</span>
   </div>
-  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-secondary-container flex flex-col justify-center" id="kpi-2" tabindex="0">
+  <div class="kpi-card card-institutional kpi-clickable pt-[32px] px-[40px] pb-[76px] border-t-4 border-t-secondary-container flex flex-col justify-center" id="kpi-2" tabindex="0">
     <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
-    <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-secondary text-[54px]">groups</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Asistencia total</span>
+    <div class="flex items-center gap-3 mb-[12px]">
+      <span class="material-symbols-outlined text-secondary num-kpi-icon">groups</span>
+      <span class="num-kpi-label text-outline">Asistencia total</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]" id="kpi-2-value">1,995,358</span>
-    <span class="text-[30px] text-on-surface-variant font-semibold" id="kpi-2-sub">asistentes presenciales y en línea</span>
+    <span class="num-kpi-number text-primary block mb-[10px]" id="kpi-2-value">1,995,358</span>
+    <span class="num-caption text-on-surface-variant font-semibold" id="kpi-2-sub">asistentes presenciales y en línea</span>
   </div>
-  <div class="kpi-card card-institutional kpi-clickable pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-4" tabindex="0">
+  <div class="kpi-card card-institutional kpi-clickable pt-[32px] px-[40px] pb-[76px] border-t-4 border-t-primary flex flex-col justify-center" id="kpi-4" tabindex="0">
     <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
-    <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-primary text-[54px]">school</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Beneficiados ed. continua</span>
+    <div class="flex items-center gap-3 mb-[12px]">
+      <span class="material-symbols-outlined text-primary num-kpi-icon">school</span>
+      <span class="num-kpi-label text-outline">Beneficiados ed. continua</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]">4,544,807</span>
-    <span class="text-[30px] text-on-surface-variant font-semibold">diplomados, cursos, talleres y conferencias</span>
+    <span class="num-kpi-number text-primary block mb-[10px]">4,544,807</span>
+    <span class="num-caption text-on-surface-variant font-semibold">diplomados, cursos, talleres y conferencias</span>
   </div>
-  <div class="kpi-card card-institutional pt-[64px] px-[64px] pb-[104px] border-t-4 border-t-tertiary flex flex-col justify-center" id="kpi-5" tabindex="0">
-    <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-tertiary text-[54px]">play_circle</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Reproducciones digitales</span>
+  <div class="kpi-card card-institutional p-[40px] border-t-4 border-t-tertiary flex flex-col justify-center" id="kpi-5" tabindex="0">
+    <div class="flex items-center gap-3 mb-[12px]">
+      <span class="material-symbols-outlined text-tertiary num-kpi-icon">play_circle</span>
+      <span class="num-kpi-label text-outline">Reproducciones digitales</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[20px]">17,123,103</span>
-    <span class="text-[30px] text-on-surface-variant font-semibold">canales de video del subsistema</span>
+    <span class="num-kpi-number text-primary block mb-[10px]">17,123,103</span>
+    <span class="num-caption text-on-surface-variant font-semibold">canales de video del subsistema</span>
   </div>
 </div>
 
@@ -465,13 +493,13 @@
 
     <!-- Gráfica 1 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
-      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Actividades por disciplina</h3>
+      <h3 class="num-card-title text-primary mb-1 shrink-0">Actividades por disciplina</h3>
       <div id="chart1-treemap" class="flex-1 min-h-0 relative" style="min-height:220px;"></div>
     </div>
 
     <!-- Gráfica 2 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
-      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Asistencia por disciplina</h3>
+      <h3 class="num-card-title text-primary mb-1 shrink-0">Asistencia por disciplina</h3>
       <div class="chart-canvas"><canvas id="chart2"></canvas></div>
     </div>
 
@@ -482,13 +510,13 @@
 
     <!-- Gráfica 3 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
-      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Producción artística 2025 · obras creadas</h3>
+      <h3 class="num-card-title text-primary mb-1 shrink-0">Producción artística 2025 · obras creadas</h3>
       <div class="chart-canvas"><canvas id="chart3"></canvas></div>
     </div>
 
     <!-- Gráfica 5 -->
     <div class="card-institutional bg-white p-3 flex flex-col min-h-0">
-      <h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Serie histórica · libros producidos 2021–2025</h3>
+      <h3 class="num-card-title text-primary mb-1 shrink-0">Serie histórica · libros producidos 2021–2025</h3>
       <div class="chart-canvas"><canvas id="chart5"></canvas></div>
       <span class="badge-info shrink-0 text-[24px]">Promedio 4.5 libros publicados por día</span>
     </div>
@@ -628,6 +656,7 @@
     </div>
     <div class="modal-source">Fuente: Coordinación de Difusión Cultural, UNAM.</div>
   </div>
+</div>
 </div>
 
 <script id="page-script">
@@ -1078,10 +1107,15 @@
         options: {
             indexAxis: 'y', responsive: true, maintainAspectRatio: false,
             plugins: {
-                legend: { display: false }, tooltip: { bodyFont: { size: 30 }, titleFont: { size: 30 }, callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' asistentes'; } } }
+                // titleFont/bodyFont mirror --num-fs-chart-tooltip-title (28) / --num-fs-chart-tooltip-body (26)
+                legend: { display: false }, tooltip: { bodyFont: { size: 26 }, titleFont: { size: 28 }, callbacks: { label: function (ctx) { return fmt(ctx.parsed.x) + ' asistentes'; } } }
             },
+            // --num-fs-chart-axis (36) doesn't fit here: this axis lists all
+            // 12 disciplines in a half-width card, so a larger font would
+            // either force Chart.js to skip labels or overlap them. Kept at
+            // its own smaller, still-legible size instead.
             scales: { x: { type: 'logarithmic', max: 2000000, grid: { color: '#e5e7eb' }, ticks: { font: { size: 20 }, callback: function (v) { var s = v.toString(); return (['100','1000','10000','100000','1000000'].indexOf(s) >= 0) ? fmt(v) : ''; } } },
-                      y: { grid: { display: false }, ticks: { font: { size: 30 }, padding: 16 } } }
+                      y: { grid: { display: false }, ticks: { font: { size: 24 }, padding: 16 } } }
         },
         plugins: [bar3dPlugin]
     });
@@ -1127,8 +1161,9 @@
             datasets: [{ data: [91, 15, 13, 15, 14, 2], backgroundColor: [PRIMARY, SECONDARY, TERTIARY, '#4A7CB5', '#C49A6C', '#A8C4D8'], borderColor: '#fff', borderWidth: 2, hoverOffset: 0 }] },
         options: { responsive: true, maintainAspectRatio: false, animation: false, rotation: 0,
             layout: { padding: { bottom: 16 } },
-            plugins: { legend: { position: 'right', labels: { font: { size: 32 }, boxWidth: 14, padding: 8 } },
-                tooltip: { titleFont: { size: 32 }, bodyFont: { size: 32 } } } },
+            // legend/tooltip font mirror --num-fs-chart-legend (28) / --num-fs-chart-tooltip-title & body (28/26)
+            plugins: { legend: { position: 'right', labels: { font: { size: 28 }, boxWidth: 14, padding: 8 } },
+                tooltip: { titleFont: { size: 28 }, bodyFont: { size: 26 } } } },
         plugins: [pie3dPlugin]
     });
 
@@ -1141,8 +1176,10 @@
             datasets: [{ data: [1558, 1862, 1794, 1785, 1657], borderColor: PRIMARY, backgroundColor: 'rgba(0,61,121,0.2)', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: PRIMARY }] },
         options: { responsive: true, maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
-            plugins: { legend: { display: false }, tooltip: { titleFont: { size: 30 }, bodyFont: { size: 30 }, yAlign: 'bottom', caretPadding: 10 } },
-            scales: { y: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 24 } } }, x: { grid: { display: false }, ticks: { font: { size: 24 } } } } }
+            // titleFont/bodyFont mirror --num-fs-chart-tooltip-title (28) / --num-fs-chart-tooltip-body (26)
+            plugins: { legend: { display: false }, tooltip: { titleFont: { size: 28 }, bodyFont: { size: 26 }, yAlign: 'bottom', caretPadding: 10 } },
+            // ticks font mirrors --num-fs-chart-axis (36)
+            scales: { y: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 36 } } }, x: { grid: { display: false }, ticks: { font: { size: 36 } } } } }
     });
 
     // ---------- Sidebar indicator selection ----------
@@ -1185,34 +1222,105 @@
     // (confirmed on personal-academico.html). Scaling without width
     // compensation leaves some empty space to the sides at non-4K aspect
     // ratios, but is stable. ----------
+    // Fixed-size text roles: these must render at the same real on-screen
+    // size on every Numeralia page regardless of how much each page's
+    // fitDashboardScale needs to shrink its content to fit (that shrink
+    // factor varies per page based on content volume, which otherwise makes
+    // identical design-px values like `--num-fs-kpi-number: 62px` render at
+    // very different real sizes page to page). Counter-inflating the
+    // font-size by 1/scale before each measurement cancels that page-specific
+    // shrink back out, leaving only the shared #page-stage viewport scale
+    // (identical across all pages at a given screen width) — see the
+    // dedicated .num-* roles in css/numeralia-typography.css.
+    var FIXED_TEXT_SCALE_MAP = [
+        ['.num-page-title', 70], ['.num-page-subtitle', 30],
+        ['.num-filter-label', 30], ['.num-filter-value', 30], ['.num-filter-value option', 20],
+        ['.num-kpi-icon', 30], ['.num-kpi-label', 25],
+        ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
+        ['.num-card-title', 40],
+        ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
+        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+    ];
+    function applyFixedTextScale(s) {
+        var factor = (s && s > 0) ? s : 1;
+        FIXED_TEXT_SCALE_MAP.forEach(function (pair) {
+            $$(pair[0]).forEach(function (el) { el.style.fontSize = (pair[1] / factor) + 'px'; });
+        });
+    }
     var scaleWrap = document.getElementById('dashboard-scale-wrap');
     function fitDashboardScale() {
         if (!scaleWrap) return;
-        scaleWrap.style.transform = 'none';
-        scaleWrap.style.width = '';
+        // #page-stage carries its own outer transform:scale() (see
+        // fitPageStage) so the fixed 3840px-wide design fills the real
+        // viewport. clientHeight/scrollHeight are local layout-space
+        // measurements, immune to that (or any) ancestor transform — unlike
+        // getBoundingClientRect, which returns post-transform on-screen
+        // pixels and would silently shrink this a second time. Width is
+        // never touched here (see note above), so a single measurement used
+        // to be stable — but compensating .num-* font-size by 1/scale (see
+        // applyFixedTextScale above) makes the needed-height measurement and
+        // the applied scale interdependent again, so this now iterates like
+        // the other Numeralia pages.
         var mainEl = document.getElementById('top');
         var mainStyle = getComputedStyle(mainEl);
-        var mainRect = mainEl.getBoundingClientRect();
-        var wrapRect = scaleWrap.getBoundingClientRect();
         var availableHeight = Math.max(
             40,
-            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+            mainEl.clientHeight - parseFloat(mainStyle.paddingTop || 0) - parseFloat(mainStyle.paddingBottom || 0)
         );
-        var neededHeight = scaleWrap.scrollHeight;
-        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
-        if (scale < 0.999 && scale > 0) {
-            scaleWrap.style.transformOrigin = 'top center';
-            scaleWrap.style.transform = 'scale(' + scale + ')';
+        function applyScale(s) {
+            if (s < 0.999 && s > 0) {
+                scaleWrap.style.transformOrigin = 'top center';
+                scaleWrap.style.transform = 'scale(' + s + ')';
+            } else {
+                scaleWrap.style.transform = 'none';
+            }
+            applyFixedTextScale(s);
+        }
+        var scale = 1;
+        var seen = [];
+        for (var i = 0; i < 12; i++) {
+            var neededHeight = scaleWrap.scrollHeight;
+            var nextScale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+            if (i > 0 && Math.abs(nextScale - scale) < 0.001) { scale = nextScale; applyScale(scale); break; }
+            var rounded = Math.round(nextScale * 1000) / 1000;
+            if (seen.indexOf(rounded) !== -1) {
+                scale = Math.min(nextScale, scale);
+                applyScale(scale);
+                break;
+            }
+            seen.push(rounded);
+            scale = nextScale;
+            applyScale(scale);
         }
         buildTreemap();
     }
     requestAnimationFrame(function () {
         requestAnimationFrame(fitDashboardScale);
     });
+
+    // ---------- Stage scale: width is the priority dimension, always scaled
+    // 1:1 to the real viewport width (no side bands/cropping ever). The
+    // stage's own height is set to whatever design-space height maps to the
+    // real viewport height at that same scale, so it also always fills the
+    // screen exactly — no top/bottom bands either. Whatever that leaves for
+    // the dashboard content (more or less than the nominal 2160px) is
+    // absorbed by fitDashboardScale above. ----------
+    var pageStage = document.getElementById('page-stage');
+    function fitPageStage() {
+        if (!pageStage) return;
+        var scale = window.innerWidth / 3840;
+        pageStage.style.height = (window.innerHeight / scale) + 'px';
+        pageStage.style.transform = 'scale(' + scale + ')';
+    }
+    fitPageStage();
+
     var scaleResizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(scaleResizeTimer);
-        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
+        scaleResizeTimer = setTimeout(function () {
+            fitPageStage();
+            fitDashboardScale();
+        }, 120);
     });
 })();
 </script>

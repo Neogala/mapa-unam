@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="css/numeralia-typography.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -151,14 +152,14 @@
         position: absolute; top: 22px; right: 22px;
         display: flex; align-items: center; gap: 10px;
         background: #D59F0F; color: #ffffff;
-        font-size: 32px; font-weight: 800; letter-spacing: 0.02em;
+        font-size: 28px; font-weight: 800; letter-spacing: 0.02em;
         padding: 12px 26px; border-radius: 999px;
         box-shadow: 0 6px 18px rgba(213,159,15,0.45);
         border: 2px solid #ffffff;
         animation: kpi-hint-pulse 2.2s ease-in-out infinite;
         pointer-events: none; z-index: 5;
     }
-    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-click-hint .material-symbols-outlined { font-size: 28px; }
     .btn-pulse { animation: kpi-hint-pulse 2.2s ease-in-out infinite; }
     @keyframes pulse-flash {
         0%   { background-color: rgba(213,159,15,0.18); }
@@ -175,7 +176,7 @@
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal-box {
         background: #ffffff; border-radius: 24px;
-        width: 100%; max-width: 2100px; max-height: 85vh;
+        width: 92%; max-width: 2600px; max-height: 90vh;
         overflow-y: auto; padding: 64px;
         transform: scale(0.95); opacity: 0;
         transition: transform 0.2s ease, opacity 0.2s ease;
@@ -204,6 +205,31 @@
     .modal-close-btn:hover { color: #D59F0F; }
 
     .chart-wrap { position: relative; min-height: 260px; }
+    /* Canvases left in normal flow can feed their own HiDPI backing-store
+       size back into the parent's layout size (CSS replaced-element
+       intrinsic-ratio fallback) — invisible at devicePixelRatio:1 but causes
+       runaway growth at dpr:2+ (Retina/HiDPI). Absolute-position every
+       chart canvas inside its (already position:relative) wrapper. */
+    .chart-wrap canvas, #chart-salud { position: absolute; inset: 0; }
+    /* ---------- Fixed 3840x2160 stage, scaled to fill the real viewport ----------
+       Width is the priority dimension: the stage is always scaled so its
+       3840px design-width maps exactly to the real viewport width (no side
+       bands, no side cropping, ever). Height is elastic — the stage's own
+       height is set in JS to whatever real viewport height maps to at that
+       same scale, so it always fills the screen exactly too. The vertical
+       "3840x2160 design" budget this leaves for the dashboard (more or less
+       than 2160px depending on the screen's aspect ratio) is absorbed by the
+       existing adaptive fitDashboardScale below. */
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #page-stage {
+        width: 3840px;
+        transform-origin: top left;
+        overflow: hidden;
+    }
     .badge-context {
         display: inline-flex; align-items: center; gap: 10px;
         font-size: 26px; font-weight: 700; border-radius: 999px;
@@ -215,7 +241,8 @@
 </style>
 <script src="js/spa-nav.js"></script>
 </head>
-<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<body class="text-on-surface">
+<div id="page-stage" class="flex flex-col">
 <!-- TopNavBar -->
 <header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
 <div class="flex items-center gap-[40px]">
@@ -303,43 +330,43 @@
 <div id="dashboard-scale-wrap" class="flex-1 flex flex-col">
 <!-- Header de sección -->
 <header class="mb-5 shrink-0">
-<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Apoyo a la Actividad Institucional · 2025</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Concentrado estadístico de deporte universitario, salud, orientación educativa y atención a la comunidad.</p>
+<h1 class="num-page-title text-primary mb-2">Apoyo a la Actividad Institucional · 2025</h1>
+<p class="num-page-subtitle text-on-surface-variant">Concentrado estadístico de deporte universitario, salud, orientación educativa y atención a la comunidad.</p>
 </header>
 
 <!-- KPIs -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-6 shrink-0">
 <div id="kpi-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
-<span class="material-symbols-outlined text-primary text-[54px]">sports</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Participantes cultura física</span>
+<span class="material-symbols-outlined text-primary num-kpi-icon">sports</span>
+<span class="num-kpi-label text-outline">Participantes cultura física</span>
 </div>
-<span id="kpi-1-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[36px] text-on-surface-variant font-semibold">Actividades presenciales</span>
+<span id="kpi-1-value" class="num-kpi-number text-primary block mb-[16px]">0</span>
+<span class="num-kpi-stat text-on-surface-variant font-semibold">Actividades presenciales</span>
 </div>
 <div id="kpi-2" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
-<span class="material-symbols-outlined text-secondary text-[54px]">local_hospital</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Acciones de atención médica</span>
+<span class="material-symbols-outlined text-secondary num-kpi-icon">local_hospital</span>
+<span class="num-kpi-label text-outline">Acciones de atención médica</span>
 </div>
-<span id="kpi-2-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[36px] text-on-surface-variant font-semibold">Consultas + EMA + Vacunas</span>
+<span id="kpi-2-value" class="num-kpi-number text-primary block mb-[16px]">0</span>
+<span class="num-kpi-stat text-on-surface-variant font-semibold">Consultas + EMA + Vacunas</span>
 </div>
 <div id="kpi-3" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
-<span class="material-symbols-outlined text-primary text-[54px]">school</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Eventos y visitas de orientación</span>
+<span class="material-symbols-outlined text-primary num-kpi-icon">school</span>
+<span class="num-kpi-label text-outline">Eventos y visitas de orientación</span>
 </div>
-<span id="kpi-3-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[36px] text-on-surface-variant font-semibold">Sitio web + eventos DGOAE</span>
+<span id="kpi-3-value" class="num-kpi-number text-primary block mb-[16px]">0</span>
+<span class="num-kpi-stat text-on-surface-variant font-semibold">Sitio web + eventos DGOAE</span>
 </div>
 <div id="kpi-4" class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
-<span class="material-symbols-outlined text-secondary text-[54px]">groups</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Personas beneficiadas</span>
+<span class="material-symbols-outlined text-secondary num-kpi-icon">groups</span>
+<span class="num-kpi-label text-outline">Personas beneficiadas</span>
 </div>
-<span id="kpi-4-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">0</span>
-<span class="text-[36px] text-on-surface-variant font-semibold">Comunidad universitaria</span>
+<span id="kpi-4-value" class="num-kpi-number text-primary block mb-[16px]">0</span>
+<span class="num-kpi-stat text-on-surface-variant font-semibold">Comunidad universitaria</span>
 </div>
 </div>
 
@@ -352,8 +379,8 @@
 <!-- Gráfica 1: Deporte universitario -->
 <div id="card-deporte" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-deporte">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
-<h3 class="text-[50px] font-bold text-primary">Actividades deportivas y recreativas</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[40px] rounded-full px-6 py-2" data-open-modal="modal-deporte"><span class="material-symbols-outlined text-[44px]">touch_app</span>Ver detalle</button>
+<h3 class="num-card-title text-primary">Actividades deportivas y recreativas</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[28px] rounded-full px-6 py-2" data-open-modal="modal-deporte"><span class="material-symbols-outlined text-[28px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0"><canvas id="chart-deporte"></canvas></div>
 <div class="flex flex-wrap items-center gap-3 mt-3 shrink-0">
@@ -365,11 +392,11 @@
 <!-- Gráfica 2: Atención a la salud -->
 <div id="card-salud" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-salud">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
-<h3 class="text-[50px] font-bold text-primary">Acciones de atención a la salud</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[40px] rounded-full px-6 py-2" data-open-modal="modal-salud"><span class="material-symbols-outlined text-[44px]">touch_app</span>Ver detalle</button>
+<h3 class="num-card-title text-primary">Acciones de atención a la salud</h3>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[28px] rounded-full px-6 py-2" data-open-modal="modal-salud"><span class="material-symbols-outlined text-[28px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0 flex items-center justify-center">
-<div style="position:relative; width:100%; height:100%; max-width:420px; margin:0 auto;">
+<div style="position:relative; width:100%; max-width:420px; max-height:100%; aspect-ratio:1/1; margin:0 auto;">
 <canvas id="chart-salud"></canvas>
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none;">
 <span class="text-primary font-bold text-[46px] block leading-none">300,444</span>
@@ -387,13 +414,13 @@
 
 <!-- Gráfica 3: Orientación educativa -->
 <div class="card-institutional p-6 flex flex-col min-h-0">
-<h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Servicios de orientación y atención educativa</h3>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Servicios de orientación y atención educativa</h3>
 <div class="chart-wrap flex-1 min-h-0"><canvas id="chart-orientacion"></canvas></div>
 </div>
 
 <!-- Gráfica 4: Atención a la comunidad -->
 <div class="card-institutional p-6 flex flex-col justify-center min-h-0 gap-3">
-<h3 class="text-[50px] font-bold text-primary mb-1 shrink-0">Atención a la comunidad universitaria</h3>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Atención a la comunidad universitaria</h3>
 <div class="flex items-center gap-6 p-3 rounded-lg bg-primary/10">
 <span class="material-symbols-outlined text-primary text-[64px]">diversity_3</span>
 <div class="flex items-baseline gap-4 flex-wrap">
@@ -439,7 +466,7 @@
 <div class="modal-box">
 <div class="flex items-start justify-between mb-2">
 <div>
-<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Actividades deportivas y recreativas · UNAM 2025</h3>
+<h3 class="num-modal-title text-primary leading-tight pr-8">Actividades deportivas y recreativas · UNAM 2025</h3>
 <p class="text-[30px] text-outline">Dirección General de Deporte Universitario, UNAM</p>
 </div>
 <span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-deporte">close</span>
@@ -488,7 +515,7 @@
 <div class="modal-box">
 <div class="flex items-start justify-between mb-2">
 <div>
-<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Atención a la salud · UNAM 2025</h3>
+<h3 class="num-modal-title text-primary leading-tight pr-8">Atención a la salud · UNAM 2025</h3>
 <p class="text-[30px] text-outline">Dirección General de Atención a la Salud, UNAM</p>
 </div>
 <span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-salud">close</span>
@@ -517,6 +544,7 @@
 </div>
 
 <p class="text-[24px] text-outline mt-6">Fuente: Dirección General de Atención a la Salud, UNAM.</p>
+</div>
 </div>
 </div>
 
@@ -824,42 +852,131 @@
     // bails out on clientWidth/clientHeight being 0), so nothing renders.
     // Scaling the whole dashboard down keeps every wrap at its natural
     // (non-zero) size while still fitting the viewport.
-    //
-    // Note: this page does NOT compensate width with
-    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
-    // wrap's layout width, which cascades into Chart.js canvases with
-    // responsive:true and repeatedly retriggers Chart.js's built-in
-    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
-    // (confirmed on personal-academico.html). Scaling without width
-    // compensation leaves some empty space to the sides at non-4K aspect
-    // ratios, but is stable. ----------
+    var redraws = [chartDeporte, chartSalud, chartOrientacion].filter(Boolean).map(function (c) {
+        return function () { c.resize(); };
+    });
+    // Fixed-size text roles: these must render at the same real on-screen
+    // size on every Numeralia page regardless of how much each page's
+    // fitDashboardScale needs to shrink its content to fit (that shrink
+    // factor varies per page based on content volume, which otherwise makes
+    // identical design-px values like `--num-fs-kpi-number: 62px` render at
+    // very different real sizes page to page). Counter-inflating the
+    // font-size by 1/scale before each measurement cancels that page-specific
+    // shrink back out, leaving only the shared #page-stage viewport scale
+    // (identical across all pages at a given screen width) — see the
+    // dedicated .num-* roles in css/numeralia-typography.css.
+    var FIXED_TEXT_SCALE_MAP = [
+        ['.num-page-title', 70], ['.num-page-subtitle', 30],
+        ['.num-filter-label', 30], ['.num-filter-value', 30], ['.num-filter-value option', 20],
+        ['.num-kpi-icon', 30], ['.num-kpi-label', 25],
+        ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
+        ['.num-card-title', 40],
+        ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
+        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+    ];
+    function applyFixedTextScale(s) {
+        var factor = (s && s > 0) ? s : 1;
+        FIXED_TEXT_SCALE_MAP.forEach(function (pair) {
+            $$(pair[0]).forEach(function (el) { el.style.fontSize = (pair[1] / factor) + 'px'; });
+        });
+    }
     var scaleWrap = document.getElementById('dashboard-scale-wrap');
     function fitDashboardScale() {
         if (!scaleWrap) return;
-        scaleWrap.style.transform = 'none';
-        scaleWrap.style.width = '';
+        // #page-stage carries its own outer transform:scale() (see
+        // fitPageStage) so the fixed 3840px-wide design fills the real
+        // viewport. clientHeight/scrollHeight are local layout-space
+        // measurements, immune to that (or any) ancestor transform — unlike
+        // getBoundingClientRect, which returns post-transform on-screen
+        // pixels and would silently shrink this a second time.
+        //
+        // Width compensation: `style.width = (100/s)+'%'` after scaling
+        // widens the wrap's layout box so that, once the transform:scale(s)
+        // is applied, its on-screen width lands back at exactly 100% of the
+        // container again — otherwise the scaled-down box just shrinks
+        // toward its own center, leaving gray gaps on both sides at any
+        // aspect ratio shorter than 4K (visible full-width on
+        // poblacion-escolar.html). This used to be skipped on this page
+        // because widening the wrap changes the Chart.js canvases'
+        // container width, and canvases left in normal document flow fed
+        // their own backing-store size back into that container (circular
+        // sizing), retriggering Chart.js's ResizeObserver in an infinite
+        // loop that pinned the CPU (confirmed on personal-academico.html).
+        // That circular-sizing path is already closed on this page (every
+        // chart canvas is `position:absolute`, see .chart-wrap canvas /
+        // #chart-salud above), so widening no longer feeds back into
+        // itself — safe to compensate width here too.
         var mainEl = document.getElementById('top');
         var mainStyle = getComputedStyle(mainEl);
-        var mainRect = mainEl.getBoundingClientRect();
-        var wrapRect = scaleWrap.getBoundingClientRect();
         var availableHeight = Math.max(
             40,
-            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+            mainEl.clientHeight - parseFloat(mainStyle.paddingTop || 0) - parseFloat(mainStyle.paddingBottom || 0)
         );
-        var neededHeight = scaleWrap.scrollHeight;
-        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
-        if (scale < 0.999 && scale > 0) {
-            scaleWrap.style.transformOrigin = 'top center';
-            scaleWrap.style.transform = 'scale(' + scale + ')';
+        function applyScale(s) {
+            if (s < 0.999 && s > 0) {
+                scaleWrap.style.transformOrigin = 'top left';
+                scaleWrap.style.transform = 'scale(' + s + ')';
+                scaleWrap.style.width = (100 / s) + '%';
+            } else {
+                scaleWrap.style.transform = 'none';
+                scaleWrap.style.width = '';
+            }
+            applyFixedTextScale(s);
         }
+        // Some layouts converge smoothly but slowly (each iteration nudges
+        // closer to a fixed point) — that just needs more iterations, not a
+        // fallback. Others genuinely flip between two arrangements and
+        // ping-pong between the same two scales forever. Telling these
+        // apart matters: bailing out after a few iterations would pick an
+        // unrepresentative, needlessly-small scale (an early, still-settling
+        // measurement). So iterate generously, and only fall back when a
+        // scale value genuinely repeats — a real cycle, not just "hasn't
+        // converged yet".
+        var scale = 1;
+        var seen = [];
+        for (var i = 0; i < 12; i++) {
+            var neededHeight = scaleWrap.scrollHeight;
+            var nextScale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+            if (i > 0 && Math.abs(nextScale - scale) < 0.001) { scale = nextScale; applyScale(scale); break; }
+            var rounded = Math.round(nextScale * 1000) / 1000;
+            if (seen.indexOf(rounded) !== -1) {
+                scale = Math.min(nextScale, scale);
+                applyScale(scale);
+                break;
+            }
+            seen.push(rounded);
+            scale = nextScale;
+            applyScale(scale);
+        }
+        redraws.forEach(function (fn) { fn(); });
     }
     requestAnimationFrame(function () {
         requestAnimationFrame(fitDashboardScale);
     });
+
+    // ---------- Stage scale: width is the priority dimension, always scaled
+    // 1:1 to the real viewport width (no side bands/cropping ever). The
+    // stage's own height is set to whatever design-space height maps to the
+    // real viewport height at that same scale, so it also always fills the
+    // screen exactly — no top/bottom bands either. Whatever that leaves for
+    // the dashboard content (more or less than the nominal 2160px) is
+    // absorbed by fitDashboardScale above. ----------
+    var pageStage = document.getElementById('page-stage');
+    function fitPageStage() {
+        if (!pageStage) return;
+        var scale = window.innerWidth / 3840;
+        pageStage.style.height = (window.innerHeight / scale) + 'px';
+        pageStage.style.transform = 'scale(' + scale + ')';
+    }
+    fitPageStage();
+
     var scaleResizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(scaleResizeTimer);
-        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
+        scaleResizeTimer = setTimeout(function () {
+            fitPageStage();
+            fitDashboardScale();
+        }, 120);
     });
 })();
 </script>

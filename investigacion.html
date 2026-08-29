@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="css/numeralia-typography.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -165,11 +166,17 @@
         position: relative;
         flex: 1 1 auto;
         min-height: 0;
-        max-height: 640px;
         width: 100%;
     }
     .chart-canvas canvas {
+        /* Absolutely positioned so the canvas's own size can never feed
+           back into the layout size of .chart-canvas — that circular
+           dependency (harmless at scale 1, but real) is what the old fixed
+           max-height was working around, leaving blank space under a chart
+           whenever a card actually had more room than that cap. */
         display: block;
+        position: absolute;
+        inset: 0;
         width: 100% !important;
         height: 100% !important;
     }
@@ -261,7 +268,7 @@
         gap: 8px;
         background: #D59F0F;
         color: #ffffff;
-        font-size: 34px;
+        font-size: 28px;
         font-weight: 800;
         letter-spacing: 0.02em;
         padding: 8px 20px;
@@ -272,7 +279,7 @@
         animation: kpi-hint-pulse 2.2s ease-in-out infinite;
         z-index: 5;
     }
-    .kpi-click-hint .material-symbols-outlined { font-size: 38px; }
+    .kpi-click-hint .material-symbols-outlined { font-size: 28px; }
     @keyframes kpiFlashBorder {
         0% { box-shadow: 0 0 0 2px #D59F0F; }
         100% { box-shadow: 0 0 0 2px rgba(213,159,15,0); }
@@ -333,7 +340,7 @@
         border-radius: 32px;
         max-width: 2450px;
         width: 92%;
-        max-height: 88vh;
+        max-height: 90vh;
         overflow-y: auto;
         padding: 90px;
         transform: scale(0.96);
@@ -376,10 +383,31 @@
     details.papiit-detail[open] > summary::before {
         content: '▾ ';
     }
+
+    /* ---------- Fixed 3840x2160 stage, scaled to fill the real viewport ----------
+       Width is the priority dimension: the stage is always scaled so its
+       3840px design-width maps exactly to the real viewport width (no side
+       bands, no side cropping, ever). Height is elastic — the stage's own
+       height is set in JS to whatever real viewport height maps to at that
+       same scale, so it always fills the screen exactly too. The vertical
+       "3840x2160 design" budget this leaves for the dashboard (more or less
+       than 2160px depending on the screen's aspect ratio) is absorbed by the
+       existing adaptive fitDashboardScale below. */
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #page-stage {
+        width: 3840px;
+        transform-origin: top left;
+        overflow: hidden;
+    }
 </style>
 <script src="js/spa-nav.js"></script>
 </head>
-<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<body class="text-on-surface">
+<div id="page-stage" class="flex flex-col">
 <!-- TopNavBar -->
 <header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
 <!-- Brand -->
@@ -471,12 +499,12 @@
 <!-- ================= SECTION 1 — HEADER + FILTRO ================= -->
 <header class="mb-2 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
-<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Investigación</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-6xl mb-1 whitespace-nowrap">Concentrado estadístico de investigadores SNII, proyectos, producción académica y tesis dirigidas · 2025-2026.</p>
+<h1 class="num-page-title text-primary mb-2">Investigación</h1>
+<p class="num-page-subtitle text-on-surface-variant max-w-6xl mb-1 whitespace-nowrap">Concentrado estadístico de investigadores SNII, proyectos, producción académica y tesis dirigidas · 2025-2026.</p>
 </div>
 <div class="flex flex-col gap-1">
-<label for="gf-subsistema" class="text-[30px] font-bold text-outline uppercase tracking-wider">Subsistema</label>
-<select id="gf-subsistema" class="text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<label for="gf-subsistema" class="num-filter-label text-outline">Subsistema</label>
+<select id="gf-subsistema" class="num-filter-value text-white rounded-full pl-8 pr-16 py-3 border-2 focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
 <option value="todos">Todos los subsistemas</option>
 <option value="cientifica">Inst. investigación científica</option>
 <option value="humanistica">Inst. investigación humanística</option>
@@ -497,10 +525,10 @@
 <div id="kpi-snii-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-l-4 border-l-tertiary flex flex-col justify-start gap-3" title="Ver detalle de investigadores SNII">
 <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary text-[54px]">military_tech</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Inv. con SNII</span>
+<span class="material-symbols-outlined text-tertiary num-kpi-icon">military_tech</span>
+<span class="num-kpi-label text-outline">Inv. con SNII</span>
 </div>
-<span id="kpi-snii-number" class="text-[62px] font-bold text-primary leading-none">6,953</span>
+<span id="kpi-snii-number" class="num-kpi-number text-primary">6,953</span>
 <div class="flex flex-wrap items-center gap-2">
 <span id="kpi-snii-carrera" class="inline-flex items-center rounded-full px-3 py-1 text-[31px] font-bold text-on-surface-variant bg-surface-container whitespace-nowrap">4,989 de carrera</span>
 </div>
@@ -509,27 +537,27 @@
 <div id="kpi-proyectos-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-t-4 border-t-primary flex flex-col justify-start gap-3" title="Ver detalle de proyectos de investigación">
 <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[54px]">science</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Proy. de investigación</span>
+<span class="material-symbols-outlined text-primary num-kpi-icon">science</span>
+<span class="num-kpi-label text-outline">Proy. de investigación</span>
 </div>
-<span id="kpi-proyectos-number" class="text-[62px] font-bold text-primary leading-none">6,464</span>
+<span id="kpi-proyectos-number" class="num-kpi-number text-primary">6,464</span>
 <span id="kpi-proyectos-note" class="text-[27px] text-on-surface-variant font-bold -mt-1">Activos en 2025</span>
 </div>
 <!-- Card 3: Productos publicados -->
 <div id="kpi-productos-card" class="kpi-clickable card-institutional p-[40px] pb-[100px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3" title="Ver detalle de productos publicados">
 <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[54px]">auto_stories</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Product. publicados</span>
+<span class="material-symbols-outlined text-secondary num-kpi-icon">auto_stories</span>
+<span class="num-kpi-label text-outline">Product. publicados</span>
 </div>
-<span id="kpi-productos-number" class="text-[62px] font-bold text-primary leading-none">9,785</span>
+<span id="kpi-productos-number" class="num-kpi-number text-primary">9,785</span>
 </div>
 <!-- Card 4: Artículos indizados -->
 <div class="card-institutional p-[40px] border-t-4 border-t-tertiary flex flex-col justify-start gap-3" style="position:relative">
 <span class="lock-badge" id="lock-articulos" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary text-[54px]">verified</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Art. indizados</span>
+<span class="material-symbols-outlined text-tertiary num-kpi-icon">verified</span>
+<span class="num-kpi-label text-outline">Art. indizados</span>
 </div>
 <div class="grid grid-cols-2 gap-3">
 <div>
@@ -545,10 +573,10 @@
 <!-- Card 5: Tesis dirigidas -->
 <div id="kpi-tesis-card" class="card-institutional p-[40px] border-t-4 border-t-primary flex flex-col justify-start gap-3">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[54px]">history_edu</span>
-<span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Tesis dirigidas</span>
+<span class="material-symbols-outlined text-primary num-kpi-icon">history_edu</span>
+<span class="num-kpi-label text-outline">Tesis dirigidas</span>
 </div>
-<span id="kpi-tesis-number" class="text-[62px] font-bold text-primary leading-none">2,497</span>
+<span id="kpi-tesis-number" class="num-kpi-number text-primary">2,497</span>
 </div>
 </div>
 
@@ -557,9 +585,9 @@
 <!-- SNII por nivel (doughnut) -->
 <div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0" style="position:relative">
 <span class="lock-badge" id="lock-snii-nivel" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
-<h3 class="font-headline-sm text-headline-sm text-primary mb-2 shrink-0 text-center">Investigadores SNII por nivel</h3>
+<h3 class="num-card-title text-primary mb-2 shrink-0 text-center">Investigadores SNII por nivel</h3>
 <div class="flex-1 min-h-0 flex items-stretch justify-center gap-6">
-<div class="relative shrink-0" style="aspect-ratio:1/1;height:100%;max-width:100%">
+<div class="relative shrink-0 self-center" style="aspect-ratio:1/1;height:75%;max-width:100%">
 <div class="chart-canvas h-full">
 <canvas id="snii-nivel-donut-canvas"></canvas>
 </div>
@@ -574,7 +602,7 @@
 <!-- Proyectos por área de conocimiento (polar area) -->
 <div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0 overflow-hidden" style="position:relative">
 <span class="lock-badge" id="lock-proyectos-area" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
-<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Distribución por área de conocimiento</h3>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Distribución por área de conocimiento</h3>
 <div class="flex-1 min-h-0 flex items-center gap-4">
 <div class="relative shrink-0" style="aspect-ratio:1/1;width:52%;max-width:100%">
 <div class="chart-canvas h-full"><canvas id="proyectos-polar-canvas"></canvas></div>
@@ -584,7 +612,7 @@
 </div>
 <!-- Tesis dirigidas (grouped bars) -->
 <div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Tesis dirigidas por investigadores</h3><div class="chart-canvas"><canvas id="tesis-grouped-canvas"></canvas></div>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Tesis dirigidas por investigadores</h3><div class="chart-canvas"><canvas id="tesis-grouped-canvas"></canvas></div>
 <p id="tesis-nd-note" class="text-[20px] nd-text text-center mt-1 shrink-0" style="display:none">N/D — el PDF no reporta tesis dirigidas para este subsistema</p>
 <div id="tesis-legend" class="flex justify-center gap-6 mt-2 shrink-0">
 <span class="inline-flex items-center gap-2 text-[26px] font-bold text-on-surface-variant"><span class="w-3 h-3 rounded-full inline-block" style="background:#D59F0F"></span>Humanística</span>
@@ -597,11 +625,11 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-6 min-h-0" style="flex:4.3075 1 0%;grid-template-rows:minmax(0,1fr)">
 <!-- Productos publicados (stacked bar) -->
 <div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-primary mb-1 shrink-0">Productos publicados por subsistema y tipo</h3><div class="chart-canvas"><canvas id="productos-stacked-canvas"></canvas></div>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Productos publicados por subsistema y tipo</h3><div class="chart-canvas"><canvas id="productos-stacked-canvas"></canvas></div>
 </div>
 <!-- Accent panel: cierre -->
 <div class="accent-panel rounded p-6 flex flex-col justify-center min-w-0 h-full min-h-0">
-<h3 class="font-headline-sm text-headline-sm text-white mb-4 leading-snug">La UNAM genera más del 30% de la investigación de México</h3>
+<h3 class="num-card-title text-white mb-4 leading-snug">La UNAM genera más del 30% de la investigación de México</h3>
 <div class="flex flex-col sm:flex-row items-center gap-8">
 <!-- Left: counter -->
 <div class="flex flex-col items-center gap-2 shrink-0">
@@ -833,6 +861,7 @@
 <p class="text-[24px] text-outline">Fuente: Coordinación Inv. Científica · Coord. Humanidades · UNAM</p>
 </div>
 </div>
+</div>
 
 <script id="page-script">
 (function () {
@@ -968,7 +997,13 @@
                     var text = fmt(val);
                     var textWidth = ctx.measureText(text).width;
                     var padX = 8, padY = 5;
-                    var boxW = Math.min(textWidth + padX * 2, props.width - 4);
+                    // Skip (rather than clamp-and-force-fit) when the label is
+                    // wider than its own segment — clamping the box but not
+                    // the text let it visually spill into the next segment's
+                    // label on narrow adjacent bars (e.g. "1,134" + "205"
+                    // rendering as "1,13205").
+                    if (textWidth + padX * 2 > props.width - 4) { ctx.restore(); return; }
+                    var boxW = textWidth + padX * 2;
                     var boxH = 26 + padY * 2;
                     ctx.fillStyle = 'rgba(0,0,0,0.45)';
                     ctx.beginPath();
@@ -991,7 +1026,12 @@
             maintainAspectRatio: false,
             scales: {
                 x: { stacked: true, grid: { color: '#edeef0' }, ticks: { font: { size: 28 } } },
-                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 32 } } }
+                y: {
+                    stacked: true,
+                    grid: { display: false },
+                    afterFit: function (scale) { scale.width = 660; },
+                    ticks: { font: { size: 32 } }
+                }
             },
             plugins: {
                 legend: { position: 'bottom', labels: { font: { size: 26 }, boxWidth: 14, padding: 10 } },
@@ -1020,6 +1060,7 @@
             maintainAspectRatio: false,
             categoryPercentage: 0.9,
             barPercentage: 1,
+            layout: { padding: { top: 14 } },
             scales: {
                 x: { grid: { display: false }, ticks: { font: { size: 25 } } },
                 y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 20 } } }
@@ -1467,34 +1508,127 @@
     // on clientWidth/clientHeight being 0), so nothing renders. Scaling the
     // whole dashboard down keeps every wrap at its natural (non-zero) size
     // while still fitting the viewport. ----------
+    // Fixed-size text roles: these must render at the same real on-screen
+    // size on every Numeralia page regardless of how much each page's
+    // fitDashboardScale needs to shrink its content to fit (that shrink
+    // factor varies per page based on content volume, which otherwise makes
+    // identical design-px values like `--num-fs-kpi-number: 62px` render at
+    // very different real sizes page to page). Counter-inflating the
+    // font-size by 1/scale before each measurement cancels that page-specific
+    // shrink back out, leaving only the shared #page-stage viewport scale
+    // (identical across all pages at a given screen width) — see the
+    // dedicated .num-* roles in css/numeralia-typography.css.
+    var FIXED_TEXT_SCALE_MAP = [
+        ['.num-page-title', 70], ['.num-page-subtitle', 30],
+        ['.num-filter-label', 30], ['.num-filter-value', 30], ['.num-filter-value option', 20],
+        ['.num-kpi-icon', 30], ['.num-kpi-label', 25],
+        ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
+        ['.num-card-title', 40],
+        ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
+        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+    ];
+    function applyFixedTextScale(s) {
+        var factor = (s && s > 0) ? s : 1;
+        FIXED_TEXT_SCALE_MAP.forEach(function (pair) {
+            $$(pair[0]).forEach(function (el) { el.style.fontSize = (pair[1] / factor) + 'px'; });
+        });
+    }
     var scaleWrap = document.getElementById('dashboard-scale-wrap');
     function fitDashboardScale() {
         if (!scaleWrap) return;
+        // Reset to the natural, unscaled state before measuring anything.
+        // Without this, calling fitDashboardScale a second time (e.g. from
+        // the resize handler shortly after the initial load-time call) would
+        // measure scrollHeight while scaleWrap still had the PREVIOUS call's
+        // compensating width applied, biasing the very first iteration and
+        // compounding into an over-aggressive shrink.
         scaleWrap.style.transform = 'none';
         scaleWrap.style.width = '';
+        // clientHeight/scrollHeight are local layout-space measurements,
+        // immune to #page-stage's own outer transform:scale() (unlike
+        // getBoundingClientRect, which returns post-transform on-screen
+        // pixels and would silently shrink this a second time).
         var mainEl = document.getElementById('top');
         var mainStyle = getComputedStyle(mainEl);
-        var mainRect = mainEl.getBoundingClientRect();
-        var wrapRect = scaleWrap.getBoundingClientRect();
         var availableHeight = Math.max(
             40,
-            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+            mainEl.clientHeight - parseFloat(mainStyle.paddingTop || 0) - parseFloat(mainStyle.paddingBottom || 0)
         );
-        var neededHeight = scaleWrap.scrollHeight;
-        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
-        if (scale < 0.999 && scale > 0) {
-            scaleWrap.style.transformOrigin = 'top left';
-            scaleWrap.style.transform = 'scale(' + scale + ')';
-            scaleWrap.style.width = (100 / scale) + '%';
+        // Widening scaleWrap to compensate for the scale-down changes how its
+        // content reflows, which changes how tall it needs to be — so the
+        // needed-height measurement and the applied scale/width are
+        // interdependent. Iterate a few times to converge instead of
+        // trusting a single (stale) measurement.
+        function applyScale(s) {
+            if (s < 0.999 && s > 0) {
+                scaleWrap.style.transformOrigin = 'top left';
+                scaleWrap.style.transform = 'scale(' + s + ')';
+                scaleWrap.style.width = (100 / s) + '%';
+            } else {
+                scaleWrap.style.transform = 'none';
+                scaleWrap.style.width = '';
+            }
+            applyFixedTextScale(s);
+        }
+        // Some layouts converge smoothly but slowly (each iteration nudges
+        // closer to a fixed point — needs more than a couple of iterations,
+        // not a different algorithm). Others genuinely flip between two
+        // column/wrap arrangements depending on the compensating width, and
+        // ping-pong between the same two scales forever. Telling these apart
+        // matters: bailing out early on the first case with a fallback would
+        // pick an unrepresentative, needlessly-small scale (an early,
+        // still-settling measurement) and leave the dashboard visibly
+        // smaller than necessary. So iterate generously, and only invoke the
+        // safety fallback when a scale value genuinely repeats — a real
+        // cycle, not just "hasn't converged yet".
+        var scale = 1;
+        var seen = [];
+        for (var i = 0; i < 12; i++) {
+            var neededHeight = scaleWrap.scrollHeight;
+            var nextScale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+            if (i > 0 && Math.abs(nextScale - scale) < 0.001) { scale = nextScale; applyScale(scale); break; }
+            var rounded = Math.round(nextScale * 1000) / 1000;
+            if (seen.indexOf(rounded) !== -1) {
+                // Genuine cycle: nextScale repeats an earlier iteration's
+                // value. Land on the smaller of the two cycle endpoints —
+                // under-shrinking leaves a card overflowing and clipped,
+                // which is worse than being a bit smaller than necessary.
+                scale = Math.min(nextScale, scale);
+                applyScale(scale);
+                break;
+            }
+            seen.push(rounded);
+            scale = nextScale;
+            applyScale(scale);
         }
     }
     requestAnimationFrame(function () {
         requestAnimationFrame(fitDashboardScale);
     });
+
+    // ---------- Stage scale: width is the priority dimension, always scaled
+    // 1:1 to the real viewport width (no side bands/cropping ever). The
+    // stage's own height is set to whatever design-space height maps to the
+    // real viewport height at that same scale, so it also always fills the
+    // screen exactly — no top/bottom bands either. Whatever that leaves for
+    // the dashboard content (more or less than the nominal 2160px) is
+    // absorbed by fitDashboardScale above. ----------
+    var pageStage = document.getElementById('page-stage');
+    function fitPageStage() {
+        if (!pageStage) return;
+        var scale = window.innerWidth / 3840;
+        pageStage.style.height = (window.innerHeight / scale) + 'px';
+        pageStage.style.transform = 'scale(' + scale + ')';
+    }
+    fitPageStage();
+
     var scaleResizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(scaleResizeTimer);
-        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
+        scaleResizeTimer = setTimeout(function () {
+            fitPageStage();
+            fitDashboardScale();
+        }, 120);
     });
 })();
 </script>

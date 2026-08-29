@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="css/numeralia-typography.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
     tailwind.config = {
@@ -156,8 +157,15 @@
         flex: 1 1 auto;
         min-height: 0;
     }
+    /* Canvases left in normal flow can feed their own HiDPI backing-store
+       size back into the parent's layout size (CSS replaced-element
+       intrinsic-ratio fallback) — invisible at devicePixelRatio:1 but causes
+       runaway growth at dpr:2+ (Retina/HiDPI). Absolute-position every
+       chart canvas inside its (already position:relative) wrapper. */
     .chart-wrap canvas {
         display: block;
+        position: absolute;
+        inset: 0;
         width: 100% !important;
         height: 100% !important;
     }
@@ -166,10 +174,30 @@
         color: #737781;
         margin-top: 14px;
     }
+    /* ---------- Fixed 3840x2160 stage, scaled to fill the real viewport ----------
+       Width is the priority dimension: the stage is always scaled so its
+       3840px design-width maps exactly to the real viewport width (no side
+       bands, no side cropping, ever). Height is elastic — the stage's own
+       height is set in JS to whatever real viewport height maps to at that
+       same scale, so it always fills the screen exactly too. The vertical
+       "3840x2160 design" budget this leaves for the dashboard (more or less
+       than 2160px depending on the screen's aspect ratio) is absorbed by the
+       existing adaptive fitDashboardScale below. */
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #page-stage {
+        width: 3840px;
+        transform-origin: top left;
+        overflow: hidden;
+    }
 </style>
 <script src="js/spa-nav.js"></script>
 </head>
-<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<body class="text-on-surface">
+<div id="page-stage" class="flex flex-col">
 <!-- TopNavBar -->
 <header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
 <div class="flex items-center gap-[40px]">
@@ -257,8 +285,8 @@
 <div id="dashboard-scale-wrap" class="flex-1 min-h-0 flex flex-col">
 <!-- Título de sección -->
 <header id="serie-header" class="mb-5">
-<h1 class="font-headline-lg text-headline-lg text-primary mb-2">UNAM en Cifras · Serie Histórica 2000–2025</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl">Evolución histórica de los principales indicadores institucionales de la UNAM.</p>
+<h1 class="num-page-title text-primary mb-2">UNAM en Cifras · Serie Histórica 2000–2025</h1>
+<p class="num-page-subtitle text-on-surface-variant max-w-4xl">Evolución histórica de los principales indicadores institucionales de la UNAM.</p>
 </header>
 
 <!-- Filtro global de rango de años -->
@@ -278,35 +306,26 @@
 
 <!-- G1: Población Escolar -->
 <div class="card-institutional p-[48px] flex flex-col">
-<h3 class="text-[40px] font-bold text-primary mb-[12px]">Población Escolar</h3>
-<p class="text-[26px] text-outline mb-[20px]">Alumnos por nivel educativo · ciclos 1999–2000 a 2024–2025</p>
+<h3 class="num-card-title text-primary mb-[12px]">Población Escolar</h3>
 <div class="chart-wrap"><canvas id="chart-g1"></canvas></div>
-<p class="chart-footnote">Fuente: Dir. General de Administración Escolar, UNAM</p>
 </div>
 
 <!-- G2: Personal Académico -->
 <div class="card-institutional p-[48px] flex flex-col">
-<h3 class="text-[40px] font-bold text-primary mb-[12px]">Personal Académico</h3>
-<p class="text-[26px] text-outline mb-[8px]">Nombramientos por figura · 2000–2025</p>
-<span style="font-size:26px; color:#737781; font-family:'Libre Franklin'; display:block; margin-bottom:12px;">⚠ Prof. de Asignatura (~34K) usa eje derecho (dorado) por escala diferente</span>
+<h3 class="num-card-title text-primary mb-[12px]">Personal Académico</h3>
 <div class="chart-wrap"><canvas id="chart-g2"></canvas></div>
-<p class="chart-footnote">Fuente: Dir. General de Personal, UNAM</p>
 </div>
 
 <!-- G4: Productos de Investigación -->
 <div class="card-institutional p-[48px] flex flex-col">
-<h3 class="text-[40px] font-bold text-primary mb-[12px]">Productos de Investigación</h3>
-<p class="text-[26px] text-outline mb-[20px]">Publicaciones y obras por tipo · 2000–2025</p>
+<h3 class="num-card-title text-primary mb-[12px]">Productos de Investigación</h3>
 <div class="chart-wrap"><canvas id="chart-g4"></canvas></div>
-<p class="chart-footnote">Fuente: Coordinación de la Investigación Científica / Humanidades, UNAM</p>
 </div>
 
 <!-- G5: Presupuesto de Egresos -->
 <div class="card-institutional p-[48px] flex flex-col">
-<h3 class="text-[40px] font-bold text-primary mb-[12px]">Presupuesto de Egresos</h3>
-<p class="text-[26px] text-outline mb-[20px]">Millones de pesos corrientes por función · 2000–2025</p>
+<h3 class="num-card-title text-primary mb-[12px]">Presupuesto de Egresos</h3>
 <div class="chart-wrap"><canvas id="chart-g5"></canvas></div>
-<p class="chart-footnote">Presupuesto total 2025: $58,084 MDP · cifras en pesos corrientes (no ajustadas por inflación)<br>Fuente: Presupuestos 2000–2025, UNAM</p>
 </div>
 
 </div>
@@ -321,6 +340,7 @@
         <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
     </div>
 </footer>
+</div>
 </div>
 </div>
 
@@ -347,6 +367,7 @@
     };
 
     var TICK_FONT = { size: 26, family: "'Libre Franklin'" };
+    var X_TICK_FONT = { size: 18, family: "'Libre Franklin'" };
     var LEGEND_LABELS = { font: { size: 26 }, padding: 20, boxWidth: 24, boxHeight: 24 };
     var TOOLTIP_FONT = { bodyFont: { size: 24 }, titleFont: { size: 26, weight: 'bold' } };
 
@@ -453,7 +474,7 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                x: { ticks: { font: X_TICK_FONT, maxRotation: 45, minRotation: 45 } },
                 y: { beginAtZero: true, afterFit: function (scale) { scale.width = 130; }, ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } } }
             },
             plugins: {
@@ -473,7 +494,7 @@
             datasets: [
                 { label: 'Investigadores', data: g2Data.investigadores.slice(), _fullData: g2Data.investigadores, yAxisID: 'y', borderColor: COLORS.azul, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
                 { label: 'Prof. de Carrera', data: g2Data.profCarrera.slice(), _fullData: g2Data.profCarrera, yAxisID: 'y', borderColor: COLORS.azul3, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
-                { label: 'Técnicos Académicos', data: g2Data.tecnicos.slice(), _fullData: g2Data.tecnicos, yAxisID: 'y', borderColor: COLORS.cafe, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
+                { label: 'T. Académicos', data: g2Data.tecnicos.slice(), _fullData: g2Data.tecnicos, yAxisID: 'y', borderColor: COLORS.cafe, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
                 { label: 'Ayudantes', data: g2Data.ayudantes.slice(), _fullData: g2Data.ayudantes, yAxisID: 'y', borderColor: COLORS.gris, borderDash: [5, 3], fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 2.5 },
                 { label: 'Prof. de Asignatura', data: g2Data.profAsignatura.slice(), _fullData: g2Data.profAsignatura, yAxisID: 'y1', borderColor: COLORS.amarillo, fill: false, tension: 0.35, pointRadius: 2, pointHoverRadius: 6, borderWidth: 3 }
             ]
@@ -481,8 +502,9 @@
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: { padding: { top: 20 } },
             scales: {
-                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                x: { ticks: { font: X_TICK_FONT, maxRotation: 45, minRotation: 45 } },
                 y: {
                     min: 0, max: 10000,
                     afterFit: function (scale) { scale.width = 130; },
@@ -497,7 +519,7 @@
                 }
             },
             plugins: {
-                legend: { labels: LEGEND_LABELS },
+                legend: { labels: Object.assign({}, LEGEND_LABELS, { padding: 30 }) },
                 tooltip: TOOLTIP_FONT
             }
         }
@@ -521,7 +543,7 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                x: { ticks: { font: X_TICK_FONT, maxRotation: 45, minRotation: 45 } },
                 y: { beginAtZero: true, afterFit: function (scale) { scale.width = 110; }, ticks: { font: TICK_FONT, callback: function (v) { return v.toLocaleString('es-MX'); } } }
             },
             plugins: {
@@ -549,7 +571,7 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: { ticks: { font: TICK_FONT, maxRotation: 45, minRotation: 45 } },
+                x: { ticks: { font: X_TICK_FONT, maxRotation: 45, minRotation: 45 } },
                 y: {
                     stacked: true,
                     afterFit: function (scale) { scale.width = 140; },
@@ -667,39 +689,80 @@
     // bails out on clientWidth/clientHeight being 0), so nothing renders.
     // Scaling the whole dashboard down keeps every wrap at its natural
     // (non-zero) size while still fitting the viewport.
-    //
-    // Note: this page does NOT compensate width with
-    // `style.width = (100/scale)+'%'` after scaling. That trick grows the
-    // wrap's layout width, which cascades into Chart.js canvases with
-    // responsive:true and repeatedly retriggers Chart.js's built-in
-    // ResizeObserver — an infinite resize/redraw loop that pins the CPU
-    // (confirmed on personal-academico.html). A CSS `zoom`-based variant
-    // was also tried here, but with 6 charts its offsetHeight/scrollHeight
-    // reporting became unreliable once zoom was applied, producing a scale
-    // far too large for the content to actually fit. `transform: scale()`
-    // keeps the box-model measurements (offsetWidth/Height,
-    // getBoundingClientRect) consistently unscaled, so it's used here for
-    // predictability — cards are centered but may leave empty space at the
-    // sides at non-4K aspect ratios. ----------
+    var redraws = [chartG1, chartG2, chartG4, chartG5].filter(Boolean).map(function (c) {
+        return function () { c.resize(); };
+    });
+    // Fixed-size text roles: these must render at the same real on-screen
+    // size on every Numeralia page regardless of how much each page's
+    // fitDashboardScale needs to shrink its content to fit (that shrink
+    // factor varies per page based on content volume, which otherwise makes
+    // identical design-px values like `--num-fs-kpi-number: 62px` render at
+    // very different real sizes page to page). Counter-inflating the
+    // font-size by 1/scale before each measurement cancels that page-specific
+    // shrink back out, leaving only the shared #page-stage viewport scale
+    // (identical across all pages at a given screen width) — see the
+    // dedicated .num-* roles in css/numeralia-typography.css.
+    var FIXED_TEXT_SCALE_MAP = [
+        ['.num-page-title', 70], ['.num-page-subtitle', 30],
+        ['.num-filter-label', 30], ['.num-filter-value', 30], ['.num-filter-value option', 20],
+        ['.num-kpi-icon', 30], ['.num-kpi-label', 25],
+        ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
+        ['.num-card-title', 40],
+        ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
+        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+    ];
+    function applyFixedTextScale(s) {
+        var factor = (s && s > 0) ? s : 1;
+        FIXED_TEXT_SCALE_MAP.forEach(function (pair) {
+            $$(pair[0]).forEach(function (el) { el.style.fontSize = (pair[1] / factor) + 'px'; });
+        });
+    }
     var scaleWrap = document.getElementById('dashboard-scale-wrap');
     var gridEl = document.getElementById('serie-grid');
     var headerEl = document.getElementById('serie-header');
     var filterEl = document.getElementById('serie-filter');
     var gridCards = gridEl ? gridEl.children : [];
-    var MIN_ROW_HEIGHT = 420;
+    // Must stay tall enough that, even after card padding + title + subtitle
+    // + footnote (and G2's extra warning line) are subtracted, there's still
+    // room left for the chart's legend + rotated x-axis labels + an actual
+    // visible plot area. At 420 this floor was too short at wide-short
+    // aspect ratios (e.g. ultrawide 3440x1440): legend+axis alone consumed
+    // the whole canvas, leaving ~0px for the plotted line/area.
+    var MIN_ROW_HEIGHT = 560;
     function fitDashboardScale() {
         if (!scaleWrap) return;
+        // #page-stage carries its own outer transform:scale() (see
+        // fitPageStage) so the fixed 3840px-wide design fills the real
+        // viewport. clientHeight/scrollHeight are local layout-space
+        // measurements, immune to that (or any) ancestor transform — unlike
+        // getBoundingClientRect, which returns post-transform on-screen
+        // pixels and would silently shrink this a second time.
+        //
+        // Width compensation: `style.width = (100/s)+'%'` after scaling
+        // widens the wrap's layout box so that, once the transform:scale(s)
+        // is applied, its on-screen width lands back at exactly 100% of the
+        // container again — otherwise the scaled-down box just shrinks
+        // toward its own center, leaving gray gaps on both sides at any
+        // aspect ratio shorter than 4K (visible full-width on
+        // poblacion-escolar.html). This used to be skipped on this page
+        // because widening the wrap changes the Chart.js canvases'
+        // container width, and canvases left in normal document flow fed
+        // their own backing-store size back into that container (circular
+        // sizing), retriggering Chart.js's ResizeObserver in an infinite
+        // loop that pinned the CPU (confirmed on personal-academico.html).
+        // That circular-sizing path is already closed on this page (every
+        // chart canvas is `position:absolute`, see .chart-wrap canvas
+        // above), so widening no longer feeds back into itself — safe to
+        // compensate width here too.
         scaleWrap.style.transform = 'none';
         scaleWrap.style.width = '';
         for (var i = 0; i < gridCards.length; i++) { gridCards[i].style.height = ''; }
 
         var mainEl = document.getElementById('top');
         var mainStyle = getComputedStyle(mainEl);
-        var mainRect = mainEl.getBoundingClientRect();
-        var wrapRect = scaleWrap.getBoundingClientRect();
         var availableHeight = Math.max(
             40,
-            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
+            mainEl.clientHeight - parseFloat(mainStyle.paddingTop || 0) - parseFloat(mainStyle.paddingBottom || 0)
         );
 
         // Distribute whatever vertical space is left after the header and
@@ -721,20 +784,71 @@
             for (var j = 0; j < gridCards.length; j++) { gridCards[j].style.height = rowHeight + 'px'; }
         }
 
-        var neededHeight = scaleWrap.scrollHeight;
-        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
-        if (scale < 0.999 && scale > 0) {
-            scaleWrap.style.transformOrigin = 'top center';
-            scaleWrap.style.transform = 'scale(' + scale + ')';
+        function applyScale(s) {
+            if (s < 0.999 && s > 0) {
+                scaleWrap.style.transformOrigin = 'top left';
+                scaleWrap.style.transform = 'scale(' + s + ')';
+                scaleWrap.style.width = (100 / s) + '%';
+            } else {
+                scaleWrap.style.transform = 'none';
+                scaleWrap.style.width = '';
+            }
+            applyFixedTextScale(s);
         }
+        // Some layouts converge smoothly but slowly (each iteration nudges
+        // closer to a fixed point) — that just needs more iterations, not a
+        // fallback. Others genuinely flip between two arrangements and
+        // ping-pong between the same two scales forever. Telling these
+        // apart matters: bailing out after a few iterations would pick an
+        // unrepresentative, needlessly-small scale (an early, still-settling
+        // measurement). So iterate generously, and only fall back when a
+        // scale value genuinely repeats — a real cycle, not just "hasn't
+        // converged yet".
+        var scale = 1;
+        var seen = [];
+        for (var k = 0; k < 12; k++) {
+            var neededHeight = scaleWrap.scrollHeight;
+            var nextScale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+            if (k > 0 && Math.abs(nextScale - scale) < 0.001) { scale = nextScale; applyScale(scale); break; }
+            var rounded = Math.round(nextScale * 1000) / 1000;
+            if (seen.indexOf(rounded) !== -1) {
+                scale = Math.min(nextScale, scale);
+                applyScale(scale);
+                break;
+            }
+            seen.push(rounded);
+            scale = nextScale;
+            applyScale(scale);
+        }
+        redraws.forEach(function (fn) { fn(); });
     }
     requestAnimationFrame(function () {
         requestAnimationFrame(fitDashboardScale);
     });
+
+    // ---------- Stage scale: width is the priority dimension, always scaled
+    // 1:1 to the real viewport width (no side bands/cropping ever). The
+    // stage's own height is set to whatever design-space height maps to the
+    // real viewport height at that same scale, so it also always fills the
+    // screen exactly too. The vertical "3840x2160 design" budget this leaves
+    // for the dashboard (more or less than 2160px depending on the screen's
+    // aspect ratio) is absorbed by fitDashboardScale above. ----------
+    var pageStage = document.getElementById('page-stage');
+    function fitPageStage() {
+        if (!pageStage) return;
+        var scale = window.innerWidth / 3840;
+        pageStage.style.height = (window.innerHeight / scale) + 'px';
+        pageStage.style.transform = 'scale(' + scale + ')';
+    }
+    fitPageStage();
+
     var scaleResizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(scaleResizeTimer);
-        scaleResizeTimer = setTimeout(fitDashboardScale, 120);
+        scaleResizeTimer = setTimeout(function () {
+            fitPageStage();
+            fitDashboardScale();
+        }, 120);
     });
 })();
 </script>

@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="css/numeralia-typography.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script id="tailwind-config">
@@ -108,6 +109,25 @@
         background-color: #f4f5f7;
         scroll-behavior: smooth;
     }
+    /* ---------- Fixed 3840x2160 stage, scaled to fill the real viewport ----------
+       Width is the priority dimension: the stage is always scaled so its
+       3840px design-width maps exactly to the real viewport width (no side
+       bands, no side cropping, ever). Height is elastic — the stage's own
+       height is set in JS to whatever real viewport height maps to at that
+       same scale, so it always fills the screen exactly too. The vertical
+       "3840x2160 design" budget this leaves for the dashboard (more or less
+       than 2160px depending on the screen's aspect ratio) is absorbed by the
+       existing adaptive fitDashboardScale below. */
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #page-stage {
+        width: 3840px;
+        transform-origin: top left;
+        overflow: hidden;
+    }
     .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         vertical-align: middle;
@@ -157,14 +177,14 @@
         position: absolute; top: 22px; right: 22px;
         display: flex; align-items: center; gap: 10px;
         background: #D59F0F; color: #ffffff;
-        font-size: 32px; font-weight: 800; letter-spacing: 0.02em;
+        font-size: 28px; font-weight: 800; letter-spacing: 0.02em;
         padding: 12px 26px; border-radius: 999px;
         box-shadow: 0 6px 18px rgba(213,159,15,0.45);
         border: 2px solid #ffffff;
         animation: kpi-hint-pulse 2.2s ease-in-out infinite;
         pointer-events: none; z-index: 5;
     }
-    .kpi-click-hint .material-symbols-outlined { font-size: 36px; }
+    .kpi-click-hint .material-symbols-outlined { font-size: 28px; }
     @keyframes pulse-flash {
         0%   { background-color: rgba(213,159,15,0.18); }
         100% { background-color: transparent; }
@@ -180,7 +200,7 @@
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal-box {
         background: #ffffff; border-radius: 24px;
-        width: 100%; max-width: 2100px; max-height: 85vh;
+        width: 100%; max-width: 2100px; max-height: 90vh;
         overflow-y: auto; padding: 64px;
         transform: scale(0.95); opacity: 0;
         transition: transform 0.2s ease, opacity 0.2s ease;
@@ -240,7 +260,8 @@
 </style>
 <script src="js/spa-nav.js"></script>
 </head>
-<body class="text-on-surface h-screen overflow-hidden flex flex-col">
+<body class="text-on-surface">
+<div id="page-stage" class="flex flex-col">
 <!-- TopNavBar -->
 <header class="bg-primary text-on-primary border-b border-outline-variant flex justify-between items-center w-full px-[16px] md:px-margin-desktop shrink-0 py-[32px]">
 <!-- Brand -->
@@ -332,12 +353,12 @@
 <!-- Header -->
 <header class="mb-5 shrink-0 flex flex-wrap items-end justify-between gap-6">
 <div>
-<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Presupuesto UNAM · 2026</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Ingresos y egresos institucionales.</p>
+<h1 class="num-page-title text-primary mb-2">Presupuesto UNAM · 2026</h1>
+<p class="num-page-subtitle text-on-surface-variant max-w-3xl">Ingresos y egresos institucionales.</p>
 </div>
 <div class="flex flex-col gap-1">
-<label for="funcion-filter" class="text-[30px] font-bold text-outline uppercase tracking-wider">Filtrar por función de egreso:</label>
-<select id="funcion-filter" class="bg-primary text-white font-bold text-[36px] rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
+<label for="funcion-filter" class="num-filter-label text-outline">Filtrar por función de egreso:</label>
+<select id="funcion-filter" class="num-filter-value bg-primary text-white rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
 <option value="todas">Todas las funciones</option>
 <option value="docencia">Docencia</option>
 <option value="investigacion">Investigación</option>
@@ -352,47 +373,47 @@
   <!-- KPI 1: Presupuesto total / por función -->
   <div id="kpi-card-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
     <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-primary text-[54px]">payments</span>
-      <span id="kpi1-label" class="text-[38px] font-label-md text-outline uppercase tracking-wider">Presupuesto UNAM</span>
+      <span class="material-symbols-outlined text-primary num-kpi-icon">payments</span>
+      <span id="kpi1-label" class="num-kpi-label text-outline">Presupuesto UNAM</span>
     </div>
-    <span id="kpi1-value" class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$59,877 MDP</span>
-    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">millones de pesos</span>
+    <span id="kpi1-value" class="num-kpi-number text-primary block mb-[16px]">$59,877 MDP</span>
+    <span class="num-footnote text-outline font-bold uppercase tracking-wide">millones de pesos</span>
   </div>
   <!-- KPI 2: Subsidio Gobierno Federal (estático) -->
   <div class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
     <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-secondary text-[54px]">account_balance</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Subsidio Gobierno Federal</span>
+      <span class="material-symbols-outlined text-secondary num-kpi-icon">account_balance</span>
+      <span class="num-kpi-label text-outline">Subsidio Gobierno Federal</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$53,749 MDP</span>
-    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">89.76% del presupuesto total</span>
+    <span class="num-kpi-number text-primary block mb-[16px]">$53,749 MDP</span>
+    <span class="num-footnote text-outline font-bold uppercase tracking-wide">89.76% del presupuesto total</span>
     <span class="lock-badge mt-[14px]"><span class="material-symbols-outlined text-[24px]">lock</span>Dato institucional · no varía por función</span>
   </div>
   <!-- KPI 3: Ingresos propios UNAM (estático) -->
   <div class="card-institutional p-[64px] border-t-4 border-t-secondary-container flex flex-col justify-center">
     <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-secondary text-[54px]">trending_up</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Ingresos propios UNAM</span>
+      <span class="material-symbols-outlined text-secondary num-kpi-icon">trending_up</span>
+      <span class="num-kpi-label text-outline">Ingresos propios UNAM</span>
     </div>
-    <span class="text-[62px] font-bold text-primary leading-none block mb-[16px]">$6,129 MDP</span>
-    <span class="text-[26px] text-outline font-bold uppercase tracking-wide">10.24% del presupuesto total</span>
+    <span class="num-kpi-number text-primary block mb-[16px]">$6,129 MDP</span>
+    <span class="num-footnote text-outline font-bold uppercase tracking-wide">10.24% del presupuesto total</span>
     <span class="lock-badge mt-[14px]"><span class="material-symbols-outlined text-[24px]">lock</span>Dato institucional · no varía por función</span>
   </div>
   <!-- KPI 4: Mayor función de gasto -->
   <div class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
     <div class="flex items-center gap-3 mb-[20px]">
-      <span class="material-symbols-outlined text-primary text-[54px]">bar_chart</span>
-      <span class="text-[38px] font-label-md text-outline uppercase tracking-wider">Mayor función de gasto</span>
+      <span class="material-symbols-outlined text-primary num-kpi-icon">bar_chart</span>
+      <span class="num-kpi-label text-outline">Mayor función de gasto</span>
     </div>
     <span id="kpi4-value" class="text-[50px] font-bold text-primary leading-none block mb-[16px]">Docencia · $36,903 MDP</span>
-    <span id="kpi4-sub" class="text-[26px] text-outline font-bold uppercase tracking-wide">61.7% del presupuesto total</span>
+    <span id="kpi4-sub" class="num-footnote text-outline font-bold uppercase tracking-wide">61.7% del presupuesto total</span>
   </div>
 </div>
 
 <!-- Fila A: Treemap, a todo lo ancho -->
 <div class="mb-6" style="height:660px;">
   <div class="card-institutional p-6 h-full flex flex-col overflow-hidden">
-    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">Distribución del presupuesto de egresos · por función</h3>
+    <h3 class="num-card-title text-primary mb-2 shrink-0">Distribución del presupuesto de egresos · por función</h3>
     <div id="treemap-wrap" class="flex-1 min-h-0"></div>
   </div>
 </div>
@@ -401,7 +422,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-5 items-stretch gap-6 flex-1 min-h-0" style="min-height:600px;">
   <!-- Gráfica 3: Radial bar -->
   <div class="lg:col-span-2 card-institutional p-6 flex flex-col overflow-hidden">
-    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">% del presupuesto · por función</h3>
+    <h3 class="num-card-title text-primary mb-2 shrink-0">% del presupuesto · por función</h3>
     <div class="flex-1 min-h-0 flex items-stretch gap-4">
       <div id="radial-legend" class="flex flex-col justify-center gap-3 shrink-0" style="width:340px;"></div>
       <div class="flex-1 min-h-0 flex items-stretch justify-center">
@@ -412,7 +433,7 @@
   <!-- Gráfica 2: Waterfall -->
   <div id="waterfall-card" class="lg:col-span-3 card-institutional kpi-clickable p-6 flex flex-col overflow-hidden">
     <span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
-    <h3 class="font-headline-sm text-[50px] font-bold text-primary mb-2 shrink-0">Composición de ingresos 2026 · millones de pesos</h3>
+    <h3 class="num-card-title text-primary mb-2 shrink-0">Composición de ingresos 2026 · millones de pesos</h3>
     <span id="waterfall-static-badge" class="text-[30px] text-outline shrink-0" style="display:none;">Datos institucionales · no varía por función</span>
     <div id="waterfall-wrap" class="flex-1 min-h-0"></div>
   </div>
@@ -427,7 +448,7 @@
 <div class="modal-box">
 <div class="flex items-start justify-between mb-4">
 <div>
-<h3 class="text-[46px] font-bold text-primary leading-tight pr-8">Presupuesto de ingresos UNAM 2026</h3>
+<h3 class="num-modal-title text-primary leading-tight pr-8">Presupuesto de ingresos UNAM 2026</h3>
 <p class="text-[28px] text-outline">Total: $59,877,625,970</p>
 </div>
 <span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-ingresos">close</span>
@@ -480,6 +501,7 @@
         <a href="#" class="text-on-primary text-[24px] leading-none hover:underline">Créditos</a>
     </div>
 </footer>
+</div>
 </div>
 </div>
 <script id="page-script">
@@ -661,11 +683,19 @@
             var totalH = lines.length * lineHeight;
             var startY = Math.max(pad + lineHeight * 0.72, (bh - totalH) / 2 + lineHeight * 0.72);
 
+            var maxTextWidth = Math.max(0, bw - pad * 2);
             lines.forEach(function (ln, i) {
-                g.append('text')
+                var t = g.append('text')
                     .attr('x', pad).attr('y', startY + i * lineHeight)
                     .attr('fill', ln.color).attr('font-weight', ln.weight).attr('font-size', 30)
                     .text(ln.text);
+                // Narrow cells (small % functions like Extensión/Gestión) can be
+                // narrower than their own label at non-4K aspect ratios — squeeze
+                // the glyphs to fit instead of letting them clip past the cell.
+                var textWidth = t.node().getComputedTextLength();
+                if (textWidth > maxTextWidth && maxTextWidth > 0) {
+                    t.attr('textLength', maxTextWidth).attr('lengthAdjust', 'spacingAndGlyphs');
+                }
             });
         });
     }
@@ -871,16 +901,6 @@
     }
 
     window.addEventListener('load', init);
-    window.addEventListener('resize', function () {
-        buildTreemap();
-        buildRadial();
-        buildWaterfall();
-        var key = funcionFilter ? funcionFilter.value : 'todas';
-        var activeKeys = (key === 'todas') ? null : FN_META[key].treemapKeys;
-        updateTreemap(activeKeys);
-        updateRadial(activeKeys);
-        fitDashboardScale();
-    });
 
     // ---------- Auto-fit: scale the dashboard down (never up) so every card
     // fits within the visible height without scrolling, on any screen size.
@@ -889,32 +909,123 @@
     // 0 height (their build functions bail out on clientWidth/clientHeight
     // being 0), so nothing renders. Scaling the whole dashboard down keeps
     // every wrap at its natural (non-zero) size while still fitting the
-    // viewport. ----------
+    // viewport.
+    //
+    // #page-stage carries its own outer transform:scale() (see fitPageStage)
+    // so the fixed 3840px-wide design fills the real viewport. clientHeight
+    // is a local layout-space measurement, immune to that (or any) ancestor
+    // transform — unlike getBoundingClientRect, which returns post-transform
+    // on-screen pixels and would silently shrink this a second time.
+    //
+    // Applying `width:(100/scale)%` after the transform keeps the D3 charts'
+    // wrap elements at a stable, representative width while shrinking — but
+    // that width change itself can reflow/wrap card content differently,
+    // which changes scrollHeight, which can change the scale again. Iterate
+    // with cycle-detection (break on a repeated rounded scale, converge
+    // otherwise) instead of a single pass, so the final scale is never an
+    // unrepresentative early guess. ----------
+    // Fixed-size text roles: these must render at the same real on-screen
+    // size on every Numeralia page regardless of how much each page's
+    // fitDashboardScale needs to shrink its content to fit (that shrink
+    // factor varies per page based on content volume, which otherwise makes
+    // identical design-px values like `--num-fs-kpi-number: 62px` render at
+    // very different real sizes page to page). Counter-inflating the
+    // font-size by 1/scale before each measurement cancels that page-specific
+    // shrink back out, leaving only the shared #page-stage viewport scale
+    // (identical across all pages at a given screen width) — see the
+    // dedicated .num-* roles in css/numeralia-typography.css.
+    var FIXED_TEXT_SCALE_MAP = [
+        ['.num-page-title', 70], ['.num-page-subtitle', 30],
+        ['.num-filter-label', 30], ['.num-filter-value', 30], ['.num-filter-value option', 20],
+        ['.num-kpi-icon', 30], ['.num-kpi-label', 25],
+        ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
+        ['.num-card-title', 40],
+        ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
+        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+    ];
+    function applyFixedTextScale(s) {
+        var factor = (s && s > 0) ? s : 1;
+        FIXED_TEXT_SCALE_MAP.forEach(function (pair) {
+            $$(pair[0]).forEach(function (el) { el.style.fontSize = (pair[1] / factor) + 'px'; });
+        });
+    }
     var scaleWrap = document.getElementById('dashboard-scale-wrap');
     function fitDashboardScale() {
         if (!scaleWrap) return;
-        scaleWrap.style.transform = 'none';
-        scaleWrap.style.width = '';
         var mainEl = document.getElementById('top');
         var mainStyle = getComputedStyle(mainEl);
-        var mainRect = mainEl.getBoundingClientRect();
-        var wrapRect = scaleWrap.getBoundingClientRect();
-        var availableHeight = Math.max(
-            40,
-            (mainRect.bottom - parseFloat(mainStyle.paddingBottom || 0)) - wrapRect.top
-        );
-        var neededHeight = scaleWrap.scrollHeight;
-        var scale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+        scaleWrap.style.transform = 'none';
+        scaleWrap.style.width = '';
+        var scale = 1;
+        var seen = [];
+        for (var i = 0; i < 12; i++) {
+            var availableHeight = Math.max(
+                40,
+                mainEl.clientHeight - parseFloat(mainStyle.paddingTop || 0) - parseFloat(mainStyle.paddingBottom || 0)
+            );
+            var neededHeight = scaleWrap.scrollHeight;
+            var nextScale = neededHeight > 0 ? Math.min(1, availableHeight / neededHeight) : 1;
+            var rounded = Math.round(nextScale * 1000) / 1000;
+            var diff = Math.abs(nextScale - scale);
+            if (seen.indexOf(rounded) !== -1) {
+                scale = Math.min(nextScale, scale);
+                break;
+            }
+            seen.push(rounded);
+            scale = nextScale;
+            if (scale >= 0.999) { scale = 1; applyFixedTextScale(1); break; }
+            scaleWrap.style.transformOrigin = 'top left';
+            scaleWrap.style.transform = 'scale(' + scale + ')';
+            scaleWrap.style.width = (100 / scale) + '%';
+            applyFixedTextScale(scale);
+            if (diff < 0.001) break;
+        }
         if (scale < 0.999 && scale > 0) {
             scaleWrap.style.transformOrigin = 'top left';
             scaleWrap.style.transform = 'scale(' + scale + ')';
             scaleWrap.style.width = (100 / scale) + '%';
+        } else {
+            scaleWrap.style.transform = 'none';
+            scaleWrap.style.width = '';
         }
+        applyFixedTextScale(scale);
+        buildTreemap();
+        buildRadial();
+        buildWaterfall();
+        var key = funcionFilter ? funcionFilter.value : 'todas';
+        var activeKeys = (key === 'todas') ? null : FN_META[key].treemapKeys;
+        updateTreemap(activeKeys);
+        updateRadial(activeKeys);
     }
     window.addEventListener('load', function () {
         requestAnimationFrame(function () {
             requestAnimationFrame(fitDashboardScale);
         });
+    });
+
+    // ---------- Stage scale: width is the priority dimension, always scaled
+    // 1:1 to the real viewport width (no side bands/cropping ever). The
+    // stage's own height is set to whatever design-space height maps to the
+    // real viewport height at that same scale, so it also always fills the
+    // screen exactly — no top/bottom bands either. Whatever that leaves for
+    // the dashboard content (more or less than the nominal 2160px) is
+    // absorbed by fitDashboardScale above. ----------
+    var pageStage = document.getElementById('page-stage');
+    function fitPageStage() {
+        if (!pageStage) return;
+        var scale = window.innerWidth / 3840;
+        pageStage.style.height = (window.innerHeight / scale) + 'px';
+        pageStage.style.transform = 'scale(' + scale + ')';
+    }
+    fitPageStage();
+
+    var scaleResizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(scaleResizeTimer);
+        scaleResizeTimer = setTimeout(function () {
+            fitPageStage();
+            fitDashboardScale();
+        }, 120);
     });
 })();
 </script>
