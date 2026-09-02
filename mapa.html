@@ -661,6 +661,39 @@
         if (image) { image.src = place.image; image.alt = `Vista exterior de ${place.name}`; }
     }
 
+    function renderWelcomePanel() {
+        panelBody.innerHTML = `
+    <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-center bg-surface-bright">
+        <div class="w-32 h-32 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-[64px]">waving_hand</span>
+        </div>
+        <h2 class="font-headline-md text-[56px] text-primary leading-tight mt-2">Te damos la bienvenida al Mapa Vivo de la UNAM</h2>
+    </div>
+    <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-16 flex flex-col gap-12">
+        <p class="font-body-md text-[40px] text-on-surface leading-relaxed">
+            Explora la presencia de la UNAM en Ciudad Universitaria, la Ciudad de México, México y el Mundo. Usa el selector para cambiar la escala del mapa.
+        </p>
+        <ul class="flex flex-col gap-10">
+            <li class="flex gap-8 items-start">
+                <span class="material-symbols-outlined text-secondary text-[48px] mt-2">tune</span>
+                <p class="font-body-md text-[38px] text-on-surface">En la barra inferior puedes activar o desactivar los tipos de espacios que quieres visualizar.</p>
+            </li>
+            <li class="flex gap-8 items-start">
+                <span class="material-symbols-outlined text-secondary text-[48px] mt-2">location_on</span>
+                <p class="font-body-md text-[38px] text-on-surface">Toca cualquier punto del mapa para abrir su ficha. Ahí encontrarás una descripción general y, cuando estén disponibles, secciones relacionadas como noticias, biblioteca, comunidad, oferta académica, hitos u otros contenidos.</p>
+            </li>
+            <li class="flex gap-8 items-start">
+                <span class="material-symbols-outlined text-secondary text-[48px] mt-2">search</span>
+                <p class="font-body-md text-[38px] text-on-surface">También puedes usar el buscador para encontrar espacios, instituciones, temas o palabras clave.</p>
+            </li>
+        </ul>
+        <div class="bg-primary/5 rounded-2xl p-10 border-2 border-primary/10 flex gap-8 items-start">
+            <span class="material-symbols-outlined text-primary text-[48px] mt-1">travel_explore</span>
+            <p class="font-body-md text-[38px] text-primary leading-relaxed">¡Toca un punto que te interese, cambia la escala, selecciona una categoría o busca una palabra para comenzar a explorar esa gran red de conocimiento, investigación, cultura y deportes que es la UNAM!</p>
+        </div>
+    </div>`;
+    }
+
     function renderOtherPlacePanel(place) {
         panelBody.innerHTML = `
     <div class="p-16 border-b-2 border-outline-variant flex gap-10 items-start bg-surface-bright">
@@ -712,12 +745,15 @@
         openInfoModal();
     }
 
-    // --- Cierre del modal: oculta la tarjeta de información y el panel lateral, el mapa se expande ---
+    // --- Cierre del modal: oculta la tarjeta de información; el panel lateral muestra el mensaje de bienvenida ---
     function closeInfoModal() {
         document.getElementById('info-popup-card').classList.add('hidden');
         document.getElementById('info-popup-card').classList.remove('flex');
-        document.getElementById('right-panel').classList.add('hidden');
-        document.getElementById('right-panel').classList.remove('flex');
+        currentPlaceId = null;
+        if (searchInput) searchInput.value = '';
+        renderWelcomePanel();
+        document.getElementById('right-panel').classList.remove('hidden');
+        document.getElementById('right-panel').classList.add('flex');
     }
 
     function openInfoModal() {
@@ -730,7 +766,9 @@
     function handleSearchInput(value) {
         const query = value.trim();
         if (!query) {
-            if (currentPlaceId === 'psicologia') {
+            if (!currentPlaceId) {
+                renderWelcomePanel();
+            } else if (currentPlaceId === 'psicologia') {
                 panelBody.innerHTML = defaultPanelHTML;
             } else {
                 renderOtherPlacePanel(places[currentPlaceId]);
