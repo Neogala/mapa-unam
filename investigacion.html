@@ -456,6 +456,10 @@
 <span class="material-symbols-outlined text-[57px]">school</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
 </a>
+<a data-indicator="Personal Administrativo" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-administrativo.html">
+<span class="material-symbols-outlined text-[57px]">badge</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Administrativo</span>
+</a>
 <a data-indicator="Investigación" class="flex items-center gap-2 px-3 py-2 sidebar-active-item transition-colors font-bold rounded" href="investigacion.html">
 <span class="material-symbols-outlined text-[50px]">biotech</span>
 <span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Investigación</span>
@@ -602,7 +606,7 @@
 <!-- Proyectos por área de conocimiento (polar area) -->
 <div class="card-institutional p-6 flex flex-col min-w-0 h-full min-h-0 overflow-hidden" style="position:relative">
 <span class="lock-badge" id="lock-proyectos-area" title="Dato disponible solo a nivel institucional global"><span class="material-symbols-outlined">lock</span><span class="lock-tooltip">Dato disponible solo a nivel institucional global</span></span>
-<h3 class="num-card-title text-primary mb-1 shrink-0">Distribución por área de conocimiento</h3>
+<h3 class="num-card-title text-primary mb-1 shrink-0">Proyectos de investigación por área de conocimiento</h3>
 <div class="flex-1 min-h-0 flex items-center gap-4">
 <div class="relative shrink-0" style="aspect-ratio:1/1;width:52%;max-width:100%">
 <div class="chart-canvas h-full"><canvas id="proyectos-polar-canvas"></canvas></div>
@@ -628,8 +632,13 @@
 <h3 class="num-card-title text-primary mb-1 shrink-0">Productos publicados por subsistema y tipo</h3><div class="chart-canvas"><canvas id="productos-stacked-canvas"></canvas></div>
 </div>
 <!-- Accent panel: cierre -->
+<!-- B1: el "30%" original no tiene fuente verificable en AgendaUNAM2026.pdf — el
+     único "30" que aparece ahí es un conteo (ISI Web of Science, Bachillerato),
+     no un porcentaje nacional de investigación. Al no poder confirmarse como
+     porcentaje ni encontrar una fuente distinta que lo respalde, se retiró la
+     cifra en lugar de mostrar un dato sin sustento. -->
 <div class="accent-panel rounded p-6 flex flex-col justify-center min-w-0 h-full min-h-0">
-<h3 class="num-card-title text-white mb-4 leading-snug">La UNAM genera más del 30% de la investigación de México</h3>
+<h3 class="num-card-title text-white mb-4 leading-snug">La UNAM es líder en la investigación científica de México</h3>
 <div class="flex flex-col sm:flex-row items-center gap-8">
 <!-- Left: counter -->
 <div class="flex flex-col items-center gap-2 shrink-0">
@@ -929,7 +938,7 @@
     // ============================================================
     // SECTION 5 — polar area: proyectos por área de conocimiento
     // ============================================================
-    var polarLabels = ['Humanidades, artes y cs. conducta', 'Biología y química', 'Sociales', 'Físico-matemáticas y cs. tierra', 'Medicina y ciencias de la salud', 'Investigación multidisciplinaria', 'Ingeniería', 'Biotecnología y cs. agropecuarias'];
+    var polarLabels = ['Humanidades y Cs. de la Conducta', 'Biología y Química', 'Ciencias Sociales', 'Físico-Matemáticas y Cs. de la Tierra', 'Medicina', 'Interdisciplinarias', 'Ingeniería', 'Biotecnología'];
     var polarData = [22.7, 22.6, 18.2, 17.7, 8.8, 4.2, 3.6, 2.2];
     var polarColors = ['#D59F0F', '#003D79', '#8C7146', '#4A7CB5', '#6BA3D6', '#A0C4E8', '#C8D8E8', '#D4C5A9'];
 
@@ -1062,8 +1071,8 @@
             barPercentage: 1,
             layout: { padding: { top: 14 } },
             scales: {
-                x: { grid: { display: false }, ticks: { font: { size: 25 } } },
-                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 20 } } }
+                x: { grid: { display: false }, ticks: { font: { size: 26, family: "'Libre Franklin'" } } },
+                y: { beginAtZero: true, grid: { color: '#edeef0' }, ticks: { font: { size: 26, family: "'Libre Franklin'" } } }
             },
             plugins: {
                 legend: { display: false },
@@ -1174,11 +1183,18 @@
         var noteEl = $('#kpi-proyectos-note');
         noteEl.classList.remove('nd-text');
         if (gfSubsistema === 'todos' || gfSubsistema === 'cientifica' || gfSubsistema === 'humanistica' || gfSubsistema === 'otras') {
+            numEl.classList.remove('nd-text');
             animateNumber(numEl, FILTRO_DATA.proyectos[gfSubsistema], 400);
             noteEl.textContent = 'Activos en 2025';
-        } else {
+        } else if (gfSubsistema === 'facultades') {
+            numEl.classList.remove('nd-text');
             animateNumber(numEl, PROYECTOS_COMBINADO, 400);
             noteEl.textContent = 'incluido en Facultades y unidades: ' + fmt(PROYECTOS_COMBINADO);
+            noteEl.classList.add('nd-text');
+        } else {
+            numEl.classList.add('nd-text');
+            numEl.textContent = '---';
+            noteEl.textContent = 'Dato no disponible desglosado por este subsistema';
             noteEl.classList.add('nd-text');
         }
     }
@@ -1384,14 +1400,24 @@
                     tooltip: { titleFont: { size: 24 }, bodyFont: { size: 22 }, padding: 12 }
                 },
                 scales: {
-                    y: { ticks: { font: { size: 20 } }, grid: { color: '#edeef0' } },
-                    x: { ticks: { font: { size: 22 } } }
+                    y: {
+                        ticks: {
+                            font: { size: 26, family: "'Libre Franklin'" },
+                            callback: function (value) {
+                                if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
+                                if (value >= 1000) return (value / 1000).toFixed(0) + 'K';
+                                return value.toLocaleString('es-MX');
+                            }
+                        },
+                        grid: { color: '#edeef0' }
+                    },
+                    x: { ticks: { font: { size: 26, family: "'Libre Franklin'" }, maxRotation: 45, minRotation: 45 } }
                 }
             },
             plugins: [modalAAnnotations]
         });
 
-        var areaLabels = ['Medicina y ciencias de la salud', 'Biotecnología y cs. agropecuarias', 'Biología y química', 'Ingeniería', 'Sociales', 'Físico-matemáticas y cs. de la tierra', 'Interdisciplinaria', 'Humanidades y cs. de la conducta'];
+        var areaLabels = ['Medicina', 'Biotecnología', 'Bio. y Química', 'Ingeniería', 'Cs. Sociales', 'Fís. Mat. y Tierra', 'Interdisciplinarias', 'Hum. y Cs. Conducta'];
         var areaPct = [23.1, 19.2, 17.7, 15.7, 12.9, 4.8, 3.7, 2.9];
         var modalAAreaLabels = {
             id: 'modalAAreaValueLabels',
@@ -1421,8 +1447,8 @@
                 layout: { padding: { right: 160 } },
                 plugins: { legend: { display: false }, tooltip: { titleFont: { size: 24 }, bodyFont: { size: 22 }, padding: 12 } },
                 scales: {
-                    x: { grid: { color: '#edeef0' }, ticks: { font: { size: 20 } } },
-                    y: { grid: { display: false }, ticks: { font: { size: 22 } } }
+                    x: { grid: { color: '#edeef0' }, ticks: { font: { size: 26, family: "'Libre Franklin'" } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 26, family: "'Libre Franklin'" } } }
                 }
             },
             plugins: [modalAAreaLabels]
@@ -1481,7 +1507,7 @@
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura' || name === 'Serie Histórica') return;
+            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Personal Administrativo' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura' || name === 'Serie Histórica') return;
             e.preventDefault();
             alert('El indicador "' + name + '" estará disponible próximamente.');
         });

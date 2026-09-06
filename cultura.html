@@ -381,6 +381,10 @@
 <span class="material-symbols-outlined text-[57px]">school</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
 </a>
+<a data-indicator="Personal Administrativo" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-administrativo.html">
+<span class="material-symbols-outlined text-[57px]">badge</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Administrativo</span>
+</a>
 <a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
 <span class="material-symbols-outlined text-[57px]">biotech</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
@@ -474,6 +478,7 @@
     </div>
     <span class="num-kpi-number text-primary block mb-[10px]">4,544,807</span>
     <span class="num-caption text-on-surface-variant font-semibold">diplomados, cursos, talleres y conferencias</span>
+    <span class="badge-info mt-2 text-[22px] italic w-fit">Clasificado como Docencia · no se incluye en el total de actividades culturales (11,236)</span>
   </div>
   <div class="kpi-card card-institutional p-[40px] border-t-4 border-t-tertiary flex flex-col justify-center" id="kpi-5" tabindex="0">
     <div class="flex items-center gap-3 mb-[12px]">
@@ -601,7 +606,7 @@
       <span class="modal-title">Educación continua y MOOC · UNAM 2025</span>
       <span class="modal-close" data-close>✕</span>
     </div>
-    <div class="modal-subtitle">Coordinación de Universidad Abierta y Educación Digital</div>
+    <div class="modal-subtitle">Coordinación de Universidad Abierta y Educación Digital · clasificado como Docencia, no como Difusión Cultural</div>
 
     <div class="modal-section-title">Por tipo de actividad</div>
     <div class="overflow-x-auto"><table class="data-table" id="modal-d-table"></table></div>
@@ -1178,15 +1183,14 @@
             interaction: { mode: 'index', intersect: false },
             // titleFont/bodyFont mirror --num-fs-chart-tooltip-title (28) / --num-fs-chart-tooltip-body (26)
             plugins: { legend: { display: false }, tooltip: { titleFont: { size: 28 }, bodyFont: { size: 26 }, yAlign: 'bottom', caretPadding: 10 } },
-            // ticks font mirrors --num-fs-chart-axis (36)
-            scales: { y: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 36 } } }, x: { grid: { display: false }, ticks: { font: { size: 36 } } } } }
+            scales: { y: { grid: { color: '#e5e7eb' }, ticks: { font: { size: 24 } } }, x: { grid: { display: false }, ticks: { font: { size: 24 } } } } }
     });
 
     // ---------- Sidebar indicator selection ----------
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura', 'Serie Histórica'].indexOf(name) >= 0) return;
+            if (['Población Escolar', 'Personal Académico', 'Personal Administrativo', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura', 'Serie Histórica'].indexOf(name) >= 0) return;
             e.preventDefault();
             alert('El indicador "' + name + '" estará disponible próximamente.');
         });

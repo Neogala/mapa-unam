@@ -451,6 +451,10 @@
 <span class="material-symbols-outlined text-[57px]">school</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
 </a>
+<a data-indicator="Personal Administrativo" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-administrativo.html">
+<span class="material-symbols-outlined text-[57px]">badge</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Administrativo</span>
+</a>
 <a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
 <span class="material-symbols-outlined text-[57px]">biotech</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
@@ -496,9 +500,10 @@
 <div>
 <h1 class="num-page-title text-primary mb-2">Población Escolar Total 2025–2026</h1>
 <p class="num-page-subtitle text-on-surface-variant max-w-3xl">Concentrado estadístico detallado y analítico de la matrícula universitaria 2025-2026.</p>
+<p id="bachillerato-note" class="text-[26px] text-outline italic mt-1 hidden">Incluye iniciación universitaria.</p>
 </div>
 <div class="flex flex-col gap-1">
-<label for="nivel-filter" class="num-filter-label text-outline">Nivel de Estudios</label>
+<label for="nivel-filter" class="num-filter-label text-outline">Modalidad</label>
 <select id="nivel-filter" class="num-filter-value bg-primary text-white rounded-full pl-8 pr-16 py-3 border-2 border-primary focus:outline-none focus:ring-4 focus:ring-secondary-fixed cursor-pointer">
 <option value="todos">Todos los niveles</option>
 <option value="licenciatura">Licenciatura</option>
@@ -532,6 +537,7 @@
 <div class="flex flex-wrap items-baseline gap-x-[54px] gap-y-[20px] num-kpi-stat">
 <span class="text-primary font-bold">Mujeres <span id="kpi-ingreso-mujeres" class="font-normal">52,117</span></span>
 <span class="text-secondary font-bold">Hombres <span id="kpi-ingreso-hombres" class="font-normal">46,276</span></span>
+<span class="text-outline font-bold">No binario <span id="kpi-ingreso-nb" class="font-normal">8</span></span>
 </div>
 </div>
 <div id="kpi-card-reingreso" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
@@ -548,7 +554,7 @@
 <div id="kpi-card-nivel-mayor" class="card-institutional p-[64px] border-t-4 border-t-tertiary flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
 <span class="material-symbols-outlined text-tertiary num-kpi-icon">military_tech</span>
-<span class="num-kpi-label text-outline">Nivel Mayor</span>
+<span class="num-kpi-label text-outline">Nivel con mayor población</span>
 </div>
 <div class="flex items-baseline gap-[27px] mb-[34px]">
 <span id="kpi-nivel-mayor-nombre" class="text-[44px] font-bold text-tertiary">Licenciatura</span>
@@ -566,7 +572,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch gap-6 mb-5 flex-1 min-h-0">
 <!-- Comparativa: dos donas lado a lado, cada una con su leyenda a la derecha -->
 <div id="comparativa-card" class="lg:col-span-2 card-institutional p-6 flex flex-col h-full overflow-hidden">
-<h3 class="num-card-title text-primary mb-4 shrink-0">Comparativa: Población por Nivel y Licenciatura por Área</h3>
+<h3 id="comparativa-title" class="num-card-title text-primary mb-4 shrink-0">Comparativa: Población por Nivel y Área</h3>
 <div class="flex-1 min-h-0 grid grid-cols-1 sm:grid-cols-2 items-stretch gap-6">
 <!-- Sub 1: Poblacion por nivel -->
 <div class="flex flex-col min-h-0">
@@ -605,7 +611,7 @@
 </div>
 </div>
 <!-- Top Careers -->
-<div class="lg:col-span-1 card-institutional p-6 flex flex-col h-full overflow-hidden">
+<div id="top-careers-card" class="lg:col-span-1 card-institutional p-6 flex flex-col h-full overflow-hidden">
 <h3 class="num-card-title text-primary mb-4 shrink-0">Top 15 Carreras con más demanda</h3>
 <div class="flex-1 min-h-0 overflow-y-auto pr-1 space-y-4" id="careers-list">
 <div class="flex flex-col gap-1 career-row" data-rank="1">
@@ -786,7 +792,8 @@
 </div>
 </div>
 <!-- EGRESO LICENCIATURA -->
-<div class="card-institutional p-5 flex flex-col justify-between">
+<div id="kpi-card-egreso-lic" class="card-institutional kpi-clickable p-5 flex flex-col justify-between">
+<span class="kpi-click-hint"><span class="material-symbols-outlined">touch_app</span>Ver detalle</span>
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-primary text-[54px]">school</span>
 <h4 class="font-headline-sm text-headline-sm text-primary text-[42px] tracking-tight">Egreso licenciatura</h4>
@@ -1190,9 +1197,9 @@
             total: 231327, hombres: 108484, mujeres: 122843, nobinario: 0,
             primerIngreso: 48827, pi_h: 22834, pi_m: 25993, pi_nb: 0,
             reingreso: 182500, re_h: 85650, re_m: 96850,
-            nivelMayor: "Esc. Escolarizado", nivelMayorN: 186980, nivelMayorPct: 80.9,
+            nivelMayor: "Lic. Escolarizado", nivelMayorN: 186980, nivelMayorPct: 80.8,
             donut: [
-                { label: "Escolarizado", val: 186980, pct: 80.9, color: "#003D79" },
+                { label: "Escolarizado", val: 186980, pct: 80.8, color: "#003D79" },
                 { label: "SUAyED", val: 44347, pct: 19.2, color: "#D59F0F" }
             ],
             areaDonut: [
@@ -1344,6 +1351,7 @@
         animateNumber($('#kpi-ingreso'), lvl.primerIngreso);
         animateNumber($('#kpi-ingreso-mujeres'), lvl.pi_m);
         animateNumber($('#kpi-ingreso-hombres'), lvl.pi_h);
+        animateNumber($('#kpi-ingreso-nb'), lvl.pi_nb || 0);
 
         animateNumber($('#kpi-reingreso'), lvl.reingreso);
         animateNumber($('#kpi-reingreso-mujeres'), lvl.re_m);
@@ -1362,6 +1370,11 @@
         levelPie.update(lvl.donut);
         animateNumber($('#level-donut-total'), lvl.total);
 
+        var comparativaTitle = key === 'bachillerato'
+            ? 'Comparativa: Población por Modalidad y Bachillerato por Modalidad'
+            : 'Comparativa: Población por Nivel y Área';
+        $('#comparativa-title').textContent = comparativaTitle;
+
         var areaItems, areaTotal, areaCaption, areaTitleText;
         if (key === 'todos') {
             areaItems = DATA.todos.areaDonut;
@@ -1372,13 +1385,17 @@
             areaItems = lvl.areaDonut;
             areaTotal = lvl.total;
             areaCaption = lvl.label;
-            areaTitleText = key === 'bachillerato' ? 'Distribución por Plantel' : ('Distribución de ' + lvl.label + ' por Área');
+            areaTitleText = key === 'bachillerato' ? 'Distribución por Subsistema' : ('Distribución de ' + lvl.label + ' por Área');
         }
         $('#area-donut-title').textContent = areaTitleText;
         renderLegend($('#area-legend'), areaItems);
         areaPie.update(areaItems);
         animateNumber($('#area-donut-total'), areaTotal);
         $('#area-donut-caption').textContent = areaCaption;
+
+        var isBachillerato = key === 'bachillerato';
+        var bachNote = $('#bachillerato-note');
+        if (bachNote) bachNote.classList.toggle('hidden', !isBachillerato);
 
         [
             $('#kpi-card-total'), $('#kpi-card-ingreso'), $('#kpi-card-reingreso'),
@@ -1547,7 +1564,7 @@
         }).join('');
         maydHtml += '<tr class="row-subtotal"><td>TOTAL MAESTRÍA</td><td>1,338</td><td>1,335</td><td>2,673</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>';
         maydHtml += '<tr class="row-subtotal"><td>TOTAL DOCTORADO</td><td>—</td><td>—</td><td>—</td><td>537</td><td>420</td><td>957</td><td>—</td></tr>';
-        maydHtml += '<tr class="row-total"><td>GRAN TOTAL</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>3,630</td></tr>';
+        maydHtml += '<tr class="row-total"><td>Total maestría y doctorado</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>3,630</td></tr>';
         $('#modal-grados-mayd-tbody').innerHTML = maydHtml;
 
         $$('.modal-tab-btn').forEach(function (btn) {
@@ -1563,6 +1580,7 @@
 
     $('#kpi-card-total').addEventListener('click', function () { openModal('modal-total'); });
     $('#kpi-card-egreso-bach').addEventListener('click', function () { openModal('modal-egreso-bach'); });
+    $('#kpi-card-egreso-lic').addEventListener('click', function () { openModal('modal-total'); });
     $('#kpi-card-grados-pos').addEventListener('click', function () { openModal('modal-grados-pos'); });
 
     // ---------- Interacción 3: modal Top 15 carreras con búsqueda y orden ----------
@@ -1580,8 +1598,8 @@
         { rank: 11, nombre: "Biología", total: 5661, pctM: 52.3, pctH: 47.7, sistema: "Escolarizado" },
         { rank: 12, nombre: "Pedagogía", total: 5250, pctM: 74.6, pctH: 25.4, sistema: "Esc+SUAyED" },
         { rank: 13, nombre: "Enfermería", total: 5167, pctM: 82.6, pctH: 17.4, sistema: "Esc+SUAyED" },
-        { rank: 14, nombre: "Cs. de la Comunicación", total: 4871, pctM: 63.2, pctH: 36.8, sistema: "Escolarizado" },
-        { rank: 15, nombre: "Q. Farmacéutico Biológica", total: 4852, pctM: 50.5, pctH: 49.5, sistema: "Escolarizado" }
+        { rank: 14, nombre: "Q. Farmacéutico Biológica", total: 4871, pctM: 50.5, pctH: 49.5, sistema: "Escolarizado" },
+        { rank: 15, nombre: "Cs. de la Comunicación", total: 4852, pctM: 63.2, pctH: 36.8, sistema: "Escolarizado" }
     ];
     var carrerasMax = Math.max.apply(null, carreras15.map(function (c) { return c.total; }));
 
@@ -1630,7 +1648,7 @@
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (name !== 'Población Escolar' && name !== 'Personal Académico' && name !== 'Investigación' && name !== 'Cultura' && name !== 'Presupuesto' && name !== 'Bibliotecas' && name !== 'Apoyo institucional' && name !== 'Internacionalización' && name !== 'Infraestructura' && name !== 'Serie Histórica') {
+            if (name !== 'Población Escolar' && name !== 'Personal Académico' && name !== 'Personal Administrativo' && name !== 'Investigación' && name !== 'Cultura' && name !== 'Presupuesto' && name !== 'Bibliotecas' && name !== 'Apoyo institucional' && name !== 'Internacionalización' && name !== 'Infraestructura' && name !== 'Serie Histórica') {
                 e.preventDefault();
                 alert('El indicador "' + name + '" estará disponible próximamente.');
                 return;

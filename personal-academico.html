@@ -423,6 +423,10 @@
 <span class="material-symbols-outlined text-[50px]">school</span>
 <span class="sidebar-label text-[40px] leading-[64px] whitespace-nowrap">Personal Académico</span>
 </a>
+<a data-indicator="Personal Administrativo" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-administrativo.html">
+<span class="material-symbols-outlined text-[57px]">badge</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Administrativo</span>
+</a>
 <a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
 <span class="material-symbols-outlined text-[57px]">biotech</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
@@ -497,6 +501,7 @@
 <span id="kpi-total-h-pill" class="inline-flex items-center rounded-full px-4 py-1 num-kpi-stat font-semibold text-white whitespace-nowrap" style="background:#D59F0F">Hombres 23,004 (53.5%)</span>
 <span id="kpi-total-m-pill" class="inline-flex items-center rounded-full px-4 py-1 num-kpi-stat font-semibold text-white bg-primary whitespace-nowrap">Mujeres 20,028 (46.5%)</span>
 </div>
+<p class="text-[26px] text-outline italic">Se refiere al número de académicos dentro de una misma figura sin duplicidad alguna.</p>
 </div>
 <div id="kpi-nombramientos-card" class="kpi-card card-institutional p-[57.6px] border-t-4 border-t-tertiary flex flex-col justify-start gap-4">
 <div class="flex items-center gap-3">
@@ -504,6 +509,7 @@
 <span class="num-kpi-label text-outline">Nombramientos Totales</span>
 </div>
 <span class="num-kpi-number text-primary block">52,533</span><span class="inline-flex w-fit items-center rounded-full px-3 py-1 num-kpi-stat font-semibold bg-tertiary/10 text-tertiary" style="margin-top:-2px">+1.22 nombramientos por persona</span>
+<p class="text-[26px] text-outline italic">Se refiere al número de nombramientos académicos. Una persona con dos plazas cuenta dos veces. El total de personas únicas es 43,032.</p>
 </div>
 <div class="kpi-card card-institutional p-[57.6px] border-t-4 border-t-secondary-container flex flex-col justify-start gap-3">
 <div class="flex items-center gap-3">
@@ -621,7 +627,7 @@
 
 <!-- SECCIÓN 1: TABLA POR SUBSISTEMA -->
 <h3 class="text-[44px] font-bold text-primary mb-1">Distribución por subsistema · Personas 2026</h3>
-<p class="text-[28px] text-outline mb-6">Nómina quincena 03/2026 · Dirección General de Personal, UNAM</p>
+<p class="text-[28px] text-outline mb-6">Nómina de la quincena 03 de 2026, Dirección General de Personal, UNAM.</p>
 <div class="overflow-x-auto mb-10">
 <table class="modal-table">
 <thead>
@@ -691,7 +697,7 @@
 </table>
 </div>
 
-<p class="text-[24px] text-outline">Fuente: Coordinación de Planeación, Evaluación y Simplificación de la Gestión Institucional, UNAM · Cifras obtenidas de nóminas proporcionadas por la DGP</p>
+<p class="text-[24px] text-outline">Fuente: Nómina de la quincena 03 de 2026, Dirección General de Personal, UNAM.</p>
 </div>
 </div>
 </div>
@@ -1132,7 +1138,7 @@
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
-            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura' || name === 'Serie Histórica') return;
+            if (name === 'Población Escolar' || name === 'Personal Académico' || name === 'Personal Administrativo' || name === 'Investigación' || name === 'Cultura' || name === 'Presupuesto' || name === 'Bibliotecas' || name === 'Apoyo institucional' || name === 'Internacionalización' || name === 'Infraestructura' || name === 'Serie Histórica') return;
             e.preventDefault();
             alert('El indicador "' + name + '" estará disponible próximamente.');
         });

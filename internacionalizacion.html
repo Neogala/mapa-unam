@@ -308,6 +308,10 @@
 <span class="material-symbols-outlined text-[57px]">school</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Personal Académico</span>
 </a>
+<a data-indicator="Personal Administrativo" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="personal-administrativo.html">
+<span class="material-symbols-outlined text-[57px]">badge</span>
+<span class="sidebar-label text-[40px] leading-[64px]">Personal Administrativo</span>
+</a>
 <a data-indicator="Investigación" class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors font-medium" href="investigacion.html">
 <span class="material-symbols-outlined text-[57px]">biotech</span>
 <span class="sidebar-label text-[40px] leading-[64px]">Investigación</span>
@@ -571,7 +575,7 @@
 <h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Contexto e insights</h4>
 <div class="flex flex-col gap-3">
 <span class="badge-context badge-primary">Convenios internacionales firmados en 2025: 41 con organismos e Instituciones de Educación Superior del extranjero</span>
-<span class="badge-context badge-secondary">Los institutos y centros de investigación concentran el 87.8% de toda la movilidad académica internacional de la UNAM</span>
+<span class="badge-context badge-secondary">Los institutos y centros de investigación concentran el 87.4% de toda la movilidad académica internacional de la UNAM</span>
 <span class="badge-context badge-gray">IES = Institución de Educación Superior</span>
 </div>
 <p class="text-[26px] text-outline mt-4">Fuente: Dirección General de Cooperación e Internacionalización · Coordinación de la Investigación Científica · UNAM.</p>
@@ -920,7 +924,7 @@
     // ============================================================
     // Sidebar indicator selection
     // ============================================================
-    var ENABLED_INDICATORS = ['Población Escolar', 'Personal Académico', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura', 'Serie Histórica'];
+    var ENABLED_INDICATORS = ['Población Escolar', 'Personal Académico', 'Personal Administrativo', 'Investigación', 'Cultura', 'Presupuesto', 'Bibliotecas', 'Apoyo institucional', 'Internacionalización', 'Infraestructura', 'Serie Histórica'];
     $$('#sidebar-indicators a').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var name = link.getAttribute('data-indicator');
