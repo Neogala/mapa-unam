@@ -376,7 +376,16 @@
 </header>
 
 <!-- KPIs -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mb-6 shrink-0">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 items-stretch gap-6 mb-6 shrink-0">
+<div id="kpi-0" class="card-institutional kpi-clickable p-[64px] border-t-4 border-t-primary flex flex-col justify-center" data-open-modal="modal-bibliotecas">
+<div class="flex items-center gap-3 mb-[20px]">
+<span class="material-symbols-outlined text-primary num-kpi-icon">account_balance</span>
+<span class="num-kpi-label text-outline">Bibliotecas</span>
+</div>
+<span id="kpi-0-value" class="num-kpi-number text-primary block mb-[16px]">0</span>
+<span class="num-caption text-on-surface-variant font-semibold mb-[20px]">Red del Sistema Bibliotecario UNAM · 2025</span>
+<button type="button" class="btn-pulse self-start shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[24px] rounded-full px-5 py-1.5" data-open-modal="modal-bibliotecas"><span class="material-symbols-outlined text-[24px]">touch_app</span>Ver detalle</button>
+</div>
 <div id="kpi-1" class="card-institutional p-[64px] border-t-4 border-t-primary flex flex-col justify-center">
 <div class="flex items-center gap-3 mb-[20px]">
 <span class="material-symbols-outlined text-primary num-kpi-icon">local_library</span>
@@ -421,7 +430,7 @@
 <div id="card-acervo" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-acervo">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
 <h3 class="num-card-title text-primary">Títulos en existencia · por subsistema</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[28px] rounded-full px-6 py-2" data-open-modal="modal-acervo"><span class="material-symbols-outlined text-[28px]">touch_app</span>Ver detalle</button>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[24px] rounded-full px-5 py-1.5" data-open-modal="modal-acervo"><span class="material-symbols-outlined text-[24px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0"><canvas id="chart-acervo"></canvas></div>
 </div>
@@ -430,7 +439,7 @@
 <div id="card-digital" class="card-institutional p-6 flex flex-col min-h-0 cursor-pointer" data-open-modal="modal-digital">
 <div class="flex items-start justify-between gap-4 mb-1 shrink-0">
 <h3 class="num-card-title text-primary">Acervo digital disponible</h3>
-<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[28px] rounded-full px-6 py-2" data-open-modal="modal-digital"><span class="material-symbols-outlined text-[28px]">touch_app</span>Ver detalle</button>
+<button type="button" class="btn-pulse shrink-0 flex items-center gap-2 bg-[#D59F0F] text-white font-bold text-[24px] rounded-full px-5 py-1.5" data-open-modal="modal-digital"><span class="material-symbols-outlined text-[24px]">touch_app</span>Ver detalle</button>
 </div>
 <div class="chart-wrap flex-1 min-h-0 flex items-center justify-center gap-8">
 <div style="position:relative; width:100%; max-width:340px; max-height:100%; aspect-ratio:1/1; flex-shrink:0;">
@@ -588,6 +597,37 @@
 </div>
 </div>
 </div>
+
+<!-- ============ MODAL C: Bibliotecas por subsistema ============ -->
+<div id="modal-bibliotecas" class="modal-overlay" aria-hidden="true">
+<div class="modal-box">
+<div class="flex items-start justify-between mb-2">
+<div>
+<h3 class="num-modal-title text-primary leading-tight pr-8">Bibliotecas por subsistema · UNAM 2025</h3>
+<p class="text-[30px] text-outline">Dirección General de Bibliotecas y Servicios de Información Digital, UNAM</p>
+</div>
+<span class="modal-close-btn material-symbols-outlined text-primary text-[56px] shrink-0" data-close="modal-bibliotecas">close</span>
+</div>
+
+<h4 class="text-[33px] font-bold text-primary mt-8 mb-3">Número de bibliotecas por subsistema</h4>
+<div class="overflow-x-auto">
+<table class="modal-table">
+<thead><tr><th>Subsistema</th><th>Nº Bibliotecas</th><th>Porcentaje</th></tr></thead>
+<tbody>
+<tr><td>Facultades</td><td>38</td><td>27.3%</td></tr>
+<tr><td>Inst. y centros inv. científica</td><td>32</td><td>23.0%</td></tr>
+<tr><td>Inst. y centros inv. humanística</td><td>22</td><td>15.8%</td></tr>
+<tr><td>Extensión Univ. y Administración</td><td>17</td><td>12.2%</td></tr>
+<tr><td>Escuela Nacional Preparatoria</td><td>10</td><td>7.2%</td></tr>
+<tr><td>Unidades multidisciplinarias</td><td>8</td><td>5.8%</td></tr>
+<tr><td>Escuelas nacionales</td><td>6</td><td>4.3%</td></tr>
+<tr><td>Colegio de Ciencias y Humanidades</td><td>6</td><td>4.3%</td></tr>
+<tr class="row-total"><td>TOTAL</td><td>139</td><td>100%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 <script id="page-script">
@@ -695,6 +735,7 @@
         requestAnimationFrame(step);
     }
 
+    animateNumber($('#kpi-0-value'), 0, 139);
     animateNumber($('#kpi-1-value'), 0, 5449130);
     animateNumber($('#kpi-2-value'), 0, ACERVO_TOTALES.todas);
     animateNumber($('#kpi-3-value'), 0, 489652);
@@ -1071,7 +1112,7 @@
         ['.num-kpi-number', 40], ['.num-kpi-stat', 30],
         ['.num-card-title', 40],
         ['.kpi-click-hint', 28], ['.kpi-click-hint .material-symbols-outlined', 28],
-        ['.btn-pulse', 28], ['.btn-pulse .material-symbols-outlined', 28]
+        ['.btn-pulse', 24], ['.btn-pulse .material-symbols-outlined', 24]
     ];
     function applyFixedTextScale(s) {
         var factor = (s && s > 0) ? s : 1;
